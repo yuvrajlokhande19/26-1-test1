@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Linpane Legal Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #e0e0e0;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        /* Team Member Card */
+        .team-member {
+            background: #1e1e1e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(179, 156, 125, 0.2);
+            border-color: rgba(179, 156, 125, 0.4);
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .member-info {
+            padding: 30px;
+        }
+
+        .member-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #b39c7d;
+            margin-bottom: 10px;
+        }
+
+        .member-title {
+            color: #d4b78f;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .member-experience {
+            display: inline-block;
+            background: rgba(179, 156, 125, 0.1);
+            color: #d4b78f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .member-bio {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Top Achievements Button */
+        .achievements-btn {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .achievements-btn:hover {
+            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.3);
+        }
+
+        /* Achievements Panel */
+        .achievements-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .achievements-panel.active {
+            max-height: 500px;
+        }
+
+        .achievements-content {
+            padding: 20px;
+        }
+
+        .achievement-item {
+            padding: 15px;
+            background: rgba(18, 18, 18, 0.5);
+            border-left: 3px solid #b39c7d;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .achievement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .achievement-title {
+            color: #b39c7d;
+            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .achievement-desc {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(18, 18, 18, 0.9));
+            padding: 60px 40px;
+            border-radius: 15px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            padding: 30px 20px;
+            background: rgba(179, 156, 125, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(179, 156, 125, 0.4);
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #b39c7d;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-logo p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .link-group h4 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group li {
+            margin-bottom: 10px;
+        }
+
+        .link-group a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-group a:hover {
+            color: #b39c7d;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .member-photo {
+                height: 300px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="LLA Logo">
+            Linpane Legal Associates
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="section-title fade-in">Meet Our Legal Experts</h1>
+        
+        <!-- Team Grid -->
+        <div class="team-grid">
+            <!-- Lawyer 1 -->
+            <div class="team-member fade-in">
+                <img src="advocate1.jpg" alt="Adv. A.V. Linpane" class="member-photo">
+                <div class="member-info">
+                    <h2 class="member-name">ADV. A.V. LINPANE</h2>
+                    <p class="member-title">Senior Advocate | Founder</p>
+                    <span class="member-experience">30+ Years Experience</span>
+                    <p class="member-bio">
+                        A.V. Linpane is the founder and senior partner of Linpane Legal Associates. With over three decades of experience in criminal, civil, and constitutional law, he has represented clients in numerous high-profile cases. He is known for his meticulous case preparation and persuasive courtroom presence.
+                    </p>
+                    
+                    <button class="achievements-btn" data-member="1">
+                        <i class="fas fa-trophy"></i> Top Achievements
+                    </button>
+                    
+                    <div class="achievements-panel" id="achievementsPanel1">
+                        <div class="achievements-content">
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">State vs. Kumar (2020)</h4>
+                                <p class="achievement-desc">Successfully defended client in a high-profile murder case, resulting in acquittal based on lack of evidence.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Constitutional Challenge (2018)</h4>
+                                <p class="achievement-desc">Led the legal team that successfully challenged a controversial state law before the Supreme Court.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Legal Certification & Recognition</h4>
+                                <p class="achievement-desc">• National Legal Excellence Award (2021)<br>• Best Criminal Lawyer of the Year (2019)<br>• Certified Constitutional Law Expert</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lawyer 2 -->
+            <div class="team-member fade-in">
+                <img src="advocate2.jpg" alt="Adv. Sandya Linpane" class="member-photo">
+                <div class="member-info">
+                    <h2 class="member-name">ADV. SANDYA LINPANE</h2>
+                    <p class="member-title">Family Law Specialist | Partner</p>
+                    <span class="member-experience">20+ Years Experience</span>
+                    <p class="member-bio">
+                        Sandya Linpane specializes in family law, property disputes, and women's rights. Her compassionate approach combined with legal expertise has helped hundreds of families navigate difficult transitions. She is a certified mediator and often serves as a court-appointed guardian ad litem.
+                    </p>
+                    
+                    <button class="achievements-btn" data-member="2">
+                        <i class="fas fa-trophy"></i> Top Achievements
+                    </button>
+                    
+                    <div class="achievements-panel" id="achievementsPanel2">
+                        <div class="achievements-content">
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Sharma Family Settlement (2022)</h4>
+                                <p class="achievement-desc">Successfully mediated a complex family dispute involving ₹200 crore in assets, achieving settlement without litigation.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Women's Property Rights Case (2020)</h4>
+                                <p class="achievement-desc">Won landmark case establishing daughters' equal rights in ancestral property, affecting thousands of families statewide.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Legal Certification & Recognition</h4>
+                                <p class="achievement-desc">• Certified Family Law Mediator<br>• Women Empowerment Award (2022)<br>• Best Family Law Advocate (2020)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lawyer 3 -->
+            <div class="team-member fade-in">
+                <img src="advocate3.jpg" alt="Akshay Linpane" class="member-photo">
+                <div class="member-info">
+                    <h2 class="member-name">AKSHAY LINPANE</h2>
+                    <p class="member-title">Corporate Law Expert | Partner</p>
+                    <span class="member-experience">10+ Years Experience</span>
+                    <p class="member-bio">
+                        Akshay Linpane heads the corporate law division, specializing in contract disputes, commercial litigation, and M&A transactions. His business acumen combined with legal expertise makes him invaluable to corporate clients. He has successfully handled transactions worth over ₹5000 crore.
+                    </p>
+                    
+                    <button class="achievements-btn" data-member="3">
+                        <i class="fas fa-trophy"></i> Top Achievements
+                    </button>
+                    
+                    <div class="achievements-panel" id="achievementsPanel3">
+                        <div class="achievements-content">
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">TechCorp IPO Representation (2023)</h4>
+                                <p class="achievement-desc">Led legal team for ₹1500 crore IPO, ensuring regulatory compliance and successful market listing.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Mega Merger Deal (2021)</h4>
+                                <p class="achievement-desc">Successfully negotiated and structured ₹3200 crore merger between two pharmaceutical giants, creating market leader.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <h4 class="achievement-title">Legal Certification & Recognition</h4>
+                                <p class="achievement-desc">• Certified Mergers & Acquisitions Specialist<br>• Young Corporate Lawyer of the Year (2022)<br>• Legal Innovation Award (2019)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="stats-section fade-in">
+            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 20px;">Our Track Record</h2>
+            <p style="max-width: 800px; margin: 0 auto 40px; color: #b0b0b0; font-size: 1.1rem;">
+                Decades of combined experience delivering exceptional results for our clients across all legal domains.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">60+</div>
+                    <div class="stat-label">Years Combined Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Cases Successfully Handled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Legal Certification & Recognition</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Linpane Legal Associates</h3>
+                <p>Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Justice Street, Legal District</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@linpanelegal.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Achievements Panel Toggle
+        document.querySelectorAll('.achievements-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const memberId = this.getAttribute('data-member');
+                const panel = document.getElementById(`achievementsPanel${memberId}`);
+                
+                // Close all other panels
+                document.querySelectorAll('.achievements-panel').forEach(p => {
+                    if (p.id !== `achievementsPanel${memberId}`) {
+                        p.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current panel
+                panel.classList.toggle('active');
+                
+                // Update button text
+                if (panel.classList.contains('active')) {
+                    this.innerHTML = '<i class="fas fa-times"></i> Close Achievements';
+                } else {
+                    this.innerHTML = '<i class="fas fa-trophy"></i> Top Achievements';
+                }
+            });
+        });
+
+        // Scroll Animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('resize', checkFade);
+        checkFade();
+    </script>
+</body>
+</html>
