@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Linpane Legal Associates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #e0e0e0;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+            margin-bottom: 80px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+        }
+
+        .contact-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-left: 4px solid #b39c7d;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateX(10px);
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        .contact-card h3 {
+            color: #b39c7d;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contact-details p {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #b0b0b0;
+        }
+
+        .contact-details i {
+            color: #b39c7d;
+            width: 20px;
+        }
+
+        /* Map Container */
+        .map-container {
+            margin-top: 40px;
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            text-align: center;
+        }
+
+        .map-container h3 {
+            color: #b39c7d;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .map-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .map-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(179, 156, 125, 0.3);
+            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+        }
+
+        /* Office Hours */
+        .office-hours {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .day-card {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(179, 156, 125, 0.4);
+            background: rgba(179, 156, 125, 0.05);
+        }
+
+        .day-card h4 {
+            color: #b39c7d;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .day-card p {
+            color: #b0b0b0;
+        }
+
+        .day-card.closed {
+            opacity: 0.7;
+        }
+
+        .day-card.closed h4 {
+            color: #777;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-logo p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .link-group h4 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group li {
+            margin-bottom: 10px;
+        }
+
+        .link-group a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-group a:hover {
+            color: #b39c7d;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-info,
+            .map-container,
+            .office-hours {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .map-link {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="LLA Logo">
+            Linpane Legal Associates
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="section-title fade-in">Contact Our Legal Experts</h1>
+        
+        <!-- Contact Information -->
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <h2 class="section-title" style="font-size: 2rem; text-align: left;">Contact Information</h2>
+                
+                <div class="contact-card">
+                    <h3>ADV. A.V. LINPANE</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-user-tie"></i> Senior Advocate</p>
+                        <p><i class="fas fa-envelope"></i> av.linpane@linpanelegal.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43211</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 10 AM - 6 PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>ADV. SANDYA LINPANE</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-user-tie"></i> Family Law Specialist</p>
+                        <p><i class="fas fa-envelope"></i> sandya.linpane@linpanelegal.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43212</p>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 9 AM - 5 PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>AKSHAY LINPANE</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-user-tie"></i> Corporate Law Expert</p>
+                        <p><i class="fas fa-envelope"></i> akshay.linpane@linpanelegal.com</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43213</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9 AM - 7 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Location -->
+            <div class="map-container fade-in">
+                <h3>Our Office Location</h3>
+                <p style="color: #b0b0b0; margin-bottom: 20px; line-height: 1.6;">
+                    123 Justice Street, Legal District, Mumbai, Maharashtra 400001
+                </p>
+                <a href="https://goo.gl/maps/YOUR_MAP_LINK_HERE" class="map-link" target="_blank">
+                    <i class="fas fa-map-marker-alt"></i> View on Google Maps
+                </a>
+            </div>
+        </div>
+        
+        <!-- Office Hours -->
+        <div class="office-hours fade-in">
+            <h2 class="section-title" style="font-size: 2rem; text-align: left;">Office Hours</h2>
+            <div class="hours-grid">
+                <div class="day-card">
+                    <h4>Monday</h4>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="day-card">
+                    <h4>Tuesday</h4>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="day-card">
+                    <h4>Wednesday</h4>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="day-card">
+                    <h4>Thursday</h4>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="day-card">
+                    <h4>Friday</h4>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="day-card">
+                    <h4>Saturday</h4>
+                    <p>10:00 AM - 4:00 PM</p>
+                </div>
+                <div class="day-card closed">
+                    <h4>Sunday</h4>
+                    <p>Closed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Linpane Legal Associates</h3>
+                <p>Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Justice Street, Legal District</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@linpanelegal.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Scroll Animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('resize', checkFade);
+        checkFade(); // Initial check
+    </script>
+</body>
+</html>
