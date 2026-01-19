@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linpane Legal Associates - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            background-color: #fff;
+            color: #1a237e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #ff9800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logout-btn {
+            background-color: #ff5252;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff1744;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: #1a237e;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .page-title h2 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .stat-icon.pending {
+            background-color: #ff9800;
+        }
+
+        .stat-icon.confirmed {
+            background-color: #4caf50;
+        }
+
+        .stat-icon.cancelled {
+            background-color: #f44336;
+        }
+
+        .stat-icon.total {
+            background-color: #1a237e;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            width: 300px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 0.5rem;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #1a237e;
+            background-color: transparent;
+            color: #1a237e;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: #1a237e;
+            color: white;
+        }
+
+        .filter-btn.active {
+            background-color: #1a237e;
+            color: white;
+        }
+
+        /* Appointments Table */
+        .table-container {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #1a237e;
+            color: white;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        td {
+            padding: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn.confirm {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .action-btn.confirm:hover {
+            background-color: #388e3c;
+        }
+
+        .action-btn.cancel {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .action-btn.cancel:hover {
+            background-color: #d32f2f;
+        }
+
+        .action-btn.delete {
+            background-color: #9e9e9e;
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background-color: #757575;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .login-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-title {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #1a237e;
+        }
+
+        .login-btn {
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: #283593;
+            transform: translateY(-2px);
+        }
+
+        .login-error {
+            color: #f44336;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a237e;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            table {
+                min-width: 900px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen (Initially shown) -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h2 class="login-title"><i class="fas fa-lock"></i> Admin Login</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <div id="loginError" class="login-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Initially hidden) -->
+    <div id="adminDashboard" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <div class="logo-icon">L</div>
+                    <div class="logo-text">
+                        <h1>Linpane Legal Associates</h1>
+                        <p>Admin Dashboard</p>
+                    </div>
+                </div>
+                <div class="admin-info">
+                    <div class="admin-avatar">A</div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-container">
+            <div class="page-title">
+                <h2><i class="fas fa-calendar-alt"></i> Appointment Management</h2>
+                <div id="lastUpdated">Last updated: Just now</div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingCount">0</h3>
+                        <p>Pending Appointments</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon confirmed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="confirmedCount">0</h3>
+                        <p>Confirmed Appointments</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon cancelled">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="cancelledCount">0</h3>
+                        <p>Cancelled Appointments</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCount">0</h3>
+                        <p>Total Appointments</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search appointments...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Pending">Pending</button>
+                    <button class="filter-btn" data-filter="Confirmed">Confirmed</button>
+                    <button class="filter-btn" data-filter="Cancelled">Cancelled</button>
+                </div>
+            </div>
+            
+            <!-- Appointments Table -->
+            <div class="table-container">
+                <table id="appointmentsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Case Type</th>
+                            <th>Lawyer</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsBody">
+                        <!-- Appointments will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="noAppointments" style="text-align: center; padding: 2rem; display: none;">
+                <i class="fas fa-calendar-times" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                <h3 style="color: #666;">No appointments found</h3>
+                <p>Try changing your filters or search term</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2023 Linpane Legal Associates. All rights reserved. | Admin Panel v1.0</p>
+        </footer>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4fps5XOnwVzCSiEuDR8MTIDBcj_o-m9w",
+            authDomain: "my-website-729ff.firebaseapp.com",
+            projectId: "my-website-729ff",
+            storageBucket: "my-website-729ff.firebasestorage.app",
+            messagingSenderId: "786071849682",
+            appId: "1:786071849682:web:78c3a990543a9af290fb0b",
+            measurementId: "G-18VM5SL3XC"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Admin credentials (not shown on page as requested)
+        const adminCredentials = {
+            username: "ashu999",
+            password: "pass123"
+        };
+        
+        // DOM Elements
+        const loginScreen = document.getElementById('loginScreen');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const appointmentsBody = document.getElementById('appointmentsBody');
+        const noAppointments = document.getElementById('noAppointments');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const pendingCount = document.getElementById('pendingCount');
+        const confirmedCount = document.getElementById('confirmedCount');
+        const cancelledCount = document.getElementById('cancelledCount');
+        const totalCount = document.getElementById('totalCount');
+        const lastUpdated = document.getElementById('lastUpdated');
+        
+        // State variables
+        let appointments = [];
+        let currentFilter = 'all';
+        let currentSearch = '';
+        
+        // Login functionality
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                // Successful login
+                loginError.textContent = '';
+                loginScreen.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                loadAppointments();
+            } else {
+                // Failed login
+                loginError.textContent = 'Invalid username or password';
+            }
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            adminDashboard.style.display = 'none';
+            loginScreen.style.display = 'flex';
+            loginForm.reset();
+        });
+        
+        // Filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+               // Set current filter
+                currentFilter = button.getAttribute('data-filter');
+                renderAppointments();
+            });
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            renderAppointments();
+        });
+        
+        // Load appointments from Firebase
+        async function loadAppointments() {
+            try {
+                const snapshot = await db.collection('appointments').orderBy('submissionDate', 'desc').get();
+                appointments = [];
+                
+                snapshot.forEach(doc => {
+                    const appointment = doc.data();
+                    appointment.id = doc.id;
+                    appointments.push(appointment);
+                });
+                
+                renderAppointments();
+                updateStats();
+                updateLastUpdated();
+                
+            } catch (error) {
+                console.error('Error loading appointments:', error);
+            }
+        }
+        
+        // Render appointments based on filter and search
+        function renderAppointments() {
+            // Filter appointments
+            let filteredAppointments = appointments;
+            
+            if (currentFilter !== 'all') {
+                filteredAppointments = filteredAppointments.filter(app => app.status === currentFilter);
+            }
+            
+            if (currentSearch) {
+                filteredAppointments = filteredAppointments.filter(app => 
+                    app.fullName.toLowerCase().includes(currentSearch) ||
+                    app.contact.includes(currentSearch) ||
+                    app.caseType.toLowerCase().includes(currentSearch) ||
+                    app.preferredLawyer.toLowerCase().includes(currentSearch)
+                );
+            }
+            
+            // Clear table
+            appointmentsBody.innerHTML = '';
+            
+            // Check if there are appointments
+            if (filteredAppointments.length === 0) {
+                noAppointments.style.display = 'block';
+                return;
+            }
+            
+            noAppointments.style.display = 'none';
+            
+            // Render each appointment
+            filteredAppointments.forEach(appointment => {
+                const row = document.createElement('tr');
+                
+                // Format date
+                const appointmentDate = new Date(appointment.appointmentDate);
+                const formattedDate = appointmentDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                // Status badge
+                let statusClass = 'status-pending';
+                if (appointment.status === 'Confirmed') statusClass = 'status-confirmed';
+                if (appointment.status === 'Cancelled') statusClass = 'status-cancelled';
+                
+                row.innerHTML = `
+                    <td>
+                        <strong>${appointment.fullName}</strong><br>
+                        <small>${appointment.email}</small>
+                    </td>
+                    <td>
+                        ${appointment.contact}<br>
+                        <small>${appointment.address.substring(0, 30)}...</small>
+                    </td>
+                    <td>${appointment.caseType}</td>
+                    <td>${appointment.preferredLawyer}</td>
+                    <td>
+                        <strong>${formattedDate}</strong><br>
+                        <small>${appointment.preferredTime}</small>
+                    </td>
+                    <td>
+                        <span class="status-badge ${statusClass}">${appointment.status}</span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            ${appointment.status !== 'Confirmed' ? 
+                                `<button class="action-btn confirm" onclick="updateStatus('${appointment.id}', 'Confirmed')">
+                                    <i class="fas fa-check"></i> Confirm
+                                </button>` : ''
+                            }
+                            ${appointment.status !== 'Cancelled' ? 
+                                `<button class="action-btn cancel" onclick="updateStatus('${appointment.id}', 'Cancelled')">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>` : ''
+                            }
+                            <button class="action-btn delete" onclick="deleteAppointment('${appointment.id}')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                        <button class="action-btn" style="margin-top: 5px; background-color: #1a237e; color: white; width: 100%;" 
+                                onclick="viewDetails('${appointment.id}')">
+                            <i class="fas fa-eye"></i> View Details
+                        </button>
+                    </td>
+                `;
+                
+                appointmentsBody.appendChild(row);
+            });
+        }
+        
+        // Update appointment status
+        async function updateStatus(id, status) {
+            try {
+                await db.collection('appointments').doc(id).update({
+                    status: status
+                });
+                
+                // Update local data
+                const appointmentIndex = appointments.findIndex(app => app.id === id);
+                if (appointmentIndex !== -1) {
+                    appointments[appointmentIndex].status = status;
+                }
+                
+                renderAppointments();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating appointment status');
+            }
+        }
+        
+        // Delete appointment
+        async function deleteAppointment(id) {
+            if (!confirm('Are you sure you want to delete this appointment?')) return;
+            
+            try {
+                await db.collection('appointments').doc(id).delete();
+                
+                // Update local data
+                appointments = appointments.filter(app => app.id !== id);
+                
+                renderAppointments();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Error deleting appointment:', error);
+                alert('Error deleting appointment');
+            }
+        }
+        
+        // View appointment details
+        function viewDetails(id) {
+            const appointment = appointments.find(app => app.id === id);
+            if (!appointment) return;
+            
+            const details = `
+                <strong>Full Name:</strong> ${appointment.fullName}<br>
+                <strong>Email:</strong> ${appointment.email}<br>
+                <strong>Address:</strong> ${appointment.address}<br>
+                <strong>Contact:</strong> ${appointment.contact}<br>
+                <strong>Case Type:</strong> ${appointment.caseType}<br>
+                <strong>Preferred Lawyer:</strong> ${appointment.preferredLawyer}<br>
+                <strong>Appointment Date:</strong> ${appointment.appointmentDate}<br>
+                <strong>Preferred Time:</strong> ${appointment.preferredTime}<br>
+                <strong>Status:</strong> ${appointment.status}<br>
+                <strong>Case Description:</strong><br>${appointment.caseDescription}<br>
+                <strong>Submitted:</strong> ${new Date(appointment.submissionDate).toLocaleString()}
+            `;
+            
+            alert(details);
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const pending = appointments.filter(app => app.status === 'Pending').length;
+            const confirmed = appointments.filter(app => app.status === 'Confirmed').length;
+            const cancelled = appointments.filter(app => app.status === 'Cancelled').length;
+            const total = appointments.length;
+            
+            pendingCount.textContent = pending;
+            confirmedCount.textContent = confirmed;
+            cancelledCount.textContent = cancelled;
+            totalCount.textContent = total;
+        }
+        
+        // Update last updated time
+        function updateLastUpdated() {
+            const now = new Date();
+            lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }
+        
+        // Auto-refresh appointments every 30 seconds
+        setInterval(() => {
+            if (adminDashboard.style.display !== 'none') {
+                loadAppointments();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
