@@ -8,32 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase 12.8.0 -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXgAZZlh_TS3CfqZ9N5ZXDAmHBnaWYIiI",
-            authDomain: "myproject-2807b.firebaseapp.com",
-            databaseURL: "https://myproject-2807b-default-rtdb.firebaseio.com",
-            projectId: "myproject-2807b",
-            storageBucket: "myproject-2807b.firebasestorage.app",
-            messagingSenderId: "656042108670",
-            appId: "1:656042108670:web:a357c52ccef5c72b9727af",
-            measurementId: "G-R49GPZWL76"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        
-        window.firebaseDatabase = database;
-        window.firebaseRef = ref;
-        window.firebasePush = push;
-        window.firebaseSet = set;
-        
-        console.log("Firebase initialized successfully!");
-    </script>
+    <!-- Firebase SDK v12.8.0 -->
+    <script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -43,25 +20,12 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a1a1a 100%);
+            background-color: #121212;
             color: #e0e0e0;
-            min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(179, 156, 125, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(179, 156, 125, 0.03) 0%, transparent 50%);
-            z-index: -1;
-            pointer-events: none;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Header */
@@ -78,12 +42,6 @@
             z-index: 1000;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             border-bottom: 1px solid rgba(179, 156, 125, 0.3);
-            animation: slideDown 0.5s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
         }
 
         .logo {
@@ -103,7 +61,6 @@
         .logo img {
             height: 40px;
             width: auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         nav ul {
@@ -128,22 +85,6 @@
             background: rgba(179, 156, 125, 0.1);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -156,13 +97,8 @@
         /* Main Content */
         .main-content {
             margin-top: 100px;
-            padding: 0 5% 80px;
-            animation: fadeIn 0.8s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            padding: 0 5%;
+            flex: 1;
         }
 
         .section-title {
@@ -184,12 +120,6 @@
             width: 100px;
             height: 3px;
             background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            animation: expandWidth 1s ease;
-        }
-
-        @keyframes expandWidth {
-            from { width: 0; }
-            to { width: 100px; }
         }
 
         /* Warning Popup */
@@ -200,23 +130,18 @@
             transform: translate(-50%, -50%);
             background: #1e1e1e;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
             z-index: 1001;
             max-width: 500px;
             width: 90%;
-            border: 1px solid rgba(179, 156, 125, 0.3);
+            border: 2px solid #b39c7d;
             display: none;
-            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes popIn {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         .warning-popup.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
 
         .warning-header {
@@ -227,19 +152,13 @@
         }
 
         .warning-icon {
-            color: #b39c7d;
+            color: #ff6b6b;
             font-size: 2rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
 
         .warning-header h2 {
             font-family: 'Playfair Display', serif;
-            color: #b39c7d;
+            color: #ff6b6b;
             font-size: 1.8rem;
         }
 
@@ -260,12 +179,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             display: block;
-            margin: 20px auto 0;
+            margin: 0 auto;
         }
 
         .warning-close:hover {
             background: linear-gradient(135deg, #d4b78f, #b39c7d);
-            transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(179, 156, 125, 0.3);
         }
 
@@ -278,11 +197,15 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             display: none;
-            animation: fadeIn 0.3s ease;
         }
 
         .popup-overlay.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
         /* Lawyers Selection */
@@ -290,54 +213,31 @@
             background: #1e1e1e;
             padding: 40px;
             border-radius: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             border: 1px solid rgba(179, 156, 125, 0.2);
-            animation: slideUp 0.6s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .lawyers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
             margin-top: 30px;
         }
 
         .lawyer-select {
             background: rgba(30, 30, 30, 0.8);
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             border: 1px solid rgba(179, 156, 125, 0.2);
             transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lawyer-select::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(179, 156, 125, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .lawyer-select:hover::before {
-            left: 100%;
         }
 
         .lawyer-select:hover {
             transform: translateY(-5px);
             border-color: rgba(179, 156, 125, 0.4);
-            box-shadow: 0 10px 30px rgba(179, 156, 125, 0.1);
+            background: rgba(179, 156, 125, 0.05);
         }
 
         .lawyer-select.active {
@@ -347,32 +247,32 @@
         }
 
         .lawyer-select i {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #b39c7d;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .lawyer-select h4 {
             color: #b39c7d;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
         }
 
         .lawyer-select p {
             color: #b0b0b0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-bottom: 5px;
         }
 
         /* Appointment Form */
         .appointment-form {
+            max-width: 800px;
+            margin: 0 auto 80px;
             background: #1e1e1e;
             padding: 40px;
             border-radius: 15px;
             border: 1px solid rgba(179, 156, 125, 0.2);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.8s ease 0.2s both;
         }
 
         .form-row {
@@ -391,7 +291,6 @@
 
         .form-group {
             margin-bottom: 25px;
-            position: relative;
         }
 
         .form-group label {
@@ -419,22 +318,13 @@
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #b39c7d;
-            box-shadow: 0 0 0 2px rgba(179, 156, 125, 0.2);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        /* Fix select dropdown */
+        /* Fix select dropdown colors */
         .form-group select {
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23b39c7d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b39c7d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 15px center;
-            background-size: 12px;
+            background-size: 15px;
             padding-right: 40px;
         }
 
@@ -442,6 +332,14 @@
             background: #2a2a2a;
             color: #e0e0e0;
             padding: 10px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #b39c7d;
+            box-shadow: 0 0 0 2px rgba(179, 156, 125, 0.2);
         }
 
         .form-group textarea {
@@ -467,31 +365,25 @@
             overflow: hidden;
         }
 
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             background: linear-gradient(135deg, #d4b78f, #b39c7d);
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(179, 156, 125, 0.4);
         }
 
         .submit-btn:disabled {
-            opacity: 0.6;
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none !important;
+        }
+
+        .submit-btn.glow {
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(179, 156, 125, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(179, 156, 125, 0.8); }
         }
 
         /* Success Notification */
@@ -502,22 +394,12 @@
             background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             padding: 20px 30px;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             z-index: 1001;
             display: none;
             max-width: 400px;
-            animation: slideInRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
+            animation: slideInRight 0.5s ease;
         }
 
         .notification.active {
@@ -536,12 +418,38 @@
 
         .notification-icon {
             font-size: 1.5rem;
-            animation: bounce 1s infinite;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        .notification-message h4 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .notification-message p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
 
         /* Footer */
@@ -549,8 +457,7 @@
             background: #0a0a0a;
             padding: 60px 5% 30px;
             border-top: 1px solid rgba(179, 156, 125, 0.3);
-            margin-top: 80px;
-            animation: fadeIn 1s ease;
+            margin-top: auto;
         }
 
         .footer-content {
@@ -601,26 +508,11 @@
         .link-group a {
             color: #b0b0b0;
             text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s;
         }
 
         .link-group a:hover {
             color: #b39c7d;
-            transform: translateX(5px);
-        }
-
-        .link-group a::before {
-            content: '→';
-            position: absolute;
-            left: -15px;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .link-group a:hover::before {
-            opacity: 1;
-            left: -20px;
         }
 
         .copyright {
@@ -631,58 +523,44 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            header {
-                padding: 15px 3%;
-            }
-
-            .logo {
-                font-size: 1.4rem;
-            }
-
-            .logo img {
-                height: 35px;
-            }
-
             nav ul {
                 display: none;
-                position: fixed;
-                top: 80px;
+                position: absolute;
+                top: 100%;
                 left: 0;
                 width: 100%;
                 background: rgba(18, 18, 18, 0.98);
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-                z-index: 999;
-                animation: slideDown 0.3s ease;
             }
-
+            
             nav ul.active {
                 display: flex;
             }
-
+            
             .mobile-menu-btn {
                 display: block;
             }
-
+            
             .section-title {
                 font-size: 2rem;
             }
-
+            
             .lawyers-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
-
-            .appointment-form,
-            .lawyers-section {
+            
+            .appointment-form {
                 padding: 30px 20px;
             }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 30px;
+            
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: calc(100% - 40px);
             }
         }
 
@@ -690,39 +568,10 @@
             .section-title {
                 font-size: 1.8rem;
             }
-
-            .lawyers-grid {
-                grid-template-columns: 1fr;
+            
+            .footer-links {
+                flex-direction: column;
             }
-
-            .submit-btn {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Form Animations */
-        .form-group {
-            animation: slideUp 0.5s ease both;
-        }
-
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .form-group:nth-child(3) { animation-delay: 0.3s; }
-        .form-group:nth-child(4) { animation-delay: 0.4s; }
-        .form-group:nth-child(5) { animation-delay: 0.5s; }
-        .form-group:nth-child(6) { animation-delay: 0.6s; }
-
-        /* Scroll Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -731,17 +580,14 @@
     <div class="popup-overlay" id="popupOverlay"></div>
     <div class="warning-popup" id="warningPopup">
         <div class="warning-header">
-            <i class="fas fa-balance-scale warning-icon"></i>
-            <h2>Important Legal Notice</h2>
+            <i class="fas fa-exclamation-triangle warning-icon"></i>
+            <h2>Important Notice</h2>
         </div>
         <div class="warning-content">
             <p>Please remember you are consulting with legal professionals. Our time is valuable and dedicated to helping clients with genuine legal matters.</p>
-            <p>Please ensure you have all necessary documents and information ready before your appointment.</p>
-            <p>We reserve the right to charge consultation fees for no-shows or frivolous appointments.</p>
+            <p>Please ensure you have all necessary documents ready before your appointment.</p>
         </div>
-        <button class="warning-close" id="closeWarning">
-            <i class="fas fa-check-circle"></i> I Understand & Agree
-        </button>
+        <button class="warning-close" id="closeWarning">I Understand</button>
     </div>
 
     <!-- Success Notification -->
@@ -750,7 +596,7 @@
             <i class="fas fa-check-circle notification-icon"></i>
             <div class="notification-message">
                 <h4>Appointment Booked Successfully!</h4>
-                <p>We will contact you within 24 hours to confirm details.</p>
+                <p>We will contact you soon to confirm details.</p>
             </div>
         </div>
     </div>
@@ -758,7 +604,7 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Linpane Legal Associates">
+            <img src="logo.png" alt="Linpane Legal Associates Logo">
             <span>Linpane Legal Associates</span>
         </a>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -769,73 +615,71 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="team.html">Our Team</a></li>
-                <li><a href="appointment.html" style="color: #b39c7d;">Book Appointment</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1 class="section-title animate-on-scroll">Schedule Legal Consultation</h1>
+        <h1 class="section-title">Schedule a Legal Consultation</h1>
         
         <!-- Lawyers Selection -->
-        <div class="lawyers-section animate-on-scroll">
-            <h2 class="section-title" style="font-size: 2rem; text-align: left; margin-bottom: 30px;">Select Your Legal Expert</h2>
+        <div class="lawyers-section">
+            <h2 class="section-title" style="font-size: 2rem; text-align: left;">Select Your Legal Expert</h2>
             <div class="lawyers-grid">
-                <!-- Lawyer 1 -->
-                <div class="lawyer-select" data-lawyer="adv_av_linpane">
+                <div class="lawyer-select" data-lawyer="adv_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>ADV. A.V. LINPANE</h4>
-                    <p>Criminal, Civil Law</p>
-                    <p><small>30+ Years</small></p>
+                    <p>Criminal, Civil, Constitutional Law</p>
+                    <p>30+ Years Experience</p>
                 </div>
-                <!-- Lawyer 2 -->
-                <div class="lawyer-select" data-lawyer="adv_sandya_linpane">
+                <div class="lawyer-select" data-lawyer="sandya_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>ADV. SANDYA LINPANE</h4>
-                    <p>Family, Property Law</p>
-                    <p><small>20+ Years</small></p>
+                    <p>Family Law, Property Disputes</p>
+                    <p>20+ Years Experience</p>
                 </div>
-                <!-- Lawyer 3 -->
                 <div class="lawyer-select" data-lawyer="akshay_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>AKSHAY LINPANE</h4>
-                    <p>Corporate, Contract Law</p>
-                    <p><small>10+ Years</small></p>
+                    <p>Corporate Law, Contract Disputes</p>
+                    <p>10+ Years Experience</p>
                 </div>
-                <!-- Lawyer 4 -->
-                <div class="lawyer-select" data-lawyer="adv_rajesh_sharma">
+                <div class="lawyer-select" data-lawyer="lawyer4">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. RAJESH SHARMA</h4>
-                    <p>Civil, Consumer Law</p>
-                    <p><small>15+ Years</small></p>
+                    <h4>ADV. RAJESH KUMAR</h4>
+                    <p>Criminal Defense, Bail Matters</p>
+                    <p>15+ Years Experience</p>
                 </div>
-                <!-- Lawyer 5 -->
-                <div class="lawyer-select" data-lawyer="adv_priya_patil">
+                <div class="lawyer-select" data-lawyer="lawyer5">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. PRIYA PATIL</h4>
-                    <p>Family, Women Rights</p>
-                    <p><small>12+ Years</small></p>
+                    <h4>ADV. PRIYA SHARMA</h4>
+                    <p>Divorce, Child Custody</p>
+                    <p>12+ Years Experience</p>
                 </div>
-                <!-- Lawyer 6 -->
-                <div class="lawyer-select" data-lawyer="adv_sanjay_verma">
+                <div class="lawyer-select" data-lawyer="lawyer6">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. SANJAY VERMA</h4>
-                    <p>Property, Real Estate</p>
-                    <p><small>18+ Years</small></p>
+                    <h4>ADV. ROHIT VERMA</h4>
+                    <p>Business Law, IPR</p>
+                    <p>8+ Years Experience</p>
                 </div>
-                <!-- Lawyer 7 -->
-                <div class="lawyer-select" data-lawyer="adv_meera_desai">
+                <div class="lawyer-select" data-lawyer="lawyer7">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. MEERA DESAI</h4>
-                    <p>Corporate, IPR Law</p>
-                    <p><small>14+ Years</small></p>
+                    <h4>ADV. NEHA PATEL</h4>
+                    <p>Consumer Law, Civil Litigation</p>
+                    <p>7+ Years Experience</p>
                 </div>
             </div>
         </div>
         
         <!-- Appointment Form -->
-        <form class="appointment-form animate-on-scroll" id="appointmentForm">
+        <form class="appointment-form" id="appointmentForm" action="https://formsubmit.co/lokhandeyuvraj19@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New Appointment - Linpane Legal Associates">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="thankyou.html">
+            
             <div class="form-row">
                 <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
@@ -850,13 +694,13 @@
             
             <div class="form-row">
                 <div class="form-group">
-                    <label for="address">Complete Address <span class="required">*</span></label>
+                    <label for="address">Address <span class="required">*</span></label>
                     <input type="text" id="address" name="address" required placeholder="Enter your complete address">
                 </div>
                 
                 <div class="form-group">
                     <label for="contact">Contact Number <span class="required">*</span></label>
-                    <input type="tel" id="contact" name="contact" required placeholder="Enter 10-digit mobile number">
+                    <input type="tel" id="contact" name="contact" required placeholder="Enter your 10-digit mobile number" pattern="[0-9]{10}">
                 </div>
             </div>
             
@@ -872,14 +716,15 @@
                         <option value="corporate">Corporate Law</option>
                         <option value="contract">Contract Disputes</option>
                         <option value="consumer">Consumer Law</option>
-                        <option value="constitutional">Constitutional Law</option>
+                        <option value="intellectual">Intellectual Property</option>
+                        <option value="labor">Labor & Employment</option>
                         <option value="other">Other Legal Matter</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="selectedLawyer">Selected Lawyer</label>
-                    <input type="text" id="selectedLawyer" name="selectedLawyer" readonly placeholder="Select lawyer from above">
+                    <label for="selectedLawyer">Selected Lawyer <span class="required">*</span></label>
+                    <input type="text" id="selectedLawyer" name="selectedLawyer" required readonly placeholder="Select lawyer from above">
                 </div>
             </div>
             
@@ -907,10 +752,19 @@
             
             <div class="form-group">
                 <label for="description">Case Description <span class="required">*</span></label>
-                <textarea id="description" name="description" required placeholder="Please provide detailed description of your legal matter, including relevant facts and documents..."></textarea>
+                <textarea id="description" name="description" required placeholder="Please provide a detailed description of your legal matter..."></textarea>
             </div>
             
-            <button type="submit" class="submit-btn" id="submitBtn">
+            <div class="form-group">
+                <label for="urgency">Urgency Level</label>
+                <select id="urgency" name="urgency">
+                    <option value="normal">Normal</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="emergency">Emergency</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn glow" id="submitBtn">
                 <i class="fas fa-calendar-check"></i> Book Appointment Now
             </button>
         </form>
@@ -936,9 +790,10 @@
                 <div class="link-group">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
                         <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
                     </ul>
                 </div>
                 <div class="link-group">
@@ -957,10 +812,36 @@
     </footer>
 
     <script>
-        // Wait for Firebase to load
-        setTimeout(() => {
-            console.log("Firebase status:", window.firebaseDatabase ? "Ready" : "Not ready");
-        }, 1000);
+        // ========== YOUR FIREBASE CONFIGURATION ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyAPoUe6ecgOVNysjAEvnuIqgGx-_e2-lvQ",
+            authDomain: "test-new-26af9.firebaseapp.com",
+            databaseURL: "https://test-new-26af9-default-rtdb.firebaseio.com",
+            projectId: "test-new-26af9",
+            storageBucket: "test-new-26af9.firebasestorage.app",
+            messagingSenderId: "144344073587",
+            appId: "1:144344073587:web:c135ff15a909d51adb3106",
+            measurementId: "G-QJRPVTQ1H2"
+        };
+
+        // Initialize Firebase
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log("Firebase v12.8.0 initialized successfully!");
+            }
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+        }
+        
+        const database = firebase.database();
+
+        // DOM Elements
+        const appointmentForm = document.getElementById('appointmentForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successNotification = document.getElementById('successNotification');
+        const warningPopup = document.getElementById('warningPopup');
+        const popupOverlay = document.getElementById('popupOverlay');
 
         // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
@@ -971,19 +852,19 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (!sessionStorage.getItem('warningShown')) {
                 setTimeout(function() {
-                    document.getElementById('warningPopup').classList.add('active');
-                    document.getElementById('popupOverlay').classList.add('active');
+                    warningPopup.classList.add('active');
+                    popupOverlay.classList.add('active');
                     sessionStorage.setItem('warningShown', 'true');
-                }, 1500);
+                }, 1000);
             }
             
             document.getElementById('closeWarning').addEventListener('click', function() {
-                document.getElementById('warningPopup').classList.remove('active');
-                document.getElementById('popupOverlay').classList.remove('active');
+                warningPopup.classList.remove('active');
+                popupOverlay.classList.remove('active');
             });
             
-            document.getElementById('popupOverlay').addEventListener('click', function() {
-                document.getElementById('warningPopup').classList.remove('active');
+            popupOverlay.addEventListener('click', function() {
+                warningPopup.classList.remove('active');
                 this.classList.remove('active');
             });
         });
@@ -1009,8 +890,8 @@
             });
         });
 
-        // Form Submission
-        document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+        // Form Submission Handler
+        appointmentForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const submitBtn = document.getElementById('submitBtn');
@@ -1027,65 +908,93 @@
                 address: document.getElementById('address').value.trim(),
                 contact: document.getElementById('contact').value.trim(),
                 caseType: document.getElementById('caseType').value,
-                selectedLawyer: document.getElementById('selectedLawyer').value || 'Not specified',
+                selectedLawyer: document.getElementById('selectedLawyer').value,
                 appointmentDate: document.getElementById('appointmentDate').value,
                 time: document.getElementById('time').value,
                 description: document.getElementById('description').value.trim(),
+                urgency: document.getElementById('urgency').value,
                 timestamp: Date.now(),
                 status: 'pending',
                 createdAt: new Date().toISOString(),
-                formSubmitted: true
+                source: 'Website Appointment Form'
             };
 
             // Validation
-            const errors = [];
-            if (!appointmentData.name) errors.push('Full Name');
-            if (!appointmentData.email) errors.push('Email Address');
-            if (!appointmentData.address) errors.push('Address');
-            if (!appointmentData.contact) errors.push('Contact Number');
-            if (!appointmentData.caseType) errors.push('Case Type');
-            if (!appointmentData.appointmentDate) errors.push('Appointment Date');
-            if (!appointmentData.time) errors.push('Preferred Time');
-            if (!appointmentData.description) errors.push('Case Description');
-            
-            if (errors.length > 0) {
-                showNotification('Please fill: ' + errors.join(', '), 'error');
+            if (!appointmentData.name || !appointmentData.email || !appointmentData.address || 
+                !appointmentData.contact || !appointmentData.caseType || !appointmentData.selectedLawyer || 
+                !appointmentData.appointmentDate || !appointmentData.time || !appointmentData.description) {
+                showNotification('Please fill all required fields!', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                return;
+            }
+
+            if (!appointmentData.email.includes('@')) {
+                showNotification('Please enter a valid email address!', 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
                 return;
             }
 
             if (appointmentData.contact.length < 10) {
-                showNotification('Please enter valid 10-digit contact number', 'error');
+                showNotification('Please enter a valid 10-digit contact number!', 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
                 return;
             }
 
             try {
-                // Save to Firebase
-                console.log("Saving to Firebase...");
-                const appointmentsRef = window.firebaseRef(window.firebaseDatabase, 'appointments');
-                const newAppointmentRef = window.firebasePush(appointmentsRef);
+                // ========== STEP 1: Save to Firebase ==========
+                console.log('Saving to Firebase...');
+                const appointmentsRef = database.ref('appointments');
+                const newAppointmentRef = appointmentsRef.push();
                 
-                await window.firebaseSet(newAppointmentRef, appointmentData);
+                await newAppointmentRef.set(appointmentData);
+                console.log('✅ Saved to Firebase successfully!');
                 
-                // Show success message
-                showNotification('Appointment booked successfully! We will contact you within 24 hours.', 'success');
+                // ========== STEP 2: Send to FormSubmit ==========
+                console.log('Sending to FormSubmit...');
                 
-                // Also send to FormSubmit
-                await sendToFormSubmit(appointmentData);
+                // Prepare FormSubmit data
+                const formData = new FormData();
+                Object.keys(appointmentData).forEach(key => {
+                    if (key !== 'timestamp' && key !== 'createdAt' && key !== 'source') {
+                        formData.append(key, appointmentData[key]);
+                    }
+                });
                 
-                // Reset form
-                document.getElementById('appointmentForm').reset();
-                document.querySelectorAll('.lawyer-select').forEach(l => l.classList.remove('active'));
-                document.getElementById('appointmentDate').min = today;
+                // Send to FormSubmit using fetch
+                const formSubmitResponse = await fetch('https://formsubmit.co/ajax/lokhandeyuvraj19@gmail.com', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
                 
-                console.log('Appointment saved to Firebase:', appointmentData);
+                if (formSubmitResponse.ok) {
+                    console.log('✅ Sent to FormSubmit successfully!');
+                    
+                    // Show success message
+                    showNotification('Appointment booked successfully! We will contact you soon.', 'success');
+                    
+                    // Reset form
+                    appointmentForm.reset();
+                    document.querySelectorAll('.lawyer-select').forEach(l => {
+                        l.classList.remove('active');
+                    });
+                    document.getElementById('appointmentDate').min = today;
+                    
+                    // Log success
+                    console.log('Appointment saved and emailed:', appointmentData);
+                    
+                } else {
+                    throw new Error('FormSubmit failed');
+                }
                 
             } catch (error) {
-                console.error('Error saving appointment:', error);
-                showNotification('Error saving appointment. Please try again!', 'error');
+                console.error('Error:', error);
+                showNotification('Error processing appointment. Please try again!', 'error');
             } finally {
                 // Reset button
                 submitBtn.disabled = false;
@@ -1093,77 +1002,54 @@
             }
         });
 
-        // Send to FormSubmit
-        async function sendToFormSubmit(data) {
-            try {
-                const formData = new FormData();
-                formData.append('name', data.name);
-                formData.append('email', data.email);
-                formData.append('contact', data.contact);
-                formData.append('address', data.address);
-                formData.append('caseType', data.caseType);
-                formData.append('lawyer', data.selectedLawyer);
-                formData.append('date', data.appointmentDate);
-                formData.append('time', data.time);
-                formData.append('description', data.description);
-                formData.append('_subject', 'New Appointment Booking - Linpane Legal');
-                
-                await fetch('https://formsubmit.co/ajax/lokhandeyuvraj19@gmail.com', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                console.log('Email sent to FormSubmit');
-            } catch (error) {
-                console.error('Error sending to FormSubmit:', error);
-            }
-        }
-
-        // Notification function
+        // Notification Functions
         function showNotification(message, type = 'success') {
-            const notification = document.getElementById('successNotification');
-            const messageElement = notification.querySelector('.notification-message h4');
-            const icon = notification.querySelector('.notification-icon');
+            const messageElement = successNotification.querySelector('.notification-message h4');
+            const icon = successNotification.querySelector('.notification-icon');
             
             messageElement.textContent = message;
             
             if (type === 'error') {
-                notification.classList.add('error');
-                notification.classList.remove('success');
+                successNotification.classList.add('error');
+                successNotification.classList.remove('success');
                 icon.className = 'fas fa-exclamation-circle notification-icon';
             } else {
-                notification.classList.add('success');
-                notification.classList.remove('error');
+                successNotification.classList.add('success');
+                successNotification.classList.remove('error');
                 icon.className = 'fas fa-check-circle notification-icon';
             }
             
-            notification.classList.add('active');
+            // Show notification
+            successNotification.classList.add('active');
             
-            // Auto-hide after 5 seconds
+            // Auto-dismiss after 5 seconds
             setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.5s ease';
-                setTimeout(() => {
-                    notification.classList.remove('active');
-                    notification.style.animation = '';
-                }, 500);
+                hideNotification();
             }, 5000);
         }
 
-        // Scroll animations
-        function checkScroll() {
-            const elements = document.querySelectorAll('.animate-on-scroll');
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add('visible');
-                }
-            });
+        function hideNotification() {
+            // Add slide out animation
+            successNotification.style.animation = 'slideOutRight 0.5s ease forwards';
+            setTimeout(() => {
+                successNotification.classList.remove('active');
+                successNotification.style.animation = '';
+            }, 500);
         }
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
+        // Test Firebase connection
+        window.addEventListener('load', function() {
+            const testRef = database.ref('connectionTest');
+            testRef.set({
+                test: true,
+                timestamp: Date.now()
+            }).then(() => {
+                console.log('✅ Firebase connection test: SUCCESS');
+                testRef.remove();
+            }).catch(error => {
+                console.error('❌ Firebase connection test: FAILED', error);
+            });
+        });
     </script>
 </body>
 </html>
