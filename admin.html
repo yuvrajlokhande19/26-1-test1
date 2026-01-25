@@ -9,10 +9,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- Firebase SDK v12.8.0 -->
-    <script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/12.8.0/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Firebase SDK 12.8.0 -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAPoUe6ecgOVNysjAEvnuIqgGx-_e2-lvQ",
+            authDomain: "test-new-26af9.firebaseapp.com",
+            databaseURL: "https://test-new-26af9-default-rtdb.firebaseio.com",
+            projectId: "test-new-26af9",
+            storageBucket: "test-new-26af9.firebasestorage.app",
+            messagingSenderId: "144344073587",
+            appId: "1:144344073587:web:c135ff15a909d51adb3106",
+            measurementId: "G-QJRPVTQ1H2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        
+        // Make Firebase available globally
+        window.firebaseApp = app;
+        window.firebaseDatabase = database;
+        window.firebaseRef = ref;
+        window.firebaseOnValue = onValue;
+        window.firebaseSet = set;
+        window.firebaseRemove = remove;
+        
+        console.log("Firebase Admin initialized successfully!");
+    </script>
     <style>
         * {
             margin: 0;
@@ -24,8 +52,8 @@
             font-family: 'Montserrat', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
-            overflow-x: hidden;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Login Screen */
@@ -41,7 +69,7 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            transition: opacity 0.5s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .login-container {
@@ -53,18 +81,7 @@
             max-width: 450px;
             width: 90%;
             text-align: center;
-            animation: fadeInScale 0.6s ease;
-        }
-
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            animation: slideUp 0.6s ease;
         }
 
         .login-logo {
@@ -139,27 +156,27 @@
             animation: shake 0.5s ease;
         }
 
-        .login-error.show {
-            display: block;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
         /* Dashboard */
         .dashboard {
             display: none;
             opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            animation: fadeIn 0.5s ease forwards;
         }
 
         /* Header */
@@ -197,12 +214,6 @@
             width: auto;
         }
 
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
         .logout-btn {
             background: rgba(255, 107, 107, 0.1);
             color: #ff6b6b;
@@ -221,10 +232,39 @@
             transform: translateY(-2px);
         }
 
-        /* Dashboard Content */
-        .dashboard-content {
+        /* Main Content */
+        .main-content {
             margin-top: 100px;
-            padding: 40px 5%;
+            padding: 0 5%;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+            animation: slideDown 0.6s ease;
+        }
+
+        .dashboard-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #e0e0e0;
+        }
+
+        .dashboard-title span {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Stats Cards */
@@ -238,28 +278,19 @@
         .stat-card {
             background: #1e1e1e;
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 10px;
             border: 1px solid rgba(179, 156, 125, 0.2);
             transition: all 0.3s ease;
-            animation: slideUp 0.6s ease;
-            animation-fill-mode: both;
+            text-align: center;
+            animation: cardAppear 0.8s ease;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         .stat-card:nth-child(1) { animation-delay: 0.1s; }
         .stat-card:nth-child(2) { animation-delay: 0.2s; }
         .stat-card:nth-child(3) { animation-delay: 0.3s; }
         .stat-card:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         .stat-card:hover {
             transform: translateY(-5px);
@@ -285,116 +316,168 @@
             font-size: 1rem;
         }
 
-        /* Filters */
-        .filters-section {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            animation: fadeIn 0.8s ease 0.5s both;
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .filters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .filter-group {
+        /* Calendar View Toggle */
+        .view-toggle {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
         }
 
-        .filter-group label {
-            color: #b0b0b0;
-            font-weight: 500;
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
+        .view-btn {
+            background: rgba(179, 156, 125, 0.1);
+            color: #b39c7d;
             border: 1px solid rgba(179, 156, 125, 0.3);
-            border-radius: 8px;
-            color: #e0e0e0;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .calendar-toggle {
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            color: #121212;
-            border: none;
-            padding: 12px 25px;
+            padding: 12px 30px;
             border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
         }
 
-        .calendar-toggle:hover {
-            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+        .view-btn:hover {
+            background: rgba(179, 156, 125, 0.2);
             transform: translateY(-2px);
         }
 
+        .view-btn.active {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            border-color: #b39c7d;
+        }
+
         /* Calendar View */
-        .calendar-section {
+        .calendar-view {
+            display: none;
             background: #1e1e1e;
-            padding: 30px;
             border-radius: 15px;
+            padding: 30px;
             margin-bottom: 40px;
             border: 1px solid rgba(179, 156, 125, 0.2);
-            display: none;
             animation: fadeIn 0.5s ease;
         }
 
-        .calendar-section.active {
-            display: block;
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .calendar-header h3 {
+            color: #b39c7d;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .calendar-nav-btn {
+            background: rgba(179, 156, 125, 0.1);
+            color: #b39c7d;
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: rgba(179, 156, 125, 0.2);
         }
 
         .calendar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
         }
 
         .calendar-day {
-            background: rgba(179, 156, 125, 0.05);
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-        }
-
-        .calendar-day h4 {
+            text-align: center;
+            padding: 15px 10px;
+            font-weight: 600;
             color: #b39c7d;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+            background: rgba(179, 156, 125, 0.05);
+            border-radius: 5px;
         }
 
-        .calendar-appointment {
+        .calendar-date {
+            text-align: center;
+            padding: 20px 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .calendar-date:hover {
             background: rgba(179, 156, 125, 0.1);
-            border-left: 3px solid #b39c7d;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 0 8px 8px 0;
         }
 
-        /* Appointments Table */
-        .appointments-section {
-            margin-bottom: 60px;
-            animation: fadeIn 0.8s ease 0.7s both;
+        .calendar-date.today {
+            background: rgba(179, 156, 125, 0.2);
+            border: 2px solid #b39c7d;
+        }
+
+        .calendar-date .date-number {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        .calendar-date .appointment-count {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            background: #b39c7d;
+            color: #121212;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Table View */
+        .table-view {
+            display: block;
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            animation: fadeIn 0.5s ease;
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 25px;
             color: #e0e0e0;
             display: flex;
@@ -408,17 +491,15 @@
 
         .appointments-table {
             width: 100%;
-            background: #1e1e1e;
-            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(179, 156, 125, 0.2);
+            border-radius: 10px;
         }
 
         .table-header {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.8fr 1fr;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 0.8fr 0.8fr;
             background: rgba(179, 156, 125, 0.1);
-            padding: 20px;
+            padding: 15px 20px;
             font-weight: 600;
             color: #b39c7d;
             border-bottom: 1px solid rgba(179, 156, 125, 0.2);
@@ -426,38 +507,25 @@
 
         .table-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.8fr 1fr;
-            padding: 20px;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 0.8fr 0.8fr;
+            padding: 15px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
-            animation: fadeInRow 0.5s ease;
-            animation-fill-mode: both;
-        }
-
-        @keyframes fadeInRow {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            animation: rowAppear 0.5s ease;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
 
         .table-row:hover {
             background: rgba(179, 156, 125, 0.05);
-        }
-
-        .table-row:last-child {
-            border-bottom: none;
+            transform: translateX(5px);
         }
 
         .status-badge {
             display: inline-block;
-            padding: 6px 15px;
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             transition: all 0.3s ease;
         }
@@ -477,85 +545,33 @@
             color: #f44336;
         }
 
-        .status-completed {
-            background: rgba(33, 150, 243, 0.1);
-            color: #2196F3;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
         .action-btn {
             background: none;
             border: none;
             color: #b39c7d;
             cursor: pointer;
             font-size: 1.1rem;
-            padding: 8px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            transition: color 0.3s;
+            margin: 0 5px;
         }
 
         .action-btn:hover {
-            background: rgba(179, 156, 125, 0.1);
             color: #d4b78f;
-            transform: translateY(-2px);
+            transform: scale(1.2);
         }
 
-        .action-btn.delete {
-            color: #ff6b6b;
-        }
-
-        .action-btn.delete:hover {
-            background: rgba(255, 107, 107, 0.1);
-        }
-
-        /* Notes Section */
-        .notes-section {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 60px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            animation: fadeIn 0.8s ease 0.9s both;
-        }
-
-        .notes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .note-card {
-            background: rgba(179, 156, 125, 0.05);
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .note-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(179, 156, 125, 0.4);
-        }
-
-        .note-card h4 {
-            color: #b39c7d;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        @keyframes rowAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* No Data Message */
         .no-data {
             text-align: center;
-            padding: 60px;
+            padding: 50px;
             color: #777;
             font-size: 1.1rem;
+            animation: fadeIn 0.5s ease;
         }
 
         .no-data i {
@@ -569,25 +585,24 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: #4CAF50;
             color: white;
             padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-            gap: 15px;
-            animation: slideInUp 0.5s ease;
-            max-width: 400px;
+            gap: 10px;
+            z-index: 10000;
+            animation: slideInUp 0.3s ease;
         }
 
         .toast.error {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
+            background: #f44336;
         }
 
         .toast.warning {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+            background: #ff9800;
         }
 
         @keyframes slideInUp {
@@ -610,6 +625,39 @@
                 transform: translateY(100%);
                 opacity: 0;
             }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(179, 156, 125, 0.3);
+            border-top: 5px solid #b39c7d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Footer */
@@ -683,17 +731,10 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
             .table-header,
             .table-row {
-                grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1fr;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .table-header,
-            .table-row {
-                grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr 0.6fr 0.6fr 1fr;
+                grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr 0.6fr 0.8fr;
             }
         }
 
@@ -702,8 +743,8 @@
                 padding: 30px 20px;
             }
 
-            .dashboard-content {
-                padding: 40px 3%;
+            .dashboard {
+                padding: 20px 3%;
             }
 
             .table-header {
@@ -712,11 +753,11 @@
 
             .table-row {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 10px;
                 margin-bottom: 20px;
-                padding: 25px;
+                padding: 20px;
                 border: 1px solid rgba(179, 156, 125, 0.2);
-                border-radius: 15px;
+                border-radius: 10px;
             }
 
             .cell-label {
@@ -726,36 +767,52 @@
             }
 
             .action-buttons {
+                display: flex;
                 justify-content: center;
-                margin-top: 15px;
-            }
-
-            .filters-grid {
-                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 10px;
             }
 
             .stats-cards {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
 
-        @media (max-width: 576px) {
-            .stats-cards {
-                grid-template-columns: 1fr;
+            .view-toggle {
+                flex-direction: column;
             }
 
-            .header-controls {
-                flex-direction: column;
-                gap: 10px;
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .footer-links {
                 flex-direction: column;
             }
         }
+
+        @media (max-width: 480px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-container">
@@ -786,21 +843,26 @@
         <!-- Header -->
         <header>
             <a href="index.html" class="logo">
-                <img src="logo.png" alt="Linpane Legal Associates Logo">
+                <img src="logo.png" alt="Linpane Legal Associates">
                 <span>Linpane Legal Associates</span>
             </a>
-            <div class="header-controls">
-                <button class="calendar-toggle" id="calendarToggle">
-                    <i class="fas fa-calendar-alt"></i> Calendar View
-                </button>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </header>
 
-        <!-- Dashboard Content -->
-        <div class="dashboard-content">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Admin <span>Dashboard</span></h1>
+                <div style="display: flex; gap: 15px;">
+                    <button class="view-btn" id="refreshBtn" title="Refresh Data">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
             <!-- Stats Cards -->
             <div class="stats-cards">
                 <div class="stat-card">
@@ -819,111 +881,60 @@
                     <div class="stat-label">Confirmed Appointments</div>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-chart-line stat-icon"></i>
-                    <div class="stat-number" id="thisMonth">0</div>
-                    <div class="stat-label">This Month</div>
+                    <i class="fas fa-times-circle stat-icon"></i>
+                    <div class="stat-number" id="cancelledAppointments">0</div>
+                    <div class="stat-label">Cancelled Appointments</div>
                 </div>
             </div>
 
-            <!-- Filters -->
-            <div class="filters-section">
-                <h3 class="section-title" style="font-size: 1.5rem;">
-                    <i class="fas fa-filter"></i> Filter Appointments
-                </h3>
-                <div class="filters-grid">
-                    <div class="filter-group">
-                        <label for="statusFilter">Status</label>
-                        <select id="statusFilter">
-                            <option value="all">All Status</option>
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="lawyerFilter">Lawyer</label>
-                        <select id="lawyerFilter">
-                            <option value="all">All Lawyers</option>
-                            <option value="ADV. A.V. LINPANE">ADV. A.V. LINPANE</option>
-                            <option value="ADV. SANDYA LINPANE">ADV. SANDYA LINPANE</option>
-                            <option value="AKSHAY LINPANE">AKSHAY LINPANE</option>
-                            <option value="ADV. RAJESH KUMAR">ADV. RAJESH KUMAR</option>
-                            <option value="ADV. PRIYA SHARMA">ADV. PRIYA SHARMA</option>
-                            <option value="ADV. ROHIT VERMA">ADV. ROHIT VERMA</option>
-                            <option value="ADV. NEHA PATEL">ADV. NEHA PATEL</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="dateFilter">Date Range</label>
-                        <input type="text" id="dateFilter" placeholder="Select date range">
-                    </div>
-                    <div class="filter-group">
-                        <label>&nbsp;</label>
-                        <button class="calendar-toggle" onclick="resetFilters()">
-                            <i class="fas fa-redo"></i> Reset Filters
-                        </button>
-                    </div>
-                </div>
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="view-btn active" id="tableViewBtn">
+                    <i class="fas fa-table"></i> Table View
+                </button>
+                <button class="view-btn" id="calendarViewBtn">
+                    <i class="fas fa-calendar-alt"></i> Calendar View
+                </button>
             </div>
 
             <!-- Calendar View -->
-            <div class="calendar-section" id="calendarSection">
-                <h3 class="section-title" style="font-size: 1.5rem;">
-                    <i class="fas fa-calendar-alt"></i> Calendar View
-                </h3>
+            <div class="calendar-view" id="calendarView">
+                <div class="calendar-header">
+                    <h3 id="currentMonth">January 2025</h3>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="calendar-nav-btn" id="todayBtn">
+                            Today
+                        </button>
+                        <button class="calendar-nav-btn" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="calendar-grid" id="calendarGrid">
-                    <!-- Calendar appointments will be loaded here -->
+                    <!-- Calendar will be generated here -->
                 </div>
             </div>
 
-            <!-- Appointments Table -->
-            <div class="appointments-section">
-                <h3 class="section-title">
+            <!-- Table View -->
+            <div class="table-view" id="tableView">
+                <h2 class="section-title">
                     <i class="fas fa-list-alt"></i> Appointment Records
-                </h3>
+                </h2>
+                
                 <div class="appointments-table">
                     <div class="table-header">
                         <div>Client Details</div>
                         <div>Contact</div>
                         <div>Date & Time</div>
-                        <div>Lawyer</div>
                         <div>Case Type</div>
                         <div>Status</div>
                         <div>Actions</div>
                     </div>
                     <div id="appointmentsList">
                         <!-- Appointments will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Notes Section -->
-            <div class="notes-section">
-                <h3 class="section-title">
-                    <i class="fas fa-sticky-note"></i> Quick Notes
-                </h3>
-                <div class="notes-container">
-                    <div class="note-card">
-                        <h4><i class="fas fa-exclamation-circle"></i> Important</h4>
-                        <p id="importantNote">No important notes yet. Click to edit.</p>
-                        <button class="action-btn" onclick="editNote('important')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                    </div>
-                    <div class="note-card">
-                        <h4><i class="fas fa-calendar-day"></i> Today's Schedule</h4>
-                        <p id="scheduleNote">No schedule notes yet. Click to edit.</p>
-                        <button class="action-btn" onclick="editNote('schedule')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                    </div>
-                    <div class="note-card">
-                        <h4><i class="fas fa-tasks"></i> Pending Tasks</h4>
-                        <p id="tasksNote">No pending tasks. Click to edit.</p>
-                        <button class="action-btn" onclick="editNote('tasks')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
                     </div>
                 </div>
             </div>
@@ -950,672 +961,505 @@
                         <h4>Legal</h4>
                         <ul>
                             <li><a href="privacy.html">Privacy Policy</a></li>
-                            <li><a href="terms.html">Terms & Conditions</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
                             <li><a href="disclaimer.html">Disclaimer</a></li>
-                            <li><a href="cookies.html">Cookie Policy</a></li>
                         </ul>
                     </div>
                     <div class="link-group">
-                        <h4>Admin</h4>
+                        <h4>Contact Info</h4>
                         <ul>
-                            <li><a href="#" onclick="exportData()">Export Data</a></li>
-                            <li><a href="#" onclick="clearOldData()">Clear Old Records</a></li>
-                            <li><a href="#" onclick="backupData()">Backup Database</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i> 123 Justice Street, Legal District</li>
+                            <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                            <li><i class="fas fa-envelope"></i> info@linpanelegal.com</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Linpane Legal Associates. All rights reserved. | Admin Panel v2.0</p>
+                <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
             </div>
         </footer>
     </div>
 
     <script>
-        // ========== YOUR FIREBASE CONFIGURATION ==========
-        const firebaseConfig = {
-            apiKey: "AIzaSyAPoUe6ecgOVNysjAEvnuIqgGx-_e2-lvQ",
-            authDomain: "test-new-26af9.firebaseapp.com",
-            databaseURL: "https://test-new-26af9-default-rtdb.firebaseio.com",
-            projectId: "test-new-26af9",
-            storageBucket: "test-new-26af9.firebasestorage.app",
-            messagingSenderId: "144344073587",
-            appId: "1:144344073587:web:c135ff15a909d51adb3106",
-            measurementId: "G-QJRPVTQ1H2"
-        };
-
-        // Initialize Firebase
-        try {
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-                console.log("✅ Firebase v12.8.0 initialized successfully!");
-            }
-        } catch (error) {
-            console.error("❌ Firebase initialization error:", error);
-        }
-        
-        const database = firebase.database();
-
-        // DOM Elements
-        const loginScreen = document.getElementById('loginScreen');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
-        const loginError = document.getElementById('loginError');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const appointmentsList = document.getElementById('appointmentsList');
-        const calendarToggle = document.getElementById('calendarToggle');
-        const calendarSection = document.getElementById('calendarSection');
-        const calendarGrid = document.getElementById('calendarGrid');
-
-        // ========== LOGIN LOGIC ==========
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Wait for DOM and Firebase to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const loginScreen = document.getElementById('loginScreen');
+            const dashboard = document.getElementById('dashboard');
+            const loginForm = document.getElementById('loginForm');
+            const loginError = document.getElementById('loginError');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
             
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
+            // View Toggle Elements
+            const tableViewBtn = document.getElementById('tableViewBtn');
+            const calendarViewBtn = document.getElementById('calendarViewBtn');
+            const tableView = document.getElementById('tableView');
+            const calendarView = document.getElementById('calendarView');
+            const refreshBtn = document.getElementById('refreshBtn');
             
-            // Credentials
-            const validUsername = "Ashu999";
-            const validPassword = "pass123";
+            // Calendar Elements
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentMonth = document.getElementById('currentMonth');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const todayBtn = document.getElementById('todayBtn');
             
-            if (username === validUsername && password === validPassword) {
-                // Successful login
-                loginError.classList.remove('show');
+            // Current month for calendar
+            let currentDate = new Date();
+            let appointmentsData = {};
+
+            // ========== LOGIN LOGIC ==========
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                // Hide login screen with animation
-                loginScreen.style.opacity = '0';
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                
+                // Show loading
+                loadingSpinner.classList.add('active');
+                
                 setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    dashboard.style.display = 'block';
-                    setTimeout(() => {
-                        dashboard.style.opacity = '1';
-                        loadDashboardData();
-                        initializeCalendar();
-                        loadNotes();
-                    }, 100);
+                    // Credentials
+                    const validUsername = "Ashu999";
+                    const validPassword = "pass123";
+                    
+                    if (username === validUsername && password === validPassword) {
+                        // Successful login
+                        loginError.style.display = 'none';
+                        
+                        // Hide login screen
+                        loginScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loginScreen.style.display = 'none';
+                            dashboard.style.display = 'block';
+                            setTimeout(() => {
+                                dashboard.style.opacity = '1';
+                            }, 10);
+                            
+                            // Load appointments
+                            loadAppointments();
+                            
+                            // Save login state
+                            sessionStorage.setItem('adminLoggedIn', 'true');
+                            sessionStorage.setItem('adminUsername', username);
+                        }, 500);
+                        
+                    } else {
+                        // Failed login
+                        loginError.style.display = 'block';
+                        document.getElementById('password').value = '';
+                    }
+                    
+                    loadingSpinner.classList.remove('active');
+                }, 1000);
+            });
+
+            // Check if already logged in
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                loginScreen.style.display = 'none';
+                dashboard.style.display = 'block';
+                setTimeout(() => {
+                    dashboard.style.opacity = '1';
+                    loadAppointments();
+                }, 10);
+            }
+
+            // ========== LOGOUT ==========
+            logoutBtn.addEventListener('click', function() {
+                loadingSpinner.classList.add('active');
+                
+                setTimeout(() => {
+                    sessionStorage.removeItem('adminLoggedIn');
+                    sessionStorage.removeItem('adminUsername');
+                    location.reload();
                 }, 500);
-                
-                // Save login state
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('username', username);
-                
-            } else {
-                // Failed login
-                loginError.classList.add('show');
-                document.getElementById('password').value = '';
-            }
-        });
-
-        // Check if already logged in
-        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-            loginScreen.style.display = 'none';
-            dashboard.style.display = 'block';
-            setTimeout(() => {
-                dashboard.style.opacity = '1';
-                loadDashboardData();
-                initializeCalendar();
-                loadNotes();
-            }, 100);
-        }
-
-        // ========== LOGOUT ==========
-        logoutBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to logout?')) {
-                sessionStorage.removeItem('adminLoggedIn');
-                sessionStorage.removeItem('username');
-                window.location.href = 'admin.html';
-            }
-        });
-
-        // ========== CALENDAR TOGGLE ==========
-        let calendarVisible = false;
-        calendarToggle.addEventListener('click', function() {
-            calendarVisible = !calendarVisible;
-            calendarSection.classList.toggle('active');
-            
-            if (calendarVisible) {
-                this.innerHTML = '<i class="fas fa-table"></i> Table View';
-                updateCalendarView();
-            } else {
-                this.innerHTML = '<i class="fas fa-calendar-alt"></i> Calendar View';
-            }
-        });
-
-        // Initialize date picker
-        function initializeCalendar() {
-            flatpickr("#dateFilter", {
-                mode: "range",
-                dateFormat: "Y-m-d",
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length === 2) {
-                        filterByDateRange(selectedDates[0], selectedDates[1]);
-                    }
-                }
             });
-        }
 
-        // ========== LOAD DASHBOARD DATA ==========
-        function loadDashboardData() {
-            const appointmentsRef = database.ref('appointments');
-            
-            appointmentsRef.on('value', (snapshot) => {
-                const appointments = snapshot.val();
-                
-                if (appointments && Object.keys(appointments).length > 0) {
-                    displayAppointments(appointments);
-                    updateStats(appointments);
-                    updateCalendarView(appointments);
-                } else {
-                    showNoAppointments();
-                }
+            // ========== VIEW TOGGLE ==========
+            tableViewBtn.addEventListener('click', function() {
+                tableViewBtn.classList.add('active');
+                calendarViewBtn.classList.remove('active');
+                tableView.style.display = 'block';
+                calendarView.style.display = 'none';
             });
-        }
 
-        function displayAppointments(appointments) {
-            appointmentsList.innerHTML = '';
-            
-            // Convert to array and sort by timestamp (newest first)
-            const appointmentsArray = Object.entries(appointments)
-                .map(([id, data]) => ({ id, ...data }))
-                .sort((a, b) => b.timestamp - a.timestamp);
-            
-            // Get filters
-            const statusFilter = document.getElementById('statusFilter').value;
-            const lawyerFilter = document.getElementById('lawyerFilter').value;
-            
-            // Filter appointments
-            const filteredAppointments = appointmentsArray.filter(appointment => {
-                if (statusFilter !== 'all' && appointment.status !== statusFilter) return false;
-                if (lawyerFilter !== 'all' && appointment.selectedLawyer !== lawyerFilter) return false;
-                return true;
+            calendarViewBtn.addEventListener('click', function() {
+                calendarViewBtn.classList.add('active');
+                tableViewBtn.classList.remove('active');
+                calendarView.style.display = 'block';
+                tableView.style.display = 'none';
+                generateCalendar();
             });
-            
-            if (filteredAppointments.length === 0) {
-                appointmentsList.innerHTML = `
-                    <div class="no-data">
-                        <i class="fas fa-search"></i>
-                        <p>No appointments match your filters</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            filteredAppointments.forEach((appointment, index) => {
+
+            // ========== REFRESH DATA ==========
+            refreshBtn.addEventListener('click', function() {
+                refreshBtn.querySelector('i').classList.add('fa-spin');
+                loadAppointments();
                 setTimeout(() => {
-                    const row = createAppointmentRow(appointment, index);
-                    appointmentsList.appendChild(row);
-                }, index * 100);
+                    refreshBtn.querySelector('i').classList.remove('fa-spin');
+                    showToast('Data refreshed successfully!');
+                }, 1000);
             });
-        }
 
-        function createAppointmentRow(appointment, index) {
-            const row = document.createElement('div');
-            row.className = 'table-row';
-            row.style.animationDelay = `${index * 0.1}s`;
-            
-            // Format date
-            let formattedDate = 'N/A';
-            try {
-                const date = new Date(appointment.appointmentDate);
-                if (!isNaN(date.getTime())) {
-                    formattedDate = date.toLocaleDateString('en-US', {
-                        weekday: 'short',
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-                }
-            } catch (e) {
-                formattedDate = appointment.appointmentDate || 'N/A';
-            }
-            
-            // Status badge
-            const status = appointment.status || 'pending';
-            const statusClass = `status-${status}`;
-            const statusText = status.charAt(0).toUpperCase() + status.slice(1);
-            
-            // Create row HTML
-            row.innerHTML = `
-                <div>
-                    <strong>${appointment.name || 'N/A'}</strong><br>
-                    <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.address || 'No address'}</small>
-                </div>
-                <div>
-                    ${appointment.contact || 'N/A'}<br>
-                    <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.email || 'No email'}</small>
-                </div>
-                <div>
-                    ${formattedDate}<br>
-                    <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.time || 'No time'}</small>
-                </div>
-                <div>
-                    ${appointment.selectedLawyer || 'Any lawyer'}<br>
-                    <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.urgency || 'Normal'}</small>
-                </div>
-                <div>
-                    ${appointment.caseType || 'N/A'}<br>
-                    <small style="color: #b0b0b0; font-size: 0.9em;">${(appointment.description || '').substring(0, 30)}${appointment.description?.length > 30 ? '...' : ''}</small>
-                </div>
-                <div>
-                    <span class="status-badge ${statusClass}">${statusText}</span>
-                </div>
-                <div class="action-buttons">
-                    <button class="action-btn" onclick="updateStatus('${appointment.id}', 'confirmed')" title="Confirm">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button class="action-btn" onclick="updateStatus('${appointment.id}', 'cancelled')" title="Cancel">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <button class="action-btn" onclick="updateStatus('${appointment.id}', 'completed')" title="Complete">
-                        <i class="fas fa-check-double"></i>
-                    </button>
-                    <button class="action-btn delete" onclick="deleteAppointment('${appointment.id}')" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            `;
-            
-            return row;
-        }
-
-        function updateCalendarView(appointments) {
-            if (!calendarVisible) return;
-            
-            calendarGrid.innerHTML = '';
-            
-            if (!appointments) return;
-            
-            // Group appointments by date
-            const appointmentsByDate = {};
-            
-            Object.values(appointments).forEach(appointment => {
-                if (appointment.appointmentDate) {
-                    if (!appointmentsByDate[appointment.appointmentDate]) {
-                        appointmentsByDate[appointment.appointmentDate] = [];
-                    }
-                    appointmentsByDate[appointment.appointmentDate].push(appointment);
-                }
-            });
-            
-            // Sort dates
-            const sortedDates = Object.keys(appointmentsByDate).sort();
-            
-            // Show next 7 days with appointments
-            const today = new Date();
-            const nextWeek = new Date(today);
-            nextWeek.setDate(today.getDate() + 7);
-            
-            let displayedDays = 0;
-            
-            sortedDates.forEach(date => {
-                const appointmentDate = new Date(date);
-                if (appointmentDate >= today && appointmentDate <= nextWeek && displayedDays < 5) {
-                    const dayCard = document.createElement('div');
-                    dayCard.className = 'calendar-day';
-                    
-                    const dayName = appointmentDate.toLocaleDateString('en-US', { weekday: 'long' });
-                    const dateStr = appointmentDate.toLocaleDateString('en-US', { 
-                        month: 'short', 
-                        day: 'numeric', 
-                        year: 'numeric' 
-                    });
-                    
-                    let appointmentsHTML = '';
-                    appointmentsByDate[date].forEach(appointment => {
-                        const statusClass = `status-${appointment.status || 'pending'}`;
-                        appointmentsHTML += `
-                            <div class="calendar-appointment">
-                                <strong>${appointment.name}</strong><br>
-                                <small>${appointment.time} | ${appointment.selectedLawyer}</small><br>
-                                <span class="status-badge ${statusClass}" style="font-size: 0.8em; margin-top: 5px; display: inline-block;">
-                                    ${(appointment.status || 'pending').toUpperCase()}
-                                </span>
-                            </div>
-                        `;
-                    });
-                    
-                    dayCard.innerHTML = `
-                        <h4>${dayName} - ${dateStr}</h4>
-                        ${appointmentsHTML}
-                    `;
-                    
-                    calendarGrid.appendChild(dayCard);
-                    displayedDays++;
-                }
-            });
-            
-            if (displayedDays === 0) {
-                calendarGrid.innerHTML = `
-                    <div class="no-data" style="grid-column: 1 / -1;">
-                        <i class="fas fa-calendar-times"></i>
-                        <p>No upcoming appointments in the next 7 days</p>
-                    </div>
-                `;
-            }
-        }
-
-        function showNoAppointments() {
-            appointmentsList.innerHTML = `
-                <div class="no-data">
-                    <i class="fas fa-calendar-times"></i>
-                    <p>No appointments found yet.</p>
-                    <p>Appointments will appear here when clients book through the website.</p>
-                </div>
-            `;
-            
-            // Reset stats
-            document.getElementById('totalAppointments').textContent = '0';
-            document.getElementById('pendingAppointments').textContent = '0';
-            document.getElementById('confirmedAppointments').textContent = '0';
-            document.getElementById('thisMonth').textContent = '0';
-        }
-
-        function updateStats(appointments) {
-            let total = 0, pending = 0, confirmed = 0, thisMonth = 0;
-            
-            const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-            
-            Object.values(appointments).forEach(appointment => {
-                total++;
-                
-                if (appointment.status === 'confirmed') confirmed++;
-                else if (appointment.status === 'pending') pending++;
-                
-                // Count appointments from this month
-                try {
-                    const appointmentDate = new Date(appointment.appointmentDate);
-                    if (appointmentDate.getMonth() === currentMonth && 
-                        appointmentDate.getFullYear() === currentYear) {
-                        thisMonth++;
-                    }
-                } catch (e) {
-                    // Ignore date parsing errors
-                }
-            });
-            
-            document.getElementById('totalAppointments').textContent = total;
-            document.getElementById('pendingAppointments').textContent = pending;
-            document.getElementById('confirmedAppointments').textContent = confirmed;
-            document.getElementById('thisMonth').textContent = thisMonth;
-        }
-
-        // ========== FILTER FUNCTIONS ==========
-        document.getElementById('statusFilter').addEventListener('change', loadDashboardData);
-        document.getElementById('lawyerFilter').addEventListener('change', loadDashboardData);
-
-        function filterByDateRange(startDate, endDate) {
-            const appointmentsRef = database.ref('appointments');
-            
-            appointmentsRef.once('value').then(snapshot => {
-                const appointments = snapshot.val();
-                
-                if (!appointments) {
-                    showNoAppointments();
+            // ========== LOAD APPOINTMENTS ==========
+            function loadAppointments() {
+                if (!window.firebaseDatabase) {
+                    showToast('Firebase not initialized. Please check configuration.', 'error');
                     return;
                 }
                 
-                const filteredAppointments = Object.entries(appointments)
-                    .map(([id, data]) => ({ id, ...data }))
-                    .filter(appointment => {
-                        try {
-                            const appointmentDate = new Date(appointment.appointmentDate);
-                            return appointmentDate >= startDate && appointmentDate <= endDate;
-                        } catch (e) {
-                            return false;
-                        }
-                    })
-                    .sort((a, b) => b.timestamp - a.timestamp);
+                const appointmentsRef = window.firebaseRef(window.firebaseDatabase, 'appointments');
                 
-                if (filteredAppointments.length === 0) {
+                window.firebaseOnValue(appointmentsRef, (snapshot) => {
+                    const appointments = snapshot.val();
+                    appointmentsData = appointments || {};
+                    
+                    if (appointments && Object.keys(appointments).length > 0) {
+                        displayAppointments(appointments);
+                        updateStats(appointments);
+                        if (calendarView.style.display === 'block') {
+                            generateCalendar();
+                        }
+                    } else {
+                        showNoAppointments();
+                    }
+                }, (error) => {
+                    console.error("Error loading appointments:", error);
+                    showToast('Error loading appointments. Please check Firebase connection.', 'error');
+                    
+                    const appointmentsList = document.getElementById('appointmentsList');
                     appointmentsList.innerHTML = `
                         <div class="no-data">
-                            <i class="fas fa-search"></i>
-                            <p>No appointments found in selected date range</p>
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Error loading appointments. Please check Firebase configuration.</p>
+                            <p style="margin-top: 10px; font-size: 0.9rem;">Error: ${error.message}</p>
                         </div>
                     `;
-                    return;
-                }
-                
-                displayFilteredAppointments(filteredAppointments);
-            });
-        }
+                });
+            }
 
-        function displayFilteredAppointments(appointments) {
-            appointmentsList.innerHTML = '';
-            
-            appointments.forEach((appointment, index) => {
-                setTimeout(() => {
-                    const row = createAppointmentRow(appointment, index);
+            function displayAppointments(appointments) {
+                const appointmentsList = document.getElementById('appointmentsList');
+                appointmentsList.innerHTML = '';
+                
+                // Convert to array and sort by timestamp (newest first)
+                const appointmentsArray = Object.entries(appointments)
+                    .map(([id, data]) => ({ id, ...data }))
+                    .sort((a, b) => b.timestamp - a.timestamp);
+                
+                appointmentsArray.forEach((appointment, index) => {
+                    const row = document.createElement('div');
+                    row.className = 'table-row';
+                    row.style.animationDelay = `${index * 0.05}s`;
+                    
+                    // Format date
+                    let formattedDate = 'Invalid Date';
+                    try {
+                        const date = new Date(appointment.appointmentDate);
+                        if (!isNaN(date.getTime())) {
+                            formattedDate = date.toLocaleDateString('en-US', {
+                                weekday: 'short',
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            });
+                        }
+                    } catch (e) {
+                        formattedDate = appointment.appointmentDate || 'N/A';
+                    }
+                    
+                    // Get status badge
+                    const status = appointment.status || 'pending';
+                    const statusClass = `status-${status}`;
+                    const statusText = status.charAt(0).toUpperCase() + status.slice(1);
+                    
+                    // Create row HTML
+                    row.innerHTML = `
+                        <div>
+                            <strong>${appointment.name || 'N/A'}</strong><br>
+                            <small style="color: #b0b0b0; font-size: 0.9em;">
+                                ${appointment.selectedLawyer || 'Any lawyer'}
+                            </small>
+                        </div>
+                        <div>
+                            ${appointment.contact || 'N/A'}<br>
+                            <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.email || 'No email'}</small>
+                        </div>
+                        <div>
+                            ${formattedDate}<br>
+                            <small style="color: #b0b0b0; font-size: 0.9em;">${appointment.time || 'No time'}</small>
+                        </div>
+                        <div>
+                            ${appointment.caseType || 'N/A'}<br>
+                            <small style="color: #b0b0b0; font-size: 0.9em;">
+                                ${(appointment.description || '').substring(0, 30)}
+                                ${appointment.description?.length > 30 ? '...' : ''}
+                            </small>
+                        </div>
+                        <div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="action-btn confirm-btn" data-id="${appointment.id}" title="Confirm Appointment">
+                                <i class="fas fa-check"></i>
+                            </button>
+                            <button class="action-btn cancel-btn" data-id="${appointment.id}" title="Cancel Appointment">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${appointment.id}" title="Delete Appointment">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
                     appointmentsList.appendChild(row);
-                }, index * 100);
-            });
-        }
-
-        function resetFilters() {
-            document.getElementById('statusFilter').value = 'all';
-            document.getElementById('lawyerFilter').value = 'all';
-            document.getElementById('dateFilter').value = '';
-            loadDashboardData();
-            showToast('Filters reset successfully');
-        }
-
-        // ========== APPOINTMENT ACTIONS ==========
-        function updateStatus(appointmentId, status) {
-            const statusText = status.charAt(0).toUpperCase() + status.slice(1);
-            
-            if (confirm(`Change status to ${statusText}?`)) {
-                database.ref(`appointments/${appointmentId}/status`).set(status)
-                    .then(() => {
-                        showToast(`Appointment status updated to ${statusText}`);
-                    })
-                    .catch(error => {
-                        showToast('Error updating status!', 'error');
-                        console.error('Error:', error);
-                    });
+                    
+                    // Add event listeners
+                    row.querySelector('.confirm-btn').addEventListener('click', () => 
+                        updateStatus(appointment.id, 'confirmed'));
+                    row.querySelector('.cancel-btn').addEventListener('click', () => 
+                        updateStatus(appointment.id, 'cancelled'));
+                    row.querySelector('.delete-btn').addEventListener('click', () => 
+                        deleteAppointment(appointment.id));
+                });
             }
-        }
 
-        function deleteAppointment(appointmentId) {
-            if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
-                database.ref(`appointments/${appointmentId}`).remove()
-                    .then(() => {
-                        showToast('Appointment deleted successfully');
-                    })
-                    .catch(error => {
-                        showToast('Error deleting appointment!', 'error');
-                        console.error('Error:', error);
-                    });
-            }
-        }
-
-        // ========== NOTES FUNCTIONS ==========
-        function loadNotes() {
-            const notesRef = database.ref('adminNotes');
-            
-            notesRef.once('value').then(snapshot => {
-                const notes = snapshot.val();
+            function showNoAppointments() {
+                const appointmentsList = document.getElementById('appointmentsList');
+                appointmentsList.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No appointments found yet.</p>
+                        <p>Appointments will appear here when clients book through the website.</p>
+                    </div>
+                `;
                 
-                if (notes) {
-                    document.getElementById('importantNote').textContent = notes.important || 'No important notes yet. Click to edit.';
-                    document.getElementById('scheduleNote').textContent = notes.schedule || 'No schedule notes yet. Click to edit.';
-                    document.getElementById('tasksNote').textContent = notes.tasks || 'No pending tasks. Click to edit.';
+                // Reset all stats to 0
+                document.getElementById('totalAppointments').textContent = '0';
+                document.getElementById('pendingAppointments').textContent = '0';
+                document.getElementById('confirmedAppointments').textContent = '0';
+                document.getElementById('cancelledAppointments').textContent = '0';
+                
+                // Clear calendar
+                if (calendarGrid) {
+                    calendarGrid.innerHTML = '';
                 }
-            });
-        }
-
-        function editNote(noteType) {
-            const currentText = document.getElementById(`${noteType}Note`).textContent;
-            const newText = prompt(`Edit ${noteType.replace('Note', '')} note:`, currentText);
-            
-            if (newText !== null && newText !== currentText) {
-                database.ref(`adminNotes/${noteType}`).set(newText)
-                    .then(() => {
-                        document.getElementById(`${noteType}Note`).textContent = newText;
-                        showToast('Note updated successfully');
-                    })
-                    .catch(error => {
-                        showToast('Error updating note!', 'error');
-                    });
             }
-        }
 
-        // ========== ADMIN FUNCTIONS ==========
-        function exportData() {
-            const appointmentsRef = database.ref('appointments');
-            
-            appointmentsRef.once('value').then(snapshot => {
-                const appointments = snapshot.val();
-                
-                if (!appointments) {
-                    showToast('No data to export', 'warning');
-                    return;
-                }
-                
-                // Convert to CSV
-                let csv = 'Name,Email,Contact,Address,Lawyer,Case Type,Date,Time,Status,Description\n';
+            function updateStats(appointments) {
+                let total = 0, pending = 0, confirmed = 0, cancelled = 0;
                 
                 Object.values(appointments).forEach(appointment => {
-                    const row = [
-                        `"${appointment.name || ''}"`,
-                        `"${appointment.email || ''}"`,
-                        `"${appointment.contact || ''}"`,
-                        `"${appointment.address || ''}"`,
-                        `"${appointment.selectedLawyer || ''}"`,
-                        `"${appointment.caseType || ''}"`,
-                        `"${appointment.appointmentDate || ''}"`,
-                        `"${appointment.time || ''}"`,
-                        `"${appointment.status || ''}"`,
-                        `"${(appointment.description || '').replace(/"/g, '""')}"`
-                    ];
-                    csv += row.join(',') + '\n';
-                });
-                
-                // Download CSV
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `appointments_${new Date().toISOString().split('T')[0]}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                showToast('Data exported successfully');
-            });
-        }
-
-        function clearOldData() {
-            if (confirm('This will delete appointments older than 30 days. Continue?')) {
-                const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-                const appointmentsRef = database.ref('appointments');
-                
-                appointmentsRef.once('value').then(snapshot => {
-                    const appointments = snapshot.val();
-                    let deletedCount = 0;
-                    
-                    const updates = {};
-                    
-                    if (appointments) {
-                        Object.entries(appointments).forEach(([id, appointment]) => {
-                            if (appointment.timestamp && appointment.timestamp < thirtyDaysAgo) {
-                                updates[`appointments/${id}`] = null;
-                                deletedCount++;
-                            }
-                        });
-                        
-                        if (deletedCount > 0) {
-                            database.ref().update(updates)
-                                .then(() => {
-                                    showToast(`Deleted ${deletedCount} old records`);
-                                })
-                                .catch(error => {
-                                    showToast('Error deleting old records!', 'error');
-                                });
-                        } else {
-                            showToast('No old records found', 'warning');
-                        }
+                    total++;
+                    switch (appointment.status) {
+                        case 'confirmed': confirmed++; break;
+                        case 'cancelled': cancelled++; break;
+                        default: pending++;
                     }
                 });
-            }
-        }
-
-        function backupData() {
-            const appointmentsRef = database.ref('appointments');
-            
-            appointmentsRef.once('value').then(snapshot => {
-                const data = snapshot.val();
                 
-                if (!data) {
-                    showToast('No data to backup', 'warning');
-                    return;
+                document.getElementById('totalAppointments').textContent = total;
+                document.getElementById('pendingAppointments').textContent = pending;
+                document.getElementById('confirmedAppointments').textContent = confirmed;
+                document.getElementById('cancelledAppointments').textContent = cancelled;
+            }
+
+            // ========== CALENDAR FUNCTIONS ==========
+            function generateCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                
+                // Update month display
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+                currentMonth.textContent = `${monthNames[month]} ${year}`;
+                
+                // Get first day of month and total days
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const totalDays = lastDay.getDate();
+                const startingDay = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
+                
+                // Clear calendar
+                calendarGrid.innerHTML = '';
+                
+                // Add day labels
+                const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayLabels.forEach(day => {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.textContent = day;
+                    calendarGrid.appendChild(dayElement);
+                });
+                
+                // Add empty cells for days before first day of month
+                for (let i = 0; i < startingDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'calendar-date';
+                    calendarGrid.appendChild(emptyCell);
                 }
                 
-                const backup = {
-                    timestamp: Date.now(),
-                    date: new Date().toISOString(),
-                    data: data
-                };
+                // Add days of month
+                const today = new Date();
+                const isCurrentMonth = today.getMonth() === month && today.getFullYear() === year;
                 
-                database.ref('backups').push().set(backup)
-                    .then(() => {
-                        showToast('Backup created successfully');
-                    })
-                    .catch(error => {
-                        showToast('Error creating backup!', 'error');
+                for (let day = 1; day <= totalDays; day++) {
+                    const dateElement = document.createElement('div');
+                    dateElement.className = 'calendar-date';
+                    
+                    // Check if this is today
+                    if (isCurrentMonth && day === today.getDate()) {
+                        dateElement.classList.add('today');
+                    }
+                    
+                    // Add date number
+                    const dateNumber = document.createElement('div');
+                    dateNumber.className = 'date-number';
+                    dateNumber.textContent = day;
+                    dateElement.appendChild(dateNumber);
+                    
+                    // Count appointments for this date
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    let appointmentCount = 0;
+                    
+                    Object.values(appointmentsData).forEach(appointment => {
+                        if (appointment.appointmentDate === dateStr) {
+                            appointmentCount++;
+                        }
                     });
-            });
-        }
-
-        // ========== TOAST NOTIFICATION ==========
-        function showToast(message, type = 'success') {
-            // Remove existing toast
-            const existingToast = document.querySelector('.toast');
-            if (existingToast) {
-                existingToast.style.animation = 'slideOutDown 0.3s ease forwards';
-                setTimeout(() => {
-                    if (existingToast.parentNode) {
-                        existingToast.parentNode.removeChild(existingToast);
+                    
+                    if (appointmentCount > 0) {
+                        const countElement = document.createElement('div');
+                        countElement.className = 'appointment-count';
+                        countElement.textContent = appointmentCount;
+                        dateElement.appendChild(countElement);
+                        
+                        // Add click event to show appointments for this date
+                        dateElement.style.cursor = 'pointer';
+                        dateElement.addEventListener('click', () => {
+                            showAppointmentsForDate(dateStr);
+                        });
                     }
-                }, 300);
+                    
+                    calendarGrid.appendChild(dateElement);
+                }
             }
-            
-            // Create new toast
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'exclamation-triangle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            // Auto remove after 4 seconds
-            setTimeout(() => {
-                toast.style.animation = 'slideOutDown 0.3s ease forwards';
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.parentNode.removeChild(toast);
-                    }
-                }, 300);
-            }, 4000);
-        }
 
-        // Test Firebase connection
-        window.addEventListener('load', function() {
-            const testRef = database.ref('adminConnectionTest');
-            testRef.set({
-                test: true,
-                timestamp: Date.now(),
-                message: 'Admin panel connected'
-            }).then(() => {
-                console.log('✅ Admin Firebase connection: SUCCESS');
-                testRef.remove();
-            }).catch(error => {
-                console.error('❌ Admin Firebase connection: FAILED', error);
+            function showAppointmentsForDate(dateStr) {
+                const appointmentsForDate = Object.entries(appointmentsData)
+                    .filter(([id, data]) => data.appointmentDate === dateStr)
+                    .map(([id, data]) => ({ id, ...data }));
+                
+                if (appointmentsForDate.length > 0) {
+                    let message = `Appointments for ${dateStr}:\n\n`;
+                    appointmentsForDate.forEach((appointment, index) => {
+                        message += `${index + 1}. ${appointment.name} - ${appointment.time} (${appointment.status})\n`;
+                    });
+                    
+                    alert(message);
+                } else {
+                    showToast(`No appointments for ${dateStr}`, 'warning');
+                }
+            }
+
+            // Calendar Navigation
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                generateCalendar();
             });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                generateCalendar();
+            });
+
+            todayBtn.addEventListener('click', () => {
+                currentDate = new Date();
+                generateCalendar();
+            });
+
+            // ========== APPOINTMENT ACTIONS ==========
+            function updateStatus(appointmentId, status) {
+                const statusText = status === 'confirmed' ? 'confirm' : 'cancel';
+                if (confirm(`Are you sure you want to ${statusText} this appointment?`)) {
+                    loadingSpinner.classList.add('active');
+                    
+                    const appointmentRef = window.firebaseRef(window.firebaseDatabase, `appointments/${appointmentId}/status`);
+                    window.firebaseSet(appointmentRef, status)
+                        .then(() => {
+                            showToast(`Appointment ${statusText}ed successfully!`);
+                        })
+                        .catch(error => {
+                            showToast(`Error ${statusText}ing appointment!`, 'error');
+                            console.error('Error:', error);
+                        })
+                        .finally(() => {
+                            loadingSpinner.classList.remove('active');
+                        });
+                }
+            }
+
+            function deleteAppointment(appointmentId) {
+                if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
+                    loadingSpinner.classList.add('active');
+                    
+                    const appointmentRef = window.firebaseRef(window.firebaseDatabase, `appointments/${appointmentId}`);
+                    window.firebaseRemove(appointmentRef)
+                        .then(() => {
+                            showToast('Appointment deleted successfully!');
+                        })
+                        .catch(error => {
+                            showToast('Error deleting appointment!', 'error');
+                            console.error('Error:', error);
+                        })
+                        .finally(() => {
+                            loadingSpinner.classList.remove('active');
+                        });
+                }
+            }
+
+            // ========== TOAST NOTIFICATION ==========
+            function showToast(message, type = 'success') {
+                // Remove existing toast
+                const existingToast = document.querySelector('.toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+                
+                // Create new toast
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'exclamation-triangle'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Auto remove after 3 seconds
+                setTimeout(() => {
+                    toast.style.animation = 'slideOutDown 0.3s ease';
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+
+            // Initialize calendar
+            generateCalendar();
+            
+            // Test Firebase connection
+            setTimeout(() => {
+                if (window.firebaseDatabase) {
+                    console.log('Admin Firebase is ready!');
+                } else {
+                    showToast('Firebase not initialized. Please check configuration.', 'error');
+                }
+            }, 1000);
         });
     </script>
 </body>
