@@ -8,32 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase 12.8.0 SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAPoUe6ecgOVNysjAEvnuIqgGx-_e2-lvQ",
-            authDomain: "test-new-26af9.firebaseapp.com",
-            projectId: "test-new-26af9",
-            storageBucket: "test-new-26af9.firebasestorage.app",
-            messagingSenderId: "144344073587",
-            appId: "1:144344073587:web:c135ff15a909d51adb3106",
-            measurementId: "G-QJRPVTQ1H2"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        // Make Firestore available globally
-        window.firestoreDB = db;
-        window.firestoreCollection = collection;
-        window.firestoreAddDoc = addDoc;
-        console.log("Firebase Firestore initialized successfully!");
-    </script>
     <style>
         * {
             margin: 0;
@@ -46,9 +20,6 @@
             background-color: #121212;
             color: #e0e0e0;
             overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* Header */
@@ -137,7 +108,6 @@
         .main-content {
             margin-top: 100px;
             padding: 0 5%;
-            flex: 1;
         }
 
         .section-title {
@@ -176,11 +146,11 @@
             width: 90%;
             border: 2px solid #b39c7d;
             display: none;
-            animation: popupFadeIn 0.5s ease;
         }
 
         .warning-popup.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
 
         .warning-header {
@@ -201,12 +171,6 @@
             font-size: 1.8rem;
         }
 
-        .warning-content {
-            color: #b0b0b0;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
         .warning-close {
             background: linear-gradient(135deg, #b39c7d, #d4b78f);
             color: #121212;
@@ -218,13 +182,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             display: block;
-            margin: 0 auto;
-        }
-
-        .warning-close:hover {
-            background: linear-gradient(135deg, #d4b78f, #b39c7d);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.3);
+            margin: 20px auto 0;
         }
 
         .popup-overlay {
@@ -242,14 +200,102 @@
             display: block;
         }
 
-        @keyframes popupFadeIn {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translate(-50%, -60%); }
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
+        /* Lawyer Selection */
+        .lawyers-selection {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+        }
+
+        .lawyers-scroll {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 20px 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #b39c7d #2a2a2a;
+        }
+
+        .lawyers-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .lawyers-scroll::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+
+        .lawyers-scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            border-radius: 4px;
+        }
+
+        .lawyer-select {
+            flex: 0 0 250px;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
+
+        .lawyer-select:hover {
+            transform: translateY(-5px);
+            border-color: rgba(179, 156, 125, 0.4);
+            background: rgba(179, 156, 125, 0.05);
+        }
+
+        .lawyer-select.active {
+            border-color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.2);
+        }
+
+        .lawyer-select.active::after {
+            content: '✓ SELECTED';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #b39c7d;
+            color: #121212;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .lawyer-select i {
+            font-size: 2.5rem;
+            color: #b39c7d;
+            margin-bottom: 15px;
+        }
+
+        .lawyer-select h4 {
+            color: #b39c7d;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+
+        .lawyer-select p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
         /* Appointment Form */
         .appointment-form {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto 80px;
             background: #1e1e1e;
             padding: 40px;
@@ -301,18 +347,13 @@
             transition: all 0.3s ease;
         }
 
-        /* Fix for select dropdown */
+        /* Fix select dropdown */
         .form-group select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b39c7d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 20px;
-            padding-right: 45px;
+            background-color: #2a2a2a;
         }
 
         .form-group select option {
-            background: #1e1e1e;
+            background: #2a2a2a;
             color: #e0e0e0;
             padding: 10px;
         }
@@ -357,16 +398,6 @@
         .submit-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .submit-btn.glow {
-            animation: glow 2s infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(179, 156, 125, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(179, 156, 125, 0.8); }
         }
 
         /* Success Notification */
@@ -435,68 +466,11 @@
             }
         }
 
-        /* Lawyers Selection */
-        .lawyers-section {
-            background: #1e1e1e;
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-        }
-
-        .lawyers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .lawyer-select {
-            background: rgba(30, 30, 30, 0.8);
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .lawyer-select:hover {
-            transform: translateY(-5px);
-            border-color: rgba(179, 156, 125, 0.4);
-            background: rgba(179, 156, 125, 0.05);
-        }
-
-        .lawyer-select.active {
-            border-color: #b39c7d;
-            background: rgba(179, 156, 125, 0.1);
-            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.2);
-        }
-
-        .lawyer-select i {
-            font-size: 2.5rem;
-            color: #b39c7d;
-            margin-bottom: 15px;
-        }
-
-        .lawyer-select h4 {
-            color: #b39c7d;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .lawyer-select p {
-            color: #b0b0b0;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-
         /* Footer */
         footer {
             background: #0a0a0a;
             padding: 60px 5% 30px;
             border-top: 1px solid rgba(179, 156, 125, 0.3);
-            margin-top: auto;
         }
 
         .footer-content {
@@ -562,18 +536,6 @@
             font-size: 0.9rem;
         }
 
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             nav ul {
@@ -604,18 +566,14 @@
                 padding: 30px 20px;
             }
             
-            .lawyers-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .lawyer-select {
+                flex: 0 0 220px;
             }
             
             .notification {
                 left: 20px;
                 right: 20px;
                 max-width: calc(100% - 40px);
-            }
-            
-            .footer-links {
-                flex-direction: column;
             }
         }
 
@@ -624,13 +582,12 @@
                 font-size: 1.8rem;
             }
             
-            .lawyers-grid {
-                grid-template-columns: 1fr;
+            .lawyer-select {
+                flex: 0 0 200px;
             }
             
-            .submit-btn {
-                padding: 15px 30px;
-                font-size: 1.1rem;
+            .footer-links {
+                flex-direction: column;
             }
         }
     </style>
@@ -643,10 +600,9 @@
             <i class="fas fa-exclamation-triangle warning-icon"></i>
             <h2>Important Notice</h2>
         </div>
-        <div class="warning-content">
+        <div style="color: #b0b0b0; line-height: 1.6;">
             <p>Please remember you are consulting with legal professionals. Our time is valuable and dedicated to helping clients with genuine legal matters.</p>
-            <p>Please ensure you have all necessary documents and information ready before your appointment.</p>
-            <p>We reserve the right to charge consultation fees for no-shows or last-minute cancellations.</p>
+            <p>Please ensure you have all necessary documents ready before your appointment.</p>
         </div>
         <button class="warning-close" id="closeWarning">I Understand</button>
     </div>
@@ -665,7 +621,7 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Linpane Legal Associates Logo">
+            <img src="logo.png" alt="LLA Logo">
             <span>Linpane Legal Associates</span>
         </a>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -683,64 +639,71 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <h1 class="section-title fade-in">Schedule a Legal Consultation</h1>
+        <h1 class="section-title">Schedule a Legal Consultation</h1>
         
         <!-- Lawyers Selection -->
-        <div class="lawyers-section fade-in">
-            <h2 class="section-title" style="font-size: 2rem; text-align: left; margin-bottom: 20px;">Select Your Legal Expert</h2>
-            <div class="lawyers-grid">
-                <!-- 7 Lawyer Profiles -->
-                <div class="lawyer-select" data-lawyer="adv_av_linpane">
+        <div class="lawyers-selection">
+            <h2 class="section-title" style="font-size: 1.8rem; text-align: left; margin-bottom: 20px;">Select Your Legal Expert</h2>
+            <div class="lawyers-scroll">
+                <!-- Lawyer 1 -->
+                <div class="lawyer-select" data-lawyer="adv_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>ADV. A.V. LINPANE</h4>
                     <p>Criminal, Civil, Constitutional Law</p>
-                    <p>30+ Years Experience</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">30+ Years Experience</p>
                 </div>
-                <div class="lawyer-select" data-lawyer="adv_sandya_linpane">
+                <!-- Lawyer 2 -->
+                <div class="lawyer-select" data-lawyer="sandya_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>ADV. SANDYA LINPANE</h4>
                     <p>Family Law, Property Disputes</p>
-                    <p>25+ Years Experience</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">20+ Years Experience</p>
                 </div>
+                <!-- Lawyer 3 -->
                 <div class="lawyer-select" data-lawyer="akshay_linpane">
                     <i class="fas fa-user-tie"></i>
                     <h4>AKSHAY LINPANE</h4>
-                    <p>Corporate Law, Commercial Litigation</p>
-                    <p>15+ Years Experience</p>
+                    <p>Corporate Law, Contract Disputes</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">10+ Years Experience</p>
                 </div>
-                <div class="lawyer-select" data-lawyer="adv_rohit_sharma">
+                <!-- Lawyer 4 -->
+                <div class="lawyer-select" data-lawyer="rajesh_kumar">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. ROHIT SHARMA</h4>
-                    <p>Intellectual Property, Patent Law</p>
-                    <p>12+ Years Experience</p>
+                    <h4>ADV. RAJESH KUMAR</h4>
+                    <p>Consumer Law, Insurance Claims</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">12+ Years Experience</p>
                 </div>
-                <div class="lawyer-select" data-lawyer="adv_priya_desai">
+                <!-- Lawyer 5 -->
+                <div class="lawyer-select" data-lawyer="priya_sharma">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. PRIYA DESAI</h4>
-                    <p>Tax Law, Financial Regulations</p>
-                    <p>10+ Years Experience</p>
+                    <h4>ADV. PRIYA SHARMA</h4>
+                    <p>Intellectual Property, Copyright</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">8+ Years Experience</p>
                 </div>
-                <div class="lawyer-select" data-lawyer="adv_raj_malhotra">
+                <!-- Lawyer 6 -->
+                <div class="lawyer-select" data-lawyer="vikram_singh">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. RAJ MALHOTRA</h4>
-                    <p>Real Estate, Property Law</p>
-                    <p>18+ Years Experience</p>
+                    <h4>ADV. VIKRAM SINGH</h4>
+                    <p>Banking, Financial Laws</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">15+ Years Experience</p>
                 </div>
-                <div class="lawyer-select" data-lawyer="adv_meera_kapoor">
+                <!-- Lawyer 7 -->
+                <div class="lawyer-select" data-lawyer="anita_desai">
                     <i class="fas fa-user-tie"></i>
-                    <h4>ADV. MEERA KAPOOR</h4>
-                    <p>Employment Law, Labor Disputes</p>
-                    <p>8+ Years Experience</p>
+                    <h4>ADV. ANITA DESAI</h4>
+                    <p>Employment, Labor Laws</p>
+                    <p style="color: #d4b78f; font-size: 0.85rem; margin-top: 10px;">9+ Years Experience</p>
                 </div>
             </div>
         </div>
         
         <!-- Appointment Form -->
-        <form class="appointment-form fade-in" id="appointmentForm" action="https://formsubmit.co/lokhandeyuvraj19@gmail.com" method="POST">
-            <input type="hidden" name="_subject" value="New Appointment - Linpane Legal Associates">
-            <input type="hidden" name="_captcha" value="false">
+        <form class="appointment-form" id="appointmentForm" action="https://formsubmit.co/lokhandeyuvraj19@gmail.com" method="POST" target="_blank">
+            <!-- FormSubmit Config -->
+            <input type="hidden" name="_subject" value="New Appointment Booking - Linpane Legal">
             <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_next" value="https://yourwebsite.com/thankyou.html">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="thankyou.html">
             
             <div class="form-row">
                 <div class="form-group">
@@ -777,18 +740,17 @@
                         <option value="property">Property Disputes</option>
                         <option value="corporate">Corporate Law</option>
                         <option value="contract">Contract Disputes</option>
-                        <option value="tax">Tax Law</option>
-                        <option value="employment">Employment Law</option>
-                        <option value="ip">Intellectual Property</option>
-                        <option value="real_estate">Real Estate</option>
                         <option value="consumer">Consumer Law</option>
+                        <option value="banking">Banking & Finance</option>
+                        <option value="employment">Employment Law</option>
+                        <option value="intellectual">Intellectual Property</option>
                         <option value="other">Other Legal Matter</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label for="selectedLawyer">Selected Lawyer <span class="required">*</span></label>
-                    <input type="text" id="selectedLawyer" name="selectedLawyer" required readonly placeholder="Select lawyer from above">
+                    <input type="text" id="selectedLawyer" name="selectedLawyer" readonly required placeholder="Select lawyer from above">
                 </div>
             </div>
             
@@ -819,9 +781,7 @@
                 <textarea id="description" name="description" required placeholder="Please provide a detailed description of your legal matter..."></textarea>
             </div>
             
-            <input type="hidden" name="source" value="Linpane Legal Associates Website">
-            
-            <button type="submit" class="submit-btn glow" id="submitBtn">
+            <button type="submit" class="submit-btn" id="submitBtn">
                 <i class="fas fa-calendar-check"></i> Book Appointment Now
             </button>
         </form>
@@ -848,7 +808,7 @@
                     <h4>Legal</h4>
                     <ul>
                         <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
                         <li><a href="disclaimer.html">Disclaimer</a></li>
                     </ul>
                 </div>
@@ -867,33 +827,60 @@
         </div>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJDQ5sDslIb5LyelTBEQ4_-_il-wfbYIA",
+            authDomain: "mycdn-73d5b.firebaseapp.com",
+            projectId: "mycdn-73d5b",
+            storageBucket: "mycdn-73d5b.firebasestorage.app",
+            messagingSenderId: "833692536301",
+            appId: "1:833692536301:web:e5279b67bec3cd5879ebe4",
+            measurementId: "G-WB9J58ES98"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make Firestore available globally
+        window.firestoreDB = db;
+        window.firestoreCollection = collection;
+        window.firestoreAddDoc = addDoc;
+        window.firestoreTimestamp = serverTimestamp;
+    </script>
+
+    <!-- Main JavaScript -->
     <script>
-        // Wait for Firebase to load
-        setTimeout(() => {
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
             // Mobile Menu Toggle
             document.getElementById('mobileMenuBtn').addEventListener('click', function() {
                 document.getElementById('navMenu').classList.toggle('active');
             });
 
             // Warning Popup
-            document.addEventListener('DOMContentLoaded', function() {
-                if (!sessionStorage.getItem('warningShown')) {
-                    setTimeout(function() {
-                        document.getElementById('warningPopup').classList.add('active');
-                        document.getElementById('popupOverlay').classList.add('active');
-                        sessionStorage.setItem('warningShown', 'true');
-                    }, 1000);
-                }
-                
-                document.getElementById('closeWarning').addEventListener('click', function() {
-                    document.getElementById('warningPopup').classList.remove('active');
-                    document.getElementById('popupOverlay').classList.remove('active');
-                });
-                
-                document.getElementById('popupOverlay').addEventListener('click', function() {
-                    document.getElementById('warningPopup').classList.remove('active');
-                    this.classList.remove('active');
-                });
+            if (!sessionStorage.getItem('warningShown')) {
+                setTimeout(function() {
+                    document.getElementById('warningPopup').classList.add('active');
+                    document.getElementById('popupOverlay').classList.add('active');
+                    sessionStorage.setItem('warningShown', 'true');
+                }, 1000);
+            }
+            
+            document.getElementById('closeWarning').addEventListener('click', function() {
+                document.getElementById('warningPopup').classList.remove('active');
+                document.getElementById('popupOverlay').classList.remove('active');
+            });
+            
+            document.getElementById('popupOverlay').addEventListener('click', function() {
+                document.getElementById('warningPopup').classList.remove('active');
+                this.classList.remove('active');
             });
 
             // Set minimum date to today
@@ -928,100 +915,79 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
                 
-                // Get form data
-                const appointmentData = {
-                    name: document.getElementById('name').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    address: document.getElementById('address').value.trim(),
-                    contact: document.getElementById('contact').value.trim(),
-                    caseType: document.getElementById('caseType').value,
-                    selectedLawyer: document.getElementById('selectedLawyer').value,
-                    appointmentDate: document.getElementById('appointmentDate').value,
-                    time: document.getElementById('time').value,
-                    description: document.getElementById('description').value.trim(),
-                    timestamp: new Date().toISOString(),
-                    status: 'pending',
-                    source: 'website'
-                };
-
-                // Validation
-                if (!appointmentData.name || !appointmentData.email || !appointmentData.address || 
-                    !appointmentData.contact || !appointmentData.caseType || !appointmentData.selectedLawyer || 
-                    !appointmentData.appointmentDate || !appointmentData.time || !appointmentData.description) {
-                    showNotification('Please fill all required fields!', 'error');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                    return;
-                }
-
-                if (appointmentData.contact.length < 10) {
-                    showNotification('Please enter a valid contact number (10 digits minimum)!', 'error');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                    return;
-                }
-
-                // Check if Firebase is available
-                let firebaseSuccess = false;
-                let formSubmitSuccess = false;
-
                 try {
-                    // 1. First try FormSubmit
-                    const formSubmitForm = document.getElementById('appointmentForm');
-                    const formData = new FormData(formSubmitForm);
-                    
-                    // Submit to FormSubmit
-                    const formSubmitResponse = await fetch(formSubmitForm.action, {
-                        method: 'POST',
-                        body: formData,
-                        mode: 'no-cors' // FormSubmit doesn't require CORS
-                    });
-                    
-                    formSubmitSuccess = true;
-                    console.log('FormSubmit: Submission attempted');
+                    // Get form data
+                    const appointmentData = {
+                        name: document.getElementById('name').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        address: document.getElementById('address').value.trim(),
+                        contact: document.getElementById('contact').value.trim(),
+                        caseType: document.getElementById('caseType').value,
+                        selectedLawyer: document.getElementById('selectedLawyer').value,
+                        appointmentDate: document.getElementById('appointmentDate').value,
+                        time: document.getElementById('time').value,
+                        description: document.getElementById('description').value.trim(),
+                        status: 'pending',
+                        createdAt: new Date().toISOString(),
+                        timestamp: Date.now()
+                    };
 
-                    // 2. Then try Firebase
-                    if (window.firestoreDB && window.firestoreAddDoc && window.firestoreCollection) {
-                        try {
-                            // Add to Firestore
-                            const appointmentsCollection = window.firestoreCollection(window.firestoreDB, 'appointments');
-                            await window.firestoreAddDoc(appointmentsCollection, appointmentData);
-                            firebaseSuccess = true;
-                            console.log('Firebase: Appointment saved successfully!');
-                        } catch (firebaseError) {
-                            console.error('Firebase Error:', firebaseError);
-                            // Continue even if Firebase fails
-                        }
-                    } else {
-                        console.warn('Firebase not available, skipping Firestore save');
+                    // Validation
+                    if (!appointmentData.name || !appointmentData.email || !appointmentData.address || 
+                        !appointmentData.contact || !appointmentData.caseType || !appointmentData.selectedLawyer || 
+                        !appointmentData.appointmentDate || !appointmentData.time || !appointmentData.description) {
+                        showNotification('Please fill all required fields!', 'error');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        return;
                     }
 
+                    // Step 1: Save to Firestore
+                    try {
+                        await window.firestoreAddDoc(window.firestoreCollection(window.firestoreDB, "appointments"), {
+                            ...appointmentData,
+                            createdAt: window.firestoreTimestamp()
+                        });
+                        console.log('Appointment saved to Firestore successfully');
+                    } catch (firestoreError) {
+                        console.error('Firestore error:', firestoreError);
+                        // Continue with FormSubmit even if Firestore fails
+                    }
+
+                    // Step 2: Submit to FormSubmit
+                    const form = document.getElementById('appointmentForm');
+                    
+                    // Create hidden iframe for FormSubmit
+                    const iframe = document.createElement('iframe');
+                    iframe.name = 'formsubmit-frame';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    
+                    // Submit form to FormSubmit
+                    form.target = 'formsubmit-frame';
+                    
                     // Show success message
                     showNotification('Appointment booked successfully! We will contact you soon.', 'success');
                     
                     // Reset form after 2 seconds
                     setTimeout(() => {
-                        document.getElementById('appointmentForm').reset();
+                        form.reset();
                         document.querySelectorAll('.lawyer-select').forEach(l => l.classList.remove('active'));
                         document.getElementById('appointmentDate').min = today;
+                        
+                        // Remove iframe
+                        document.body.removeChild(iframe);
                     }, 2000);
                     
-                    // Log results
-                    console.log('Results:', {
-                        formSubmit: formSubmitSuccess,
-                        firebase: firebaseSuccess,
-                        data: appointmentData
-                    });
-
                 } catch (error) {
-                    console.error('Submission Error:', error);
-                    showNotification('Error booking appointment. Please try again!', 'error');
+                    console.error('Error:', error);
+                    showNotification('Error saving appointment. Please try again!', 'error');
                 } finally {
-                    // Reset button
+                    // Reset button after 3 seconds
                     setTimeout(() => {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalText;
-                    }, 2000);
+                    }, 3000);
                 }
             });
 
@@ -1045,32 +1011,16 @@
                 
                 notification.classList.add('active');
                 
-                // Auto-hide after 2 seconds
+                // Auto-hide after 5 seconds
                 setTimeout(() => {
                     notification.style.animation = 'slideOutRight 0.5s ease';
                     setTimeout(() => {
                         notification.classList.remove('active');
                         notification.style.animation = '';
                     }, 500);
-                }, 2000);
+                }, 5000);
             }
-
-            // Scroll Animations
-            const fadeElements = document.querySelectorAll('.fade-in');
-            function checkFade() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    if (elementTop < windowHeight - 100) {
-                        element.classList.add('visible');
-                    }
-                });
-            }
-            window.addEventListener('scroll', checkFade);
-            window.addEventListener('resize', checkFade);
-            checkFade();
-
-        }, 1000); // Wait 1 second for Firebase to load
+        });
     </script>
 </body>
 </html>
