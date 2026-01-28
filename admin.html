@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Linpane Legal Associates</title>
+    <title>Admin Dashboard - Linpane Legal Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
@@ -962,12 +962,8 @@
             <button class="control-btn" id="notesBtn">
                 <i class="fas fa-sticky-note"></i> Important Notes
             </button>
-            <button class="control-btn" id="routineBtn">
-                <i class="fas fa-calendar-alt"></i> Daily Routine
-            </button>
-            <button class="control-btn" id="hearingBtn">
-                <i class="fas fa-gavel"></i> Hearing Dates
-            </button>
+           
+           
             <button class="control-btn" id="addEventBtn">
                 <i class="fas fa-plus-circle"></i> Add Calendar Event
             </button>
@@ -1361,7 +1357,7 @@
                 
                 // Clean phone number
                 const cleanPhone = phone.replace(/\D/g, '');
-                const message = `Hello ${name || 'there'}, this is regarding your appointment with Linpane Legal Associates.`;
+                const message = `Hello ${name || 'There'}, This Is Regarding Your Appointment With Linpane Legal Services We Will Reach You Shortly As Possible.`;
                 const url = `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(message)}`;
                 window.open(url, '_blank');
             }
