@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Linpane Legal Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #b39c7d;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a.active {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 0 5% 60px;
+        }
+
+        .legal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 50px;
+            border-radius: 15px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .legal-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #b39c7d;
+            margin-bottom: 10px;
+        }
+
+        .legal-header .last-updated {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Legal Content */
+        .legal-content {
+            line-height: 1.7;
+        }
+
+        .legal-section {
+            margin-bottom: 35px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .legal-section:nth-child(1) { animation-delay: 0.1s; }
+        .legal-section:nth-child(2) { animation-delay: 0.2s; }
+        .legal-section:nth-child(3) { animation-delay: 0.3s; }
+        .legal-section:nth-child(4) { animation-delay: 0.4s; }
+        .legal-section:nth-child(5) { animation-delay: 0.5s; }
+        .legal-section:nth-child(6) { animation-delay: 0.6s; }
+        .legal-section:nth-child(7) { animation-delay: 0.7s; }
+
+        .legal-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #b39c7d;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .legal-section p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+            text-align: justify;
+        }
+
+        .legal-section ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .legal-section li {
+            margin-bottom: 10px;
+            color: #d0d0d0;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: rgba(179, 156, 125, 0.05);
+            border-left: 4px solid #b39c7d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .contact-info {
+            background: rgba(179, 156, 125, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+        }
+
+        .contact-info h3 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info i {
+            color: #b39c7d;
+            width: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #b39c7d;
+        }
+
+        .footer-logo p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .link-group h4 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group li {
+            margin-bottom: 10px;
+        }
+
+        .link-group a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-group a:hover {
+            color: #b39c7d;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .legal-container {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+
+            .legal-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .legal-container {
+                padding: 30px 20px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .legal-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 0 3% 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Linpane Legal Services Logo">
+            <span>Linpane Legal Services</span>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+                <li><a href="privacy.html" class="active">Privacy Policy</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="legal-container">
+            <div class="legal-header">
+                <h1>Privacy Policy</h1>
+                <p class="last-updated">Last Updated: January 1, 2025</p>
+            </div>
+
+            <div class="legal-content">
+                <div class="legal-section">
+                    <h2>1. Introduction</h2>
+                    <p>Welcome to Linpane Legal Services ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our legal services in Nagpur, Wardha, and across Maharashtra.</p>
+                    <p>Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>2. Information We Collect</h2>
+                    <p>We collect personal information that you voluntarily provide to us when you:</p>
+                    <ul>
+                        <li>Register for our legal services</li>
+                        <li>Book an appointment through our website</li>
+                        <li>Contact us via email, phone, or contact forms</li>
+                        <li>Subscribe to our newsletter or legal updates</li>
+                        <li>Participate in surveys or provide feedback</li>
+                    </ul>
+                    <p>The personal information we collect may include:</p>
+                    <ul>
+                        <li>Name and contact details (email, phone number, address)</li>
+                        <li>Case details and legal requirements</li>
+                        <li>Payment information for legal services</li>
+                        <li>Any other information you choose to provide</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h2>3. How We Use Your Information</h2>
+                    <p>We use the information we collect in the following ways:</p>
+                    <ul>
+                        <li>To provide and maintain our legal services</li>
+                        <li>To process your legal appointments and consultations</li>
+                        <li>To communicate with you about your cases and legal matters</li>
+                        <li>To send you important updates about our services</li>
+                        <li>To improve our website and services</li>
+                        <li>To comply with legal obligations and court requirements</li>
+                        <li>To protect against legal liability</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h2>4. Data Security</h2>
+                    <p>We implement appropriate technical and organizational security measures designed to protect the security of any personal information we process. However, please also remember that we cannot guarantee that the internet itself is 100% secure. Although we will do our best to protect your personal information, transmission of personal information to and from our site is at your own risk.</p>
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> As legal professionals, we adhere to attorney-client privilege and maintain the highest standards of confidentiality for all client information, in compliance with the Advocates Act, 1961 and Bar Council of India rules.</p>
+                    </div>
+                </div>
+
+                <div class="legal-section">
+                    <h2>5. Your Data Protection Rights</h2>
+                    <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+                    <ul>
+                        <li><strong>The right to access:</strong> You have the right to request copies of your personal data.</li>
+                        <li><strong>The right to rectification:</strong> You have the right to request correction of any information you believe is inaccurate.</li>
+                        <li><strong>The right to erasure:</strong> You have the right to request deletion of your personal data, under certain conditions.</li>
+                        <li><strong>The right to restrict processing:</strong> You have the right to request restriction of processing your personal data.</li>
+                        <li><strong>The right to data portability:</strong> You have the right to request transfer of your data to another organization.</li>
+                        <li><strong>The right to object to processing:</strong> You have the right to object to our processing of your personal data.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h2>6. Third-Party Services</h2>
+                    <p>We may employ third-party companies and individuals to facilitate our services ("Service Providers"), to provide the services on our behalf, or to assist us in analyzing how our services are used. These third parties have access to your personal information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>7. Changes to This Privacy Policy</h2>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this Privacy Policy. You are advised to review this Privacy Policy periodically for any changes.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong>  New State Bank Colony, Nagpur Road , Behind dhunivala Math , Wardha 442001</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 8928113111</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> linpanelegalservices@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday to Sunday, 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Linpane Legal Services</h3>
+                <p>Justice, Integrity, Excellence - Serving clients with dedication for over three decades across Nagpur, Wardha, and Maharashtra High Court regions.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i>New State Bank Colony, Nagpur Road , Behind dhunivala Math , Wardha 442001</li>
+                        <li><i class="fas fa-phone"></i> +91 8928113111</li>
+                        <li><i class="fas fa-envelope"></i>linpanelegalservices@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Linpane Legal Services. All rights reserved. | Registered with Bar Council of Maharashtra & Goa</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Animation on scroll
+        const legalSections = document.querySelectorAll('.legal-section');
+        
+        function checkScroll() {
+            legalSections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.animationPlayState = 'running';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>
