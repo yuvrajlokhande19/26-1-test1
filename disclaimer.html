@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - Linpane Legal Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #b39c7d;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a.active {
+            color: #b39c7d;
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 0 5% 60px;
+        }
+
+        .legal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 50px;
+            border-radius: 15px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .legal-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #b39c7d;
+            margin-bottom: 10px;
+        }
+
+        .legal-header .last-updated {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Legal Content */
+        .legal-content {
+            line-height: 1.7;
+        }
+
+        .legal-section {
+            margin-bottom: 35px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .legal-section:nth-child(1) { animation-delay: 0.1s; }
+        .legal-section:nth-child(2) { animation-delay: 0.2s; }
+        .legal-section:nth-child(3) { animation-delay: 0.3s; }
+        .legal-section:nth-child(4) { animation-delay: 0.4s; }
+        .legal-section:nth-child(5) { animation-delay: 0.5s; }
+        .legal-section:nth-child(6) { animation-delay: 0.6s; }
+
+        .legal-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #b39c7d;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .legal-section p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+            text-align: justify;
+        }
+
+        .legal-section ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .legal-section li {
+            margin-bottom: 10px;
+            color: #d0d0d0;
+            text-align: justify;
+        }
+
+        .warning-box {
+            background: rgba(255, 87, 87, 0.05);
+            border-left: 4px solid #ff5757;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box h3 {
+            color: #ff5757;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .highlight-box {
+            background: rgba(179, 156, 125, 0.05);
+            border-left: 4px solid #b39c7d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .contact-info {
+            background: rgba(179, 156, 125, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+        }
+
+        .contact-info h3 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info i {
+            color: #b39c7d;
+            width: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(179, 156, 125, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #b39c7d;
+        }
+
+        .footer-logo p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .link-group h4 {
+            color: #b39c7d;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group ul {
+            list-style: none;
+        }
+
+        .link-group li {
+            margin-bottom: 10px;
+        }
+
+        .link-group a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .link-group a:hover {
+            color: #b39c7d;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .legal-container {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 18, 18, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+
+            .legal-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .legal-container {
+                padding: 30px 20px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .legal-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .main-content {
+                padding: 0 3% 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Linpane Legal Services Logo">
+            <span>Linpane Legal Services</span>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+                <li><a href="disclaimer.html" class="active">Disclaimer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="legal-container">
+            <div class="legal-header">
+                <h1>Legal Disclaimer</h1>
+                <p class="last-updated">Last Updated: January 1, 2025</p>
+            </div>
+
+            <div class="legal-content">
+                <div class="warning-box">
+                    <h3>⚠️ IMPORTANT LEGAL NOTICE</h3>
+                    <p>The information contained on this website is for general informational purposes only and does not constitute legal advice. No attorney-client relationship is formed by accessing this website or contacting Linpane Legal Services. For specific legal advice regarding your situation, please schedule a formal consultation.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>1. No Legal Advice</h2>
+                    <p>The content on this website, including text, graphics, images, and other material, is for informational purposes only. The information provided is not intended to be a substitute for professional legal advice. Always seek the advice of a qualified legal professional regarding any legal issues or concerns.</p>
+                    <p>You should not act or refrain from acting based on any content included in this site without seeking appropriate legal or other professional advice. The application of laws can vary widely based on the specific facts involved. Given the changing nature of laws, rules, and regulations, there may be delays, omissions, or inaccuracies in information contained on this site.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>2. Attorney-Client Relationship</h2>
+                    <p>Contacting Linpane Legal Services through this website, email, or telephone does not create an attorney-client relationship. An attorney-client relationship is only formed after:</p>
+                    <ul>
+                        <li>A formal consultation has been conducted</li>
+                        <li>Both parties have agreed to the terms of representation</li>
+                        <li>A written engagement letter has been signed</li>
+                        <li>Any required retainer has been paid</li>
+                    </ul>
+                    <p>Please do not send confidential information through this website or email until an attorney-client relationship has been formally established.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>3. No Guarantee of Results</h2>
+                    <p>Past results and testimonials on this website do not guarantee similar outcomes in future cases. Each legal matter is unique, and results depend on the specific facts and circumstances of each case, as well as applicable laws and court decisions.</p>
+                    <p>We cannot and do not guarantee any specific outcome in any legal matter. The descriptions of cases, settlements, and verdicts are for informational purposes only and should not be interpreted as a promise of similar results.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>4. Jurisdictional Issues</h2>
+                    <p>Linpane Legal Services primarily practices law in the state of Maharashtra, India, with particular focus on Nagpur, Wardha, and surrounding regions. Our attorneys are licensed to practice in:</p>
+                    <ul>
+                        <li>District Courts of Nagpur and Wardha</li>
+                        <li>Nagpur Bench of Bombay High Court</li>
+                        <li>Supreme Court of India (for specific matters)</li>
+                        <li>Various tribunals and commissions across Maharashtra</li>
+                    </ul>
+                    <p>We do not seek to represent anyone based solely on a visit to this website in a jurisdiction where this website does not comply with all laws and ethical rules of that jurisdiction.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>5. Third-Party Links</h2>
+                    <p>This website may contain links to third-party websites. These links are provided for convenience only. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
+                    <p>The inclusion of any link does not imply endorsement by Linpane Legal Services. You acknowledge and agree that we shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods, or services available on or through any such websites or services.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>6. Intellectual Property</h2>
+                    <p>All content on this website, including but not limited to text, graphics, logos, images, and software, is the property of Linpane Legal Services or its content suppliers and is protected by Indian and international copyright laws. The compilation of all content on this site is the exclusive property of Linpane Legal Services.</p>
+                    <p>You may view, download, and print content from this site for your personal, non-commercial use only. Any other use, including reproduction, modification, distribution, transmission, or republication, without prior written permission is strictly prohibited.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Note:</strong> This disclaimer is governed by and construed in accordance with the laws of India. Any disputes relating to this disclaimer will be subject to the exclusive jurisdiction of the courts of Nagpur, Maharashtra.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact for Legal Advice</h3>
+                    <p>For professional legal advice regarding your specific situation, please contact us to schedule a consultation:</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> New State Bank Colony, Nagpur Road , Behind dhunivala Math , Wardha 442001</p>
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong>+91 8928113111</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong>  linpanelegalservices@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday to Sunday, 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>Linpane Legal Services</h3>
+                <p>Justice, Integrity, Excellence - Serving clients with dedication for over three decades across Nagpur, Wardha, and Maharashtra High Court regions.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></iNew State Bank Colony, Nagpur Road , Behind dhunivala Math , Wardha 442001</li>
+                        <li><i class="fas fa-phone"></i>+91 8928113111</li>
+                        <li><i class="fas fa-envelope"></i>linpanelegalservices@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Linpane Legal Services. All rights reserved. | Registered with Bar Council of Maharashtra & Goa</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Animation on scroll
+        const legalSections = document.querySelectorAll('.legal-section');
+        
+        function checkScroll() {
+            legalSections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight - 100) {
+                    section.style.animationPlayState = 'running';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>
