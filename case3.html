@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity & Adoption Case | Linpane Legal Associates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent-gold: #c5a059;
+            --text-white: #ffffff;
+            --text-grey: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), 
+                        url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070') center/cover fixed;
+            color: var(--text-white); 
+            font-family: 'Roboto', sans-serif; 
+            line-height: 1.8;
+        }
+
+        /* Simplified Header */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 8%; background: rgba(0,0,0,0.98); border-bottom: 2px solid var(--accent-gold);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 40px; }
+        .home-btn { 
+            text-decoration: none; color: #fff; font-size: 14px; 
+            text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--accent-gold);
+            padding: 8px 20px; border-radius: 4px; transition: 0.3s;
+        }
+        .home-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 60px 24px; }
+        
+        /* Hero */
+        .case-hero { text-align: center; margin-bottom: 60px; }
+        .case-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 45px); color: var(--accent-gold); margin-bottom: 20px; }
+        .case-subtitle { color: var(--text-grey); font-size: 18px; }
+
+        .case-meta { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 8px; margin-bottom: 60px;
+        }
+        .meta-item span { display: block; font-size: 11px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px; }
+        .meta-item strong { font-size: 16px; font-weight: 400; color: #fff; }
+
+        /* Simplified Content */
+        .content-section { margin-bottom: 80px; }
+        .section-heading { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 25px; color: var(--accent-gold); border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        .text-block { font-size: 17px; color: #ddd; text-align: left; }
+        .text-block p { margin-bottom: 20px; }
+        .text-block strong { color: var(--accent-gold); }
+
+        .explainer-box { 
+            background: rgba(255,255,255,0.05); padding: 30px; border-radius: 8px;
+            margin: 40px 0; border: 1px dashed var(--accent-gold);
+        }
+        .explainer-box h4 { color: #fff; margin-bottom: 10px; font-size: 20px; }
+
+        .highlight-card {
+            background: linear-gradient(to right, #1a1a1a, #111);
+            padding: 30px; border-left: 4px solid var(--accent-gold); border-radius: 0 8px 8px 0;
+            margin-top: 40px;
+        }
+
+        .action-area { text-align: center; margin-top: 100px; padding: 40px; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="LLA" class="logo-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3503/3503940.png'">
+        </div>
+        <a href="index.html" class="home-btn">Home</a>
+    </header>
+
+    <div class="container">
+        <section class="case-hero">
+            <h1 class="case-title">Legal Recognition of a Child’s New Identity</h1>
+            <p class="case-subtitle">How we helped a family align official records with their legal adoption journey.</p>
+        </section>
+
+        <div class="case-meta">
+            <div class="meta-item"><span>Legal Team</span><strong>Adv. Sandhya V. Linpane &<br>Adv. Akshay V. Linpane</strong></div>
+            <div class="meta-item"><span>Case Number</span><strong>R.C.S. 284/2023</strong></div>
+            <div class="meta-item"><span>Legal Topic</span><strong>Name Declaration & Adoption</strong></div>
+            <div class="meta-item"><span>Result</span><strong>Declaration of Name Granted</strong></div>
+        </div>
+
+        <section class="content-section">
+            <h2 class="section-heading">The Story Behind the Case</h2>
+            <div class="text-block">
+                <p>Imagine a child being raised in a loving home, but every time they go to school or apply for a document, their paperwork shows a different father's name and a different surname. This was the reality for the plaintiffs, who had legally adopted a son named <strong>Ruhan</strong>.</p>
+                <p>Although the adoption was officially registered, the <strong>Municipal Council (Birth Records)</strong> refused to change the child's birth certificate. They argued that a birth certificate is a historical record of "who gave birth" and cannot be edited just because a child is adopted later in life.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="explainer-box">
+                <h4>Why is this difficult to resolve?</h4>
+                <p>In India, birth registers are considered permanent historical logs. The Registrar can fix a "clerical error" (like a typo), but they cannot change parentage or surnames based on adoption without a specific order from a Judge. This creates a "deadlock" for parents who just want their child's papers to match their reality.</p>
+            </div>
+            
+            <h2 class="section-heading">Our Strategy & Work</h2>
+            <div class="text-block">
+                <p><strong>Adv. Sandhya V. Linpane</strong> and <strong>Adv. Akshay V. Linpane</strong> teamed up to tackle this challenge. Our focus was on the child's "Right to Identity." We presented the <strong>Registered Adoption Deed</strong> as the primary evidence of the new family bond.</p>
+                <p>We argued that forcing a child to carry two different names—one in school and one on a birth certificate—would cause massive confusion in the future, affecting everything from bank accounts to marriage certificates and passports.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-heading">The Court's Final Decision</h2>
+            <div class="text-block">
+                <p>On <strong>June 21, 2024</strong>, the Court delivered a judgment that protected the child's future. The Judge declared that the child's name is now officially <strong>"Ruhan Sachin Nagrale."</strong></p>
+                
+                <div class="highlight-card">
+                    <p><strong>What this means for the family:</strong> While the law keeps the original birth record for historical purposes, this <strong>Court Declaration</strong> now acts as the master legal document. Whenever the family needs to prove Ruhan's identity, they show this Judgment. It legally overrides the old name and confirms his new parentage to every government department.</p>
+                </div>
+                
+                <p style="margin-top:20px;">The family can now live with peace of mind, knowing that Ruhan’s official identity is finally unified with his home life.</p>
+            </div>
+        </section>
+
+        <div class="action-area">
+            <p style="color:var(--text-grey); margin-bottom: 20px;">Seeking legal clarity on identity or adoption matters?</p>
+            <a href="appointment.html" class="home-btn" style="background:var(--accent-gold); color:#000; font-weight:700;">Consult with Our Experts</a>
+        </div>
+    </div>
+
+</body>
+</html>
