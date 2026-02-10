@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Brief: H.M.P. No. 43/2023 | LLA</title>
+    <title>Case Study: Mutual Consent Divorce | Linpane Legal Associates</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0a0a0a;
-            --card-dark: rgba(20, 20, 20, 0.95);
+            --card-dark: rgba(20, 20, 20, 0.98);
             --accent-gold: #c5a059;
             --text-white: #ffffff;
             --text-grey: #b0b0b0;
@@ -17,175 +17,229 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
                         url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070') center/cover fixed;
             color: var(--text-white); 
             font-family: 'Roboto', sans-serif; 
             line-height: 1.8;
-            padding-bottom: 150px; 
+            overflow-x: hidden;
         }
 
-        /* Minimal Header - Logo and Home Only */
+        /* Consistent Header as requested */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px 8%; background: rgba(0,0,0,0.95); border-bottom: 2px solid var(--accent-gold);
             position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
         }
-        .logo-img { height: 50px; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 45px; }
+        .brand-name { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--accent-gold); }
         
-        .home-btn { 
-            text-decoration: none; color: #fff; font-size: 14px; 
-            text-transform: uppercase; letter-spacing: 2px; 
-            padding: 8px 20px; border: 1px solid var(--accent-gold);
-            border-radius: 4px; transition: 0.3s;
-        }
-        .home-btn:hover { background: var(--accent-gold); color: #000; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #fff; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-gold); }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 80px 24px; }
         
         /* Hero Section */
-        .case-hero { text-align: center; margin-bottom: 80px; opacity: 0; transform: translateY(30px); animation: fadeInUp 1s forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .case-hero { text-align: center; margin-bottom: 100px; }
+        .case-category { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 5px; font-size: 14px; font-weight: 700; margin-bottom: 20px; display: block; }
+        .case-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.1; margin-bottom: 40px; }
 
-        .case-category { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 4px; font-size: 14px; font-weight: 700; margin-bottom: 15px; display: block; }
-        .case-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); line-height: 1.2; margin-bottom: 30px; }
-
-        /* Case Metadata */
         .case-meta { 
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-bottom: 60px; 
-            padding: 25px; border-top: 1px solid #333; border-bottom: 1px solid #333;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+            padding: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 8px; margin-bottom: 80px;
         }
-        .meta-item { text-align: center; }
-        .meta-item span { display: block; font-size: 11px; color: var(--accent-gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
-        .meta-item strong { font-size: 15px; font-weight: 400; letter-spacing: 0.5px; }
+        .meta-item span { display: block; font-size: 12px; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
+        .meta-item strong { font-size: 18px; font-weight: 400; color: #fff; }
 
-        /* Narrative Blocks */
-        .narrative-block { margin-bottom: 100px; }
-        .narrative-img { 
-            width: 100%; height: 500px; object-fit: cover; border-radius: 4px; 
-            margin: 50px 0; border: 1px solid #c5a05944; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-        }
+        /* Long Form Content Sections */
+        .content-section { margin-bottom: 120px; opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+        .content-section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-label { color: var(--accent-gold); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; display: block; }
+        .section-heading { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 30px; color: #fff; line-height: 1.3; }
         
-        .legal-content { font-size: 19px; color: var(--text-grey); font-weight: 300; }
-        .legal-content h2 { font-family: 'Playfair Display', serif; color: var(--accent-gold); margin: 60px 0 25px; font-size: 32px; border-left: 4px solid var(--accent-gold); padding-left: 20px; }
-        .legal-content p { margin-bottom: 30px; text-align: justify; }
+        .text-block { font-size: 18px; color: var(--text-grey); font-weight: 300; text-align: justify; }
+        .text-block p { margin-bottom: 25px; }
+        .text-block strong { color: #fff; font-weight: 500; }
 
-        .court-badge {
-            background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.3);
-            padding: 40px; border-radius: 4px; margin: 60px 0; position: relative;
+        .highlight-box { 
+            background: rgba(197, 160, 89, 0.08); border-left: 4px solid var(--accent-gold);
+            padding: 40px; margin: 50px 0; border-radius: 0 8px 8px 0;
         }
-        .court-badge::before { content: "§"; position: absolute; top: 10px; right: 20px; font-size: 40px; color: rgba(197, 160, 89, 0.2); }
-        .court-badge h3 { font-family: 'Playfair Display', serif; color: var(--accent-gold); margin-bottom: 20px; }
+        .highlight-box h4 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--accent-gold); margin-bottom: 15px; }
 
-        /* Determination Points Table */
-        .determination-points {
-            width: 100%; border-collapse: collapse; margin: 50px 0; background: rgba(10, 10, 10, 0.8);
-            border: 1px solid #333;
+        /* Educational Cards */
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 60px 0; }
+        .edu-card { background: #111; padding: 35px; border: 1px solid #222; border-radius: 8px; transition: 0.3s; }
+        .edu-card:hover { border-color: var(--accent-gold); transform: translateY(-10px); }
+        .edu-card i { font-size: 30px; color: var(--accent-gold); margin-bottom: 20px; display: block; }
+        .edu-card h5 { font-size: 20px; margin-bottom: 15px; color: #fff; }
+        .edu-card p { font-size: 15px; color: var(--text-grey); line-height: 1.6; }
+
+        /* Timeline/Process for Non-Legal Visitors */
+        .process-flow { margin: 80px 0; border-left: 1px solid rgba(197, 160, 89, 0.3); padding-left: 40px; position: relative; }
+        .step { position: relative; margin-bottom: 60px; }
+        .step::before { 
+            content: ""; position: absolute; left: -46px; top: 0; 
+            width: 12px; height: 12px; background: var(--accent-gold); border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-gold);
         }
-        .determination-points th { background: #111; color: var(--accent-gold); padding: 25px; text-align: left; text-transform: uppercase; font-size: 13px; border-bottom: 2px solid var(--accent-gold); }
-        .determination-points td { padding: 25px; border-bottom: 1px solid #222; vertical-align: top; font-size: 17px; }
+        .step-num { color: var(--accent-gold); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .step-title { font-size: 22px; color: #fff; margin: 5px 0 15px; font-family: 'Playfair Display', serif; }
 
-        .citation-footer { margin-top: 100px; padding-top: 40px; border-top: 1px dotted #444; font-size: 14px; font-style: italic; color: #666; text-align: center; }
+        .large-img { 
+            width: 100%; height: 500px; object-fit: cover; border-radius: 12px; 
+            margin: 60px 0; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-box {
+            text-align: center; padding: 80px 40px; background: linear-gradient(45deg, #111, #1a1a1a);
+            border: 1px solid var(--accent-gold); border-radius: 12px; margin-top: 100px;
+        }
+        .cta-box h2 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 20px; }
+        .btn-gold { 
+            display: inline-block; padding: 18px 40px; background: var(--accent-gold); 
+            color: #000; text-decoration: none; font-weight: 700; border-radius: 4px;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn-gold:hover { background: #fff; transform: scale(1.05); }
 
     </style>
 </head>
 <body>
 
     <header>
-        <img src="logo.png" alt="LLA Logo" class="logo-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3503/3503940.png'">
-        <a href="index.html" class="home-btn">Home</a>
+        <div class="logo-container">
+            <img src="logo.png" alt="LLA" class="logo-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3503/3503940.png'">
+            <span class="brand-name">Linpane Legal Associates</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cases.html">Back to Cases</a>
+        </nav>
     </header>
 
     <div class="container">
+        <!-- Hero Section -->
         <section class="case-hero">
-            <span class="case-category">Matrimonial Law & Mutual Consent</span>
-            <h1 class="case-title">Dissolution of Marriage Under Section 13(B)</h1>
+            <span class="case-category">Matrimonial & Family Law</span>
+            <h1 class="case-title">Resolution of Marriage via Mutual Consent (Sec 13B)</h1>
+            <p style="color: var(--text-grey); font-size: 20px; max-width: 700px; margin: 0 auto;">A comprehensive study of H.M.P. No. 43/2023: Navigating the complexities of legal separation with dignity and professional precision.</p>
+        </section>
+
+        <div class="case-meta">
+            <div class="meta-item"><span>Case Ref</span><strong>H.M.P. 43/2023</strong></div>
+            <div class="meta-item"><span>Lead Counsel</span><strong>ADV. Ashish V. Linpane</strong></div>
+            <div class="meta-item"><span>Resolution Time</span><strong>4 Months (Expedited)</strong></div>
+            <div class="meta-item"><span>Court</span><strong>Civil Judge Sr. Div, Saoner</strong></div>
+        </div>
+
+        <!-- Section 1: The Context -->
+        <section class="content-section">
+            <span class="section-label">01. Background</span>
+            <h2 class="section-heading">Understanding the Irretrievable Breakdown</h2>
+            <div class="text-block">
+                <p>In this matter, the petitioners (husband and wife) approached our firm after a brief period of marital cohabitation. The marriage, solemnized in July 2021, faced significant challenges early on due to deep-seated differences in perspective and lifestyle expectations. Within weeks, the parties recognized that the union was no longer sustainable.</p>
+                <p><strong>Separation as a Legal Prerequisite:</strong> Under Indian Law, specifically the Hindu Marriage Act, a couple must be living separately for at least <strong>one continuous year</strong> before they can file for divorce by mutual consent. In this case, our firm meticulously documented the separation period starting from July 26, 2021, to ensure the petition met all statutory thresholds.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070" alt="Legal Books" class="large-img">
+        </section>
+
+        <!-- Section 2: Educational Explanation -->
+        <section class="content-section">
+            <span class="section-label">02. Legal Literacy</span>
+            <h2 class="section-heading">What is Section 13(B) Divorce?</h2>
+            <p style="color: var(--text-grey); margin-bottom: 40px;">For our clients and visitors, it is essential to understand that "Mutual Consent" is the most peaceful way to resolve a marriage that is no longer working. Here are the core pillars:</p>
             
-            <div class="case-meta">
-                <div class="meta-item"><span>Petition No.</span><strong>H.M.P. 43/2023</strong></div>
-                <div class="meta-item"><span>Counsel in Charge</span><strong>ADV. Ashish V. Linpane</strong></div>
-                <div class="meta-item"><span>Jurisdiction</span><strong>Senior Division, Saoner</strong></div>
-                <div class="meta-item"><span>Status</span><strong>Marriage Dissolved</strong></div>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <h5>Mutual Agreement</h5>
+                    <p>Both parties must agree that the marriage should end. Neither party is "blamed" or accused of cruelty, making the process significantly less stressful.</p>
+                </div>
+                <div class="edu-card">
+                    <h5>Asset Settlement</h5>
+                    <p>All matters regarding Streedhan (gifts/jewelry), alimony, and joint assets are settled privately before entering the courtroom.</p>
+                </div>
+                <div class="edu-card">
+                    <h5>Waiting Period</h5>
+                    <p>Usually, there is a 6-month "cooling off" period, but in cases of extreme separation, the Court can "waive" this to speed up the process.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Strategic Advantage in this Case</h4>
+                <p>In H.M.P. 43/2023, <strong>ADV. Ashish V. Linpane</strong> successfully moved a plea to waive the 6-month statutory waiting period. Because the parties had already lived apart for nearly two years, the Court recognized that further delay would only cause mental agony. This reduced the case duration to just 4 months.</p>
             </div>
         </section>
 
-        <section class="narrative-block">
-            <div class="legal-content">
-                <h2>I. The Marital Background & Conflict</h2>
-                <p>The <strong>Petitioner No. 1 (Husband)</strong> and <strong>Petitioner No. 2 (Wife)</strong> solemnized their marriage on 09.07.2021 as per Hindu Rites and Rituals. However, shortly after the union, irreconcilable differences in opinion and temperament emerged, rendering the marital bond unsustainable. The record indicates that the parties began residing separately as of July 2021, marking a definitive cessation of the marital cohabitation.</p>
-                
-                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070" alt="Legal Stability and Process" class="narrative-img">
-
-                <p>During the separation period, which exceeded the statutory requirement of one year, the parties reached a comprehensive settlement regarding all ancillary matters, including the exchange of gifts, ornaments, and home appliances. Under the professional guidance of <strong>ADV. Ashish V. Linpane</strong>, a petition was moved for a decree of divorce by mutual consent, prioritizing an amicable and dignified resolution over prolonged litigation.</p>
-                
-                <div class="court-badge">
-                    <h3>Legal Framework</h3>
-                    <p>The petition was filed under <strong>Section 13(B) of the Hindu Marriage Act, 1955</strong>. This provision allows for the dissolution of marriage when both parties mutually agree that the marriage has broken down irretrievably and they have lived separately for a period of at least one year.</p>
+        <!-- Section 3: The Process Flow -->
+        <section class="content-section">
+            <span class="section-label">03. The Journey</span>
+            <h2 class="section-heading">How We Handled the Litigation</h2>
+            
+            <div class="process-flow">
+                <div class="step">
+                    <span class="step-num">Step 1</span>
+                    <h3 class="step-title">Counseling & Mediation</h3>
+                    <p class="text-block">Before filing, we ensure both parties are making a voluntary choice. We facilitate a "Settlement Deed" where all belongings are exchanged, preventing future disputes.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">Step 2</span>
+                    <h3 class="step-title">Filing the Joint Petition</h3>
+                    <p class="text-block">The petition (Exhibit 1) is filed. Both parties appear before the Hon'ble Judge to confirm their intent. This is known as the "First Motion."</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">Step 3</span>
+                    <h3 class="step-title">Court Verification</h3>
+                    <p class="text-block">The Court records the statements of both individuals. The judge verifies that there is no "coercion" (forcing someone to sign) or fraud involved.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">Step 4</span>
+                    <h3 class="step-title">Final Decree</h3>
+                    <p class="text-block">Upon satisfaction, the court passes a Judgment and Decree of Divorce. The marriage is legally dissolved, and both parties are free to start their new chapters.</p>
                 </div>
             </div>
         </section>
 
-        <section class="narrative-block">
-            <div class="legal-content">
-                <h2>II. Points for Determination & Judicial Findings</h2>
-                <p>The Honorable Court conducted a thorough inquiry into the voluntariness of the consent and the possibility of reconciliation. The findings of the court, supported by the evidence presented by our firm, were as follows:</p>
-
-                <table class="determination-points">
-                    <thead>
-                        <tr>
-                            <th>Statutory Requirement</th>
-                            <th>Judicial Finding</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Has the statutory period of separation been fulfilled?</td>
-                            <td><strong>Yes.</strong> The court verified the separation since 26.07.2021, exceeding the required duration.</td>
-                        </tr>
-                        <tr>
-                            <td>Is there any scope for reconciliation?</td>
-                            <td><strong>Negative.</strong> Multiple reconciliation efforts failed; the court observed no likelihood of reunion.</td>
-                        </tr>
-                        <tr>
-                            <td>Was consent obtained via fraud or coercion?</td>
-                            <td><strong>No.</strong> The court found that both parties moved the petition freely and with full understanding of the consequences.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <img src="https://images.unsplash.com/photo-1505664194762-85b1758d5140?q=80&w=2070" alt="Family Law and Justice" class="narrative-img">
-
-                <h2>III. Final Decree and Annulment</h2>
-                <p>Following the waiver of the traditional six-month cooling-off period (given the long-term separation), the Court expressed satisfaction with the averments in the petition. The judgment delivered on 21.07.2023 officially dissolved the marriage between the petitioners.</p>
-                
-                <p>This case highlights the efficacy of <strong>Section 13(B)</strong> in providing a streamlined exit for parties who recognize the end of their marital journey. <strong>ADV. Ashish V. Linpane</strong> ensured that all respective obligations were met, allowing both individuals to move forward with legal finality and peace of mind.</p>
-
-                <div class="citation-footer">
-                    Professional case record prepared for archival and educational purposes. Names and personal details have been managed according to legal privacy standards.
-                </div>
+        <!-- Section 4: Final Judgment Summary -->
+        <section class="content-section">
+            <span class="section-label">04. Outcome</span>
+            <h2 class="section-heading">Closing the Chapter with Dignity</h2>
+            <div class="text-block">
+                <p>On <strong>July 21, 2023</strong>, the Senior Division Court at Saoner delivered its final verdict. The Hon'ble Judge S.A. Sardar observed that the "consent of none of the parties is obtained by force, fraud, or coercion."</p>
+                <p>This case stands as a testament to our firm’s approach: <strong>Effective Lawyering is not always about fighting; it is about finding the most efficient, legally sound, and peaceful path forward for our clients.</strong></p>
+            </div>
+            
+            <div class="cta-box">
+                <h2>Need Confidential Legal Guidance?</h2>
+                <p style="color: var(--text-grey); margin-bottom: 40px;">Our family law experts are here to help you navigate your matters with the utmost sensitivity and professionalism.</p>
+                <a href="appointment.html" class="btn-gold">Consult with Adv. Ashish Linpane</a>
             </div>
         </section>
+
     </div>
 
     <script>
-        // Smooth scroll reveal animation
-        const observerOptions = { threshold: 0.15 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Reveal content on scroll
+        const reveal = () => {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                const windowHeight = window.innerHeight;
+                const revealTop = section.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (revealTop < windowHeight - revealPoint) {
+                    section.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        };
 
-        document.querySelectorAll('.narrative-block').forEach(block => {
-            block.style.opacity = '0';
-            block.style.transform = 'translateY(50px)';
-            block.style.transition = 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
-            observer.observe(block);
-        });
+        window.addEventListener('scroll', reveal);
+        // Initial check
+        window.onload = reveal;
     </script>
 </body>
 </html>
