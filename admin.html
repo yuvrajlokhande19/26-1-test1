@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="description" content="Linpane Legal Services admin dashboard for managing appointments, calendar events, and firm data.">
+    <meta name="author" content="Linpane Legal Services">
+    <meta name="robots" content="noindex, nofollow">
     <title>Admin Dashboard - Linpane Legal Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -962,8 +967,12 @@
             <button class="control-btn" id="notesBtn">
                 <i class="fas fa-sticky-note"></i> Important Notes
             </button>
-           
-           
+            <button class="control-btn" id="routineBtn">
+                <i class="fas fa-calendar-alt"></i> Daily Routine
+            </button>
+            <button class="control-btn" id="hearingBtn">
+                <i class="fas fa-gavel"></i> Hearing Dates
+            </button>
             <button class="control-btn" id="addEventBtn">
                 <i class="fas fa-plus-circle"></i> Add Calendar Event
             </button>
@@ -1545,6 +1554,33 @@
                     } else {
                         icon.className = 'fas fa-chevron-up';
                     }
+                });
+            });
+
+            // Quick-nav controls: jump to and expand the matching admin data card
+            const quickNavTargets = [
+                { btn: 'notesBtn', content: 'notesContent', id: 'notesText' },
+                { btn: 'routineBtn', content: 'routineContent', id: 'routineText' },
+                { btn: 'hearingBtn', content: 'hearingContent', id: 'hearingText' }
+            ];
+
+            quickNavTargets.forEach(({ btn, content, id }) => {
+                const button = document.getElementById(btn);
+                if (!button) return;
+                button.addEventListener('click', function() {
+                    const targetContent = document.getElementById(content);
+                    targetContent.classList.remove('collapsed');
+                    const toggleButton = targetContent.closest('.data-card');
+                    if (toggleButton) {
+                        const toggle = toggleButton.querySelector('.toggle-btn');
+                        if (toggle && toggle.classList.contains('collapsed')) {
+                            toggle.classList.remove('collapsed');
+                            const icon = toggle.querySelector('i');
+                            if (icon) icon.className = 'fas fa-chevron-up';
+                        }
+                    }
+                    document.getElementById(id).focus();
+                    document.querySelector('.admin-data-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
 
