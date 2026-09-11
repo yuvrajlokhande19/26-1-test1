@@ -503,6 +503,291 @@
             50% { box-shadow: 0 0 40px rgba(179, 156, 125, 0.8); }
         }
 
+        /* ===== 3-Step Wizard ===== */
+        .wizard-progress {
+            margin-bottom: 26px;
+        }
+
+        .wizard-steps-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wizard-step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #6f6a75;
+            font-weight: 600;
+            font-size: 0.8rem;
+            min-width: 0;
+            white-space: nowrap;
+        }
+
+        .wizard-step-indicator .ws-number {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.82rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            color: #8b8792;
+            transition: all 0.3s ease;
+        }
+
+        .wizard-step-indicator.active {
+            color: #d4b78f;
+        }
+
+        .wizard-step-indicator.active .ws-number {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(179, 156, 125, 0.4);
+        }
+
+        .wizard-step-indicator.done {
+            color: #b39c7d;
+        }
+
+        .wizard-step-indicator.done .ws-number {
+            background: rgba(179, 156, 125, 0.15);
+            border-color: #b39c7d;
+            color: #d4b78f;
+        }
+
+        .wizard-link {
+            flex: 1 1 auto;
+            height: 2px;
+            min-width: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wizard-link .wl-fill {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .wizard-step-indicator.done + .wizard-link .wl-fill,
+        .wizard-step-indicator.active + .wizard-link .wl-fill {
+            transform: scaleX(1);
+        }
+
+        .wizard-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .wizard-progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        .wizard-error {
+            display: none;
+            padding: 11px 14px;
+            border-radius: 8px;
+            background: rgba(244, 67, 54, 0.12);
+            border: 1px solid rgba(244, 67, 54, 0.35);
+            color: #ff8a80;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: stepIn 0.4s ease;
+        }
+
+        @keyframes stepIn {
+            from {
+                opacity: 0;
+                transform: translateX(18px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .form-row {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-row.two-col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 640px) {
+            .form-row.two-col {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .wizard-back-btn,
+        .wizard-next-btn {
+            padding: 13px 24px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .wizard-back-btn {
+            background: transparent;
+            border: 1px solid rgba(179, 156, 125, 0.35);
+            color: #d4b78f;
+            visibility: hidden;
+        }
+
+        .wizard-back-btn:hover {
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        .wizard-next-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            border: none;
+            box-shadow: 0 8px 20px rgba(179, 156, 125, 0.3);
+        }
+
+        .wizard-next-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: skewX(-20deg);
+            animation: btnShine 3.4s ease-in-out infinite;
+        }
+
+        @keyframes btnShine {
+            0%, 55% { left: -120%; }
+            85%, 100% { left: 160%; }
+        }
+
+        .wizard-next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(179, 156, 125, 0.45);
+        }
+
+        /* Booking Summary (live) */
+        .booking-summary {
+            margin-top: 30px;
+            background: #1e1e1e;
+            border: 1px solid rgba(179, 156, 125, 0.25);
+            border-radius: 12px;
+            padding: 20px 22px;
+        }
+
+        .bs-title {
+            color: #b39c7d;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bs-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .bs-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 0.85rem;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(179, 156, 125, 0.15);
+        }
+
+        .bs-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .bs-list li span {
+            color: #777;
+        }
+
+        .bs-list li strong {
+            color: #e8e2d8;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Focus visibility (never silently removed) */
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid #d4b78f;
+            outline-offset: 2px;
+        }
+
+        .time-slot:focus-visible {
+            outline: 2px solid #d4b78f;
+            outline-offset: 2px;
+            background: rgba(179, 156, 125, 0.15);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .form-step.active,
+            .submit-btn.glow,
+            .call-cta-icon,
+            .wizard-progress-bar,
+            .wizard-link .wl-fill,
+            .wizard-next-btn::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
         /* Success Notification */
         .notification {
             position: fixed;
@@ -794,6 +1079,22 @@
                     </div>
                 </div>
 
+                <!-- Live Booking Summary -->
+                <div class="booking-summary">
+                    <div class="bs-title">
+                        <i class="fas fa-file-invoice"></i> Booking Summary
+                    </div>
+                    <ul class="bs-list">
+                        <li><span>Client</span><strong id="summaryName">—</strong></li>
+                        <li><span>Email</span><strong id="summaryEmail">—</strong></li>
+                        <li><span>Phone</span><strong id="summaryPhone">—</strong></li>
+                        <li><span>Matter</span><strong id="summaryCase">—</strong></li>
+                        <li><span>Lawyer</span><strong id="summaryLawyer">—</strong></li>
+                        <li><span>Date</span><strong id="summaryDate">—</strong></li>
+                        <li><span>Time</span><strong id="summaryTime">—</strong></li>
+                    </ul>
+                </div>
+
                 <div class="call-cta">
                     <div class="call-cta-icon">
                         <i class="fas fa-phone-alt"></i>
@@ -819,7 +1120,7 @@
             </div>
             
             <!-- Appointment Form -->
-            <form class="appointment-form" id="appointmentForm" action="https://formsubmit.co/lokhandeyuvraj19@gmail.com" method="POST">
+            <form class="appointment-form" id="appointmentForm" action="https://formsubmit.co/lokhandeyuvraj19@gmail.com" method="POST" novalidate>
                 <!-- FormSubmit Hidden Fields -->
                 <input type="hidden" name="_subject" value="New Appointment Booking - Linpane Legal Services">
                 <input type="hidden" name="_template" value="table">
@@ -828,89 +1129,128 @@
                 
                 <div class="form-intro">
                     <i class="fas fa-shield-alt"></i>
-                    <p>Your details are confidential and shared only with our legal team. We will confirm your appointment shortly after submission.</p>
+                    <p>Your details are confidential and shared only with our legal team. Complete the 3 easy steps below and we will confirm your appointment shortly.</p>
                 </div>
 
-                <div class="form-section-title">
-                    <i class="fas fa-id-card"></i> Your Contact Details
-                </div>
-                
-                <div class="form-group">
-                    <label for="name">Full Name <span class="required">*</span></label>
-                    <input type="text" id="name" name="name" required placeholder="Enter Your Full Name">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number <span class="required">*</span></label>
-                    <input type="tel" id="phone" name="phone" required placeholder="Enter your 10-digit mobile number">
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">Address <span class="required">*</span></label>
-                    <textarea id="address" name="address" required placeholder="Enter your complete address"></textarea>
-                </div>
-
-                <div class="form-section-title">
-                    <i class="fas fa-briefcase"></i> Your Legal Matter
-                </div>
-                
-                <div class="form-group">
-                    <label for="caseType">Case Type <span class="required">*</span></label>
-                    <select id="caseType" name="case_type" required>
-                        <option value="">Select Case Type</option>
-                        <option value="criminal">Criminal Law</option>
-                        <option value="civil">Civil Law</option>
-                        <option value="family">Family Law</option>
-                        <option value="property">Property Disputes</option>
-                        <option value="corporate">Corporate Law</option>
-                        <option value="contract">Contract Disputes</option>
-                        <option value="consumer">Banking Law</option>
-                        <option value="other">Other Legal Matter</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="selectedLawyer">Selected Lawyer</label>
-                    <input type="text" id="selectedLawyer" name="selected_lawyer" readonly placeholder="Select lawyer from left panel">
-                </div>
-
-                <div class="form-section-title">
-                    <i class="fas fa-calendar-check"></i> Schedule Your Visit
-                </div>
-                
-                <div class="form-group">
-                    <label for="appointmentDate">Appointment Date <span class="required">*</span></label>
-                    <input type="date" id="appointmentDate" name="appointment_date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Preferred Time Slot <span class="required">*</span></label>
-                    <div class="time-slots">
-                        <div class="time-slot" data-time="09:00-10:00">09:00 AM</div>
-                        <div class="time-slot" data-time="10:00-11:00">10:00 AM</div>
-                        <div class="time-slot" data-time="11:00-12:00">11:00 AM</div>
-                        <div class="time-slot" data-time="12:00-13:00">12:00 PM</div>
-                        <div class="time-slot" data-time="14:00-15:00">02:00 PM</div>
-                        <div class="time-slot" data-time="15:00-16:00">03:00 PM</div>
-                        <div class="time-slot" data-time="16:00-17:00">04:00 PM</div>
-                        <div class="time-slot" data-time="17:00-18:00">05:00 PM</div>
+                <!-- Wizard progress -->
+                <div class="wizard-progress">
+                    <div class="wizard-steps-row">
+                        <div class="wizard-step-indicator active" data-step="1">
+                            <span class="ws-number">1</span>
+                            <span class="ws-label">Contact</span>
+                        </div>
+                        <div class="wizard-link"><div class="wl-fill"></div></div>
+                        <div class="wizard-step-indicator" data-step="2">
+                            <span class="ws-number">2</span>
+                            <span class="ws-label">Legal Matter</span>
+                        </div>
+                        <div class="wizard-link"><div class="wl-fill"></div></div>
+                        <div class="wizard-step-indicator" data-step="3">
+                            <span class="ws-number">3</span>
+                            <span class="ws-label">Schedule</span>
+                        </div>
                     </div>
-                    <input type="hidden" id="selectedTime" name="appointment_time" required>
+                    <div class="wizard-track">
+                        <div class="wizard-progress-bar" id="wizardProgressBar"></div>
+                    </div>
+                </div>
+
+                <div class="wizard-error" id="wizardError"></div>
+
+                <!-- STEP 1: Contact Details -->
+                <section class="form-step active" data-step="1">
+                    <div class="form-section-title">
+                        <i class="fas fa-id-card"></i> Your Contact Details
+                    </div>
+                    <div class="form-row two-col">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required placeholder="Enter Your Full Name" autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Enter your 10-digit mobile number" autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address <span class="required">*</span></label>
+                        <textarea id="address" name="address" required placeholder="Enter your complete address"></textarea>
+                    </div>
+                </section>
+
+                <!-- STEP 2: Legal Matter -->
+                <section class="form-step" data-step="2">
+                    <div class="form-section-title">
+                        <i class="fas fa-briefcase"></i> Your Legal Matter
+                    </div>
+                    <div class="form-row two-col">
+                        <div class="form-group">
+                            <label for="caseType">Case Type <span class="required">*</span></label>
+                            <select id="caseType" name="case_type" required>
+                                <option value="">Select Case Type</option>
+                                <option value="criminal">Criminal Law</option>
+                                <option value="civil">Civil Law</option>
+                                <option value="family">Family Law</option>
+                                <option value="property">Property Disputes</option>
+                                <option value="corporate">Corporate Law</option>
+                                <option value="contract">Contract Disputes</option>
+                                <option value="consumer">Banking Law</option>
+                                <option value="other">Other Legal Matter</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectedLawyer">Selected Lawyer</label>
+                            <input type="text" id="selectedLawyer" name="selected_lawyer" readonly placeholder="Select from left panel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Case Description <span class="optional">(Optional)</span></label>
+                        <textarea id="description" name="description" placeholder="Tell us briefly about your legal matter (optional). If provided, our team can review it before your consultation."></textarea>
+                        <p class="field-hint"><i class="fas fa-info-circle"></i> This helps us prepare for your consultation. You can also share details later.</p>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Schedule -->
+                <section class="form-step" data-step="3">
+                    <div class="form-section-title">
+                        <i class="fas fa-calendar-check"></i> Schedule Your Visit
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate">Appointment Date <span class="required">*</span></label>
+                        <input type="date" id="appointmentDate" name="appointment_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Time Slot <span class="required">*</span></label>
+                        <div class="time-slots">
+                            <div class="time-slot" tabindex="0" data-time="09:00-10:00">09:00 AM</div>
+                            <div class="time-slot" tabindex="0" data-time="10:00-11:00">10:00 AM</div>
+                            <div class="time-slot" tabindex="0" data-time="11:00-12:00">11:00 AM</div>
+                            <div class="time-slot" tabindex="0" data-time="12:00-13:00">12:00 PM</div>
+                            <div class="time-slot" tabindex="0" data-time="14:00-15:00">02:00 PM</div>
+                            <div class="time-slot" tabindex="0" data-time="15:00-16:00">03:00 PM</div>
+                            <div class="time-slot" tabindex="0" data-time="16:00-17:00">04:00 PM</div>
+                            <div class="time-slot" tabindex="0" data-time="17:00-18:00">05:00 PM</div>
+                        </div>
+                        <input type="hidden" id="selectedTime" name="appointment_time" required>
+                    </div>
+                </section>
+
+                <!-- Wizard navigation -->
+                <div class="wizard-nav">
+                    <button type="button" class="wizard-back-btn" id="prevStepBtn">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="wizard-next-btn" id="nextStepBtn">
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
                 
-                <div class="form-group">
-                    <label for="description">Case Description <span class="optional">(Optional)</span></label>
-                    <textarea id="description" name="description" placeholder="Tell us briefly about your legal matter (optional). If provided, our team can review it before your consultation."></textarea>
-                    <p class="field-hint"><i class="fas fa-info-circle"></i> This helps us prepare for your consultation. You can also share details later.</p>
-                </div>
-                
-                <button type="submit" class="submit-btn glow" id="submitBtn">
-                    <i class="fas fa-calendar-check"></i> Book Appointment Now
+                <button type="submit" class="submit-btn glow" id="submitBtn" style="display: none;">
+                    <i class="fas fa-calendar-check"></i> Confirm & Book Appointment
                 </button>
             </form>
         </div>
@@ -995,42 +1335,172 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('appointmentDate').min = today;
 
+            // ========== 3-STEP WIZARD ==========
+            let currentWizardStep = 1;
+            const prevStepBtn = document.getElementById('prevStepBtn');
+            const nextStepBtn = document.getElementById('nextStepBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const wizardErrorEl = document.getElementById('wizardError');
+
+            function showWizardError(msg) {
+                if (!msg) { wizardErrorEl.style.display = 'none'; wizardErrorEl.textContent = ''; return; }
+                wizardErrorEl.textContent = msg;
+                wizardErrorEl.style.display = 'block';
+            }
+
+            function showWizardStep(step) {
+                document.querySelectorAll('.form-step').forEach(sec => {
+                    sec.classList.toggle('active', Number(sec.dataset.step) === step);
+                });
+                document.querySelectorAll('.wizard-step-indicator').forEach(ind => {
+                    const n = Number(ind.dataset.step);
+                    ind.classList.toggle('active', n === step);
+                    ind.classList.toggle('done', n < step);
+                });
+                const progress = ((step - 1) / 2) * 100;
+                document.getElementById('wizardProgressBar').style.width = progress + '%';
+                prevStepBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+                const isLast = step === 3;
+                nextStepBtn.style.display = isLast ? 'none' : 'inline-flex';
+                submitBtn.style.display = isLast ? 'block' : 'none';
+                showWizardError('');
+                updateSummary();
+                const firstField = document.querySelector(`.form-step[data-step="${step}"] input:not([type="hidden"]), .form-step[data-step="${step}"] select`);
+                if (firstField) { try { firstField.focus({ preventScroll: true }); } catch (e) { firstField.focus(); } }
+            }
+
+            function validateStep(step) {
+                const section = document.querySelector(`.form-step[data-step="${step}"]`);
+                let firstInvalid = null;
+                section.querySelectorAll('input, select, textarea').forEach(f => {
+                    if (f.hasAttribute('required') && f.type !== 'hidden' && !f.checkValidity() && !firstInvalid) {
+                        firstInvalid = f;
+                    }
+                });
+                if (firstInvalid) {
+                    firstInvalid.reportValidity();
+                    showWizardError('Please complete all required fields to continue.');
+                    return false;
+                }
+                if (step === 2 && !document.getElementById('selectedLawyer').value.trim()) {
+                    showWizardError('Please select your lawyer from the panel on the left or top.');
+                    return false;
+                }
+                if (step === 3 && !document.getElementById('selectedTime').value) {
+                    showWizardError('Please select a preferred time slot above.');
+                    return false;
+                }
+                return true;
+            }
+
+            nextStepBtn.addEventListener('click', function() {
+                if (currentWizardStep < 3) {
+                    if (!validateStep(currentWizardStep)) return;
+                    currentWizardStep++;
+                    showWizardStep(currentWizardStep);
+                }
+            });
+
+            prevStepBtn.addEventListener('click', function() {
+                if (currentWizardStep > 1) {
+                    currentWizardStep--;
+                    showWizardStep(currentWizardStep);
+                }
+            });
+
             // Lawyer Selection
             document.querySelectorAll('.lawyer-card-select').forEach(lawyer => {
-                lawyer.addEventListener('click', function() {
-                    // Remove active class from all
+                lawyer.setAttribute('tabindex', '0');
+                const selectLawyer = function() {
                     document.querySelectorAll('.lawyer-card-select').forEach(l => {
                         l.classList.remove('active');
                     });
-                    
-                    // Add active class to clicked
                     this.classList.add('active');
-                    
-                    // Update form field
                     const lawyerName = this.querySelector('h4').textContent;
                     document.getElementById('selectedLawyer').value = lawyerName;
+                    showWizardError('');
+                    updateSummary();
+                };
+                lawyer.addEventListener('click', selectLawyer);
+                lawyer.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectLawyer.call(this);
+                    }
                 });
             });
 
             // Time Slot Selection
             document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.addEventListener('click', function() {
-                    // Remove selected class from all
+                const selectSlot = function() {
                     document.querySelectorAll('.time-slot').forEach(s => {
                         s.classList.remove('selected');
+                        s.setAttribute('aria-pressed', 'false');
                     });
-                    
-                    // Add selected class to clicked
                     this.classList.add('selected');
-                    
-                    // Update hidden input
+                    this.setAttribute('aria-pressed', 'true');
                     document.getElementById('selectedTime').value = this.getAttribute('data-time');
+                    showWizardError('');
+                    updateSummary();
+                };
+                slot.addEventListener('click', selectSlot);
+                slot.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectSlot.call(this);
+                    }
+                });
+            });
+
+            // ========== LIVE BOOKING SUMMARY ==========
+            function formatSummaryDate(dateStr) {
+                if (!dateStr) return '—';
+                try {
+                    return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-IN', {
+                        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+                    });
+                } catch (e) {
+                    return dateStr;
+                }
+            }
+
+            function updateSummary() {
+                const get = (id) => {
+                    const el = document.getElementById(id);
+                    return el && el.value ? el.value.trim() : '';
+                };
+                const caseEl = document.getElementById('caseType');
+                let caseLabel = get('caseType');
+                if (caseEl && caseEl.selectedOptions.length && caseEl.selectedOptions[0].value) {
+                    caseLabel = caseEl.selectedOptions[0].textContent;
+                }
+                document.getElementById('summaryName').textContent = get('name') || '—';
+                document.getElementById('summaryEmail').textContent = get('email') || '—';
+                document.getElementById('summaryPhone').textContent = get('phone') || '—';
+                document.getElementById('summaryCase').textContent = caseLabel || '—';
+                document.getElementById('summaryLawyer').textContent = get('selectedLawyer') || '—';
+                document.getElementById('summaryDate').textContent = formatSummaryDate(get('appointmentDate'));
+                document.getElementById('summaryTime').textContent = get('selectedTime') || '—';
+            }
+
+            // Keep summary in sync as the user types or picks values
+            const appointmentForm = document.getElementById('appointmentForm');
+            ['input', 'change'].forEach(ev => {
+                appointmentForm.addEventListener(ev, function() {
+                    updateSummary();
                 });
             });
 
             // Form Submission Handler
             document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
+
+                // Guard: booking may only be finalised after all 3 steps are completed
+                if (currentWizardStep !== 3 || !validateStep(3)) {
+                    showNotification('Please complete all steps to book your appointment.', 'error');
+                    showWizardStep(3);
+                    return;
+                }
                 
                 const submitBtn = document.getElementById('submitBtn');
                 const originalText = submitBtn.innerHTML;
@@ -1137,8 +1607,8 @@
                     
                     // Reset form
                     form.reset();
-                    document.querySelectorAll('.lawyer-card-select').forEach(l => l.classList.remove('active'));
-                    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                    currentWizardStep = 1;
+                    showWizardStep(1);
                     document.getElementById('appointmentDate').min = today;
                     document.getElementById('selectedLawyer').value = '';
                     document.getElementById('selectedTime').value = '';
@@ -1190,24 +1660,6 @@
                     }, 500);
                 }, 2000);
             }
-
-            // Test Firestore connection
-            async function testFirestore() {
-                try {
-                    console.log('Testing Firestore connection...');
-                    const testRef = window.firestoreCollection(window.firestoreDB, 'test');
-                    await window.firestoreAddDoc(testRef, {
-                        test: true,
-                        timestamp: new Date().toISOString()
-                    });
-                    console.log('Firestore connection successful!');
-                } catch (error) {
-                    console.warn('Firestore test failed (may need rules update):', error);
-                }
-            }
-            
-            // Run test
-            setTimeout(testFirestore, 1000);
         });
     </script>
 <script>

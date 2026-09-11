@@ -11,7 +11,7 @@
     <title>Admin Dashboard - Linpane Legal Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     <style>
@@ -945,6 +945,30 @@
             pointer-events: none;
         }
 
+        .login-hint {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: rgba(179, 156, 125, 0.08);
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            border-radius: 10px;
+            color: #9c97a1;
+            font-size: 0.8rem;
+            line-height: 1.55;
+            text-align: left;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .login-hint i {
+            color: #b39c7d;
+            margin-top: 2px;
+        }
+
+        .login-hint strong {
+            color: #d4b78f;
+        }
+
         .login-logo {
             background: linear-gradient(135deg, #b39c7d, #f0dcb4, #d4b78f);
             -webkit-background-clip: text;
@@ -1453,6 +1477,302 @@
             .admin-controls { flex-direction: row; flex-wrap: wrap; }
             .control-btn { flex: 1 1 calc(50% - 12px); justify-content: center; }
         }
+
+        /* ===== Sticky-note style for Important Notes ===== */
+        .notes-card { overflow: visible !important; position: relative; }
+        .notes-card::before {
+            content: '';
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 120px;
+            height: 26px;
+            background: rgba(212, 183, 143, 0.6);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+            border-radius: 3px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .notes-card .data-content { gap: 12px; }
+        .notes-card textarea {
+            background: #f6efd8;
+            color: #3a2f1c;
+            border: none;
+            border-radius: 4px;
+            padding: 16px;
+            font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+            font-size: 1.2rem;
+            line-height: 1.55;
+            min-height: 150px;
+            box-shadow: inset 0 0 30px rgba(122, 92, 20, 0.14);
+            resize: vertical;
+        }
+        .notes-card textarea::placeholder { color: #9b8a5e; }
+        .notes-card textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 183, 143, 0.5), inset 0 0 30px rgba(122, 92, 20, 0.14);
+        }
+        .notes-card .data-meta { color: #b8a97e; }
+        .notes-card .data-save-btn {
+            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+            color: #1c1508;
+        }
+        .notes-card .data-save-btn:hover { filter: brightness(1.08); }
+
+        /* Daily Routine accent */
+        .data-card.routine-card { border-left: 3px solid #5e7ce2; }
+        .data-card.routine-card .data-header h4 i { color: #7c96e8; }
+        .data-card.routine-card .data-textarea:focus { border-color: #5e7ce2; }
+
+        /* ===== Structured Hearing Dates ===== */
+        .hearing-form-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+        .hearing-field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+        .hearing-field-grow { flex: 1 1 200px; }
+        .hearing-field label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #9c97a1;
+        }
+        .hearing-label-star { color: #e0533d; }
+        .hearing-input {
+            background: #161616;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #e8e2d8;
+            padding: 9px 11px;
+            font-size: 0.85rem;
+            font-family: 'Lato', sans-serif;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .hearing-input:focus {
+            border-color: #b39c7d;
+            background: #1a1a1a;
+            outline: none;
+        }
+        .hearing-input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+        .hearing-add-btn {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            font-weight: 600;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.82rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 14px rgba(179, 156, 125, 0.25);
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .hearing-add-btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .hearings-list { margin-top: 14px; display: grid; gap: 8px; max-height: 260px; overflow-y: auto; padding-right: 4px; }
+        .hearings-empty {
+            padding: 14px;
+            text-align: center;
+            color: #6f6a75;
+            border: 1px dashed #333;
+            border-radius: 10px;
+            font-size: 0.83rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .hearing-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(90deg, rgba(179, 156, 125, 0.08), transparent 45%);
+            border: 1px solid rgba(179, 156, 125, 0.22);
+            border-left: 3px solid #d4b78f;
+            padding: 9px 12px;
+            border-radius: 10px;
+            animation: hearingIn 0.35s ease backwards;
+        }
+        @keyframes hearingIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: none; }
+        }
+        .hearing-date-badge {
+            min-width: 46px;
+            text-align: center;
+            background: #121212;
+            border: 1px solid #d4b78f;
+            color: #d4b78f;
+            border-radius: 9px;
+            padding: 5px 6px;
+            line-height: 1.1;
+        }
+        .hd-day { display: block; font-size: 1.05rem; font-weight: 700; }
+        .hd-month { display: block; font-size: 0.6rem; letter-spacing: 0.1em; color: #b39c7d; }
+        .hearing-info { flex: 1; min-width: 0; }
+        .hearing-title {
+            font-size: 0.84rem;
+            color: #e8e2d8;
+            font-weight: 600;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .hearing-sub { font-size: 0.74rem; color: #9c97a1; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .hearing-time-chip {
+            background: rgba(179, 156, 125, 0.12);
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            padding: 1px 8px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            color: #d4b78f;
+        }
+        .hearing-delete-btn {
+            background: transparent;
+            border: none;
+            color: #8b8792;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 6px;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .hearing-delete-btn:hover { color: #ff6b6b; background: rgba(255, 107, 107, 0.12); }
+
+        /* ===== Calendar Indian-aware extras ===== */
+        .indian-sunday .fc-daygrid-day-number,
+        .indian-sunday .fc-col-header-cell-cushion { color: #e0533d !important; font-weight: 700; }
+        .fc-event-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .fc-event-time-inline { font-weight: 700; }
+
+        /* ===== Fancy internet-style action buttons (shine + lift) ===== */
+        .control-btn,
+        .login-btn,
+        .data-save-btn,
+        .status-btn,
+        .hearing-add-btn,
+        .advanced-btn,
+        .modal-submit-btn,
+        .export-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .control-btn::after,
+        .login-btn::after,
+        .data-save-btn::after,
+        .status-btn::after,
+        .hearing-add-btn::after,
+        .advanced-btn::after,
+        .modal-submit-btn::after,
+        .export-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-20deg);
+            animation: btnShine 3.4s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0%, 55% { left: -120%; }
+            85%, 100% { left: 160%; }
+        }
+        .control-btn:hover,
+        .login-btn:hover,
+        .status-btn:hover,
+        .hearing-add-btn:hover { transform: translateY(-2px); }
+
+        @media (min-width: 641px) {
+            .hearing-form-row { flex-wrap: nowrap; }
+        }
+        @media (max-width: 640px) {
+            .hearing-form-row { flex-direction: column; align-items: stretch; }
+            .hearing-field-grow { flex: none; }
+        }
+
+        /* ===== Appointments toolbar (search + export) ===== */
+        .appointments-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .appt-search-wrap {
+            position: relative;
+            flex: 1 1 240px;
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+        }
+        .appt-search-wrap > i {
+            position: absolute;
+            left: 13px;
+            color: #8b8792;
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        .appt-search {
+            width: 100%;
+            background: #161616;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: #e8e2d8;
+            padding: 10px 12px 10px 36px;
+            font-size: 0.85rem;
+            font-family: 'Lato', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .appt-search::placeholder { color: #6f6a75; }
+        .appt-search:focus {
+            border-color: #b39c7d;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(179, 156, 125, 0.15);
+        }
+        .export-btn {
+            background: linear-gradient(135deg, #2a3140, #1d232f);
+            border: 1px solid rgba(179, 156, 125, 0.35);
+            color: #d4b78f;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+        }
+        .export-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .control-btn::after,
+            .login-btn::after,
+            .data-save-btn::after,
+            .status-btn::after,
+            .hearing-add-btn::after,
+            .advanced-btn::after,
+            .modal-submit-btn::after,
+            .export-btn::after { animation: none; display: none; }
+            .hearing-item { animation: none; }
+        }
     </style>
 </head>
 <body>
@@ -1474,9 +1794,12 @@
                 <div class="login-error" id="loginError">
                     Invalid username or password!
                 </div>
-                <button type="submit" class="login-btn">
+                <button type="submit" class="login-btn" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i> Login to Dashboard
                 </button>
+                <div class="login-hint">
+                    <i class="fas fa-shield-alt"></i> Secured login — password is verified securely. Use the admin account created in Firebase Console (Authentication → Users). Username maps to <strong>username@linpanelagalservices.in</strong>.
+                </div>
             </form>
         </div>
     </div>
@@ -1595,6 +1918,15 @@
                     <button class="filter-btn" data-filter="cancelled">Cancelled</button>
                 </div>
             </div>
+            <div class="appointments-toolbar">
+                <div class="appt-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="apptSearch" class="appt-search" placeholder="Search by name, phone, email or case...">
+                </div>
+                <button class="export-btn" id="exportCsvBtn" title="Download all appointments as CSV">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </button>
+            </div>
             <div class="appointments-grid" id="appointmentsList">
                 <!-- Appointments will be loaded here -->
             </div>
@@ -1606,7 +1938,7 @@
                 <i class="fas fa-database"></i> Admin Data Management
             </h2>
             <div class="data-grid">
-                <div class="data-card">
+                <div class="data-card notes-card">
                     <div class="data-header">
                         <h4><i class="fas fa-sticky-note"></i> Important Notes</h4>
                         <button class="toggle-btn" data-target="notesContent">
@@ -1614,13 +1946,13 @@
                         </button>
                     </div>
                     <div class="data-content" id="notesContent">
-                        <textarea class="data-textarea" id="notesText" placeholder="Enter important notes here..."></textarea>
+                        <textarea class="data-textarea" id="notesText" placeholder="Jot down important case notes here..." style="font-family:'Caveat','Segoe Script',cursive;font-size:1.2rem;"></textarea>
                         <button class="data-save-btn" data-type="notes">Save Notes</button>
                         <div class="data-meta" id="notesMeta">No saved entry yet</div>
                     </div>
                 </div>
                 
-                <div class="data-card">
+                <div class="data-card routine-card">
                     <div class="data-header">
                         <h4><i class="fas fa-calendar-alt"></i> Daily Routine</h4>
                         <button class="toggle-btn" data-target="routineContent">
@@ -1634,7 +1966,7 @@
                     </div>
                 </div>
                 
-                <div class="data-card">
+                <div class="data-card hearing-card">
                     <div class="data-header">
                         <h4><i class="fas fa-gavel"></i> Hearing Dates</h4>
                         <button class="toggle-btn" data-target="hearingContent">
@@ -1642,9 +1974,24 @@
                         </button>
                     </div>
                     <div class="data-content" id="hearingContent">
-                        <textarea class="data-textarea" id="hearingText" placeholder="Enter hearing dates here..."></textarea>
-                        <button class="data-save-btn" data-type="hearingDates">Save Hearing Dates</button>
-                        <div class="data-meta" id="hearingDatesMeta">No saved entry yet</div>
+                        <div class="hearing-form-row">
+                            <div class="hearing-field">
+                                <label for="hearingDate">Date <span class="hearing-label-star">*</span></label>
+                                <input type="date" id="hearingDate" class="hearing-input">
+                            </div>
+                            <div class="hearing-field hearing-field-grow">
+                                <label for="hearingTitle">Case / Client title <span class="hearing-label-star">*</span></label>
+                                <input type="text" id="hearingTitle" class="hearing-input" placeholder="e.g. SBI vs Sharma — Final hearing">
+                            </div>
+                            <div class="hearing-field">
+                                <label for="hearingTime">Time (optional)</label>
+                                <input type="time" id="hearingTime" class="hearing-input">
+                            </div>
+                            <button class="hearing-add-btn" id="addHearingBtn">
+                                <i class="fas fa-plus"></i> Add Hearing
+                            </button>
+                        </div>
+                        <div id="hearingsList" class="hearings-list"></div>
                     </div>
                 </div>
             </div>
@@ -1671,6 +2018,7 @@
             orderBy,
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
         // Your Firebase configuration
         const firebaseConfig = {
@@ -1699,6 +2047,12 @@
         window.firestoreQuery = query;
         window.firestoreOrderBy = orderBy;
         window.firestoreServerTimestamp = serverTimestamp;
+
+        // Firebase Auth (backend-validated sign in)
+        window.firebaseAuth = getAuth(app);
+        window.firebaseOnAuthStateChanged = onAuthStateChanged;
+        window.firebaseSignIn = signInWithEmailAndPassword;
+        window.firebaseSignOut = signOut;
     </script>
 
     <script>
@@ -1715,56 +2069,91 @@
             let appointments = [];
             let events = [];
 
-            // ========== LOGIN LOGIC ==========
-            loginForm.addEventListener('submit', function(e) {
+            // ========== LOGIN LOGIC (Firebase Auth backend validation) ==========
+            // Credentials never live in this file. The username is mapped to an admin
+            // account created in Firebase Console (Authentication -> Users) and the
+            // password is verified by Google's servers via Firebase Auth.
+            const ADMIN_EMAIL_SUFFIX = "@linpanelagalservices.in";
+
+            loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
+                const loginBtn = document.getElementById('loginBtn');
+                const originalHTML = loginBtn.innerHTML;
                 const username = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value;
-                
-                // Credentials
-                const validUsername = "Ashu999";
-                const validPassword = "pass123";
-                
-                if (username === validUsername && password === validPassword) {
-                    // Successful login
+
+                loginError.classList.remove('show');
+
+                if (!username || !password) {
+                    loginError.textContent = 'Please enter both username and password.';
+                    loginError.classList.add('show');
+                    return;
+                }
+
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+                try {
+                    // "ashu999" -> ashu999@linpanelagalservices.in; a full email also works
+                    const email = username.includes('@') ? username : `${username.toLowerCase()}${ADMIN_EMAIL_SUFFIX}`;
+                    await window.firebaseSignIn(window.firebaseAuth, email, password);
+                } catch (error) {
+                    let msg = 'Invalid username or password!';
+                    switch (error.code) {
+                        case 'auth/operation-not-allowed':
+                            msg = 'Email/Password sign-in is not enabled. Enable it in Firebase Console -> Authentication -> Sign-in method.';
+                            break;
+                        case 'auth/user-not-found':
+                        case 'auth/invalid-credential':
+                        case 'auth/wrong-password':
+                            msg = 'Invalid username or password!';
+                            break;
+                        case 'auth/network-request-failed':
+                            msg = 'Network error. Check your connection and try again.';
+                            break;
+                        case 'auth/too-many-requests':
+                            msg = 'Too many attempts. Please try again later.';
+                            break;
+                        default:
+                            msg = 'Sign-in failed. Please try again.';
+                    }
+                    loginError.textContent = msg;
+                    loginError.classList.add('show');
+                    loginScreen.style.animation = 'shake 0.5s';
+                    setTimeout(() => { loginScreen.style.animation = ''; }, 500);
+                } finally {
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = originalHTML;
+                }
+            });
+
+            // Secure session: Firebase Auth tokens are managed by the SDK, so the
+            // dashboard only unlocks when Google confirms a valid admin session.
+            window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
+                if (user) {
                     loginError.classList.remove('show');
-                    
-                    // Hide login screen with animation
                     loginScreen.style.opacity = '0';
                     setTimeout(() => {
                         loginScreen.style.display = 'none';
                         dashboard.style.display = 'block';
                         loadDashboardData();
                         initializeCalendar();
-                    }, 500);
-                    
-                    // Save login state
-                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    }, 400);
                 } else {
-                    // Failed login
-                    loginError.classList.add('show');
-                    
-                    // Shake animation
-                    loginScreen.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        loginScreen.style.animation = '';
-                    }, 500);
+                    dashboard.style.display = 'none';
+                    loginScreen.style.display = 'flex';
+                    loginScreen.style.opacity = '1';
                 }
             });
 
-            // Check if already logged in
-            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-                loginScreen.style.display = 'none';
-                dashboard.style.display = 'block';
-                loadDashboardData();
-                initializeCalendar();
-            }
-
             // ========== LOGOUT ==========
-            logoutBtn.addEventListener('click', function() {
-                sessionStorage.removeItem('adminLoggedIn');
-                location.reload();
+            logoutBtn.addEventListener('click', async function() {
+                try {
+                    await window.firebaseSignOut(window.firebaseAuth);
+                } catch (e) {
+                    console.warn('Sign-out error:', e);
+                }
             });
 
             // ========== LOAD DASHBOARD DATA ==========
@@ -1772,7 +2161,7 @@
                 loadAppointments();
                 loadAdminData('notes');
                 loadAdminData('routine');
-                loadAdminData('hearingDates');
+                loadHearings();
                 loadEvents();
             }
 
@@ -1805,11 +2194,23 @@
                     filteredAppointments = appointments.filter(app => app.status === filter);
                 }
                 
+                // Apply search query (name / phone / email / case type)
+                const query = (apptSearch ? apptSearch.value : '').trim().toLowerCase();
+                if (query) {
+                    filteredAppointments = filteredAppointments.filter(app => (
+                        (app.name || '').toLowerCase().includes(query) ||
+                        (app.phone || '').toLowerCase().includes(query) ||
+                        (app.email || '').toLowerCase().includes(query) ||
+                        (app.caseType || '').toLowerCase().includes(query) ||
+                        (app.selectedLawyer || '').toLowerCase().includes(query)
+                    ));
+                }
+                
                 if (filteredAppointments.length === 0) {
                     appointmentsList.innerHTML = `
                         <div class="no-data">
                             <i class="fas fa-calendar-times"></i>
-                            <p>No ${filter === 'all' ? '' : filter} appointments found</p>
+                            <p>${query ? 'No appointments match your search.' : `No ${filter === 'all' ? '' : filter} appointments found`}</p>
                         </div>
                     `;
                     return;
@@ -1977,6 +2378,7 @@
             }
 
             // ========== FILTER APPOINTMENTS ==========
+            let currentFilter = 'all';
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Remove active class from all
@@ -1989,14 +2391,63 @@
                     
                     // Filter appointments
                     const filter = this.getAttribute('data-filter');
+                    currentFilter = filter;
                     displayAppointments(filter);
                 });
             });
 
-            // ========== CALENDAR FUNCTIONS ==========
+            // ========== SEARCH APPOINTMENTS ==========
+            const apptSearch = document.getElementById('apptSearch');
+            if (apptSearch) {
+                apptSearch.addEventListener('input', function() {
+                    displayAppointments(currentFilter);
+                });
+            }
+
+            // ========== EXPORT APPOINTMENTS (CSV) ==========
+            const exportCsvBtn = document.getElementById('exportCsvBtn');
+            if (exportCsvBtn) {
+                exportCsvBtn.addEventListener('click', function() {
+                    if (!appointments.length) {
+                        showToast('No appointments to export.', 'error');
+                        return;
+                    }
+                    const headers = ['Name', 'Phone', 'Email', 'Address', 'Case Type', 'Lawyer', 'Appointment Date', 'Time', 'Status', 'Description'];
+                    const rows = appointments.map(a => [
+                        a.name || '', a.phone || '', a.email || '', a.address || '',
+                        a.caseType || '', a.selectedLawyer || '', a.appointmentDate || '',
+                        a.appointmentTime || (a.selectedTime || ''), a.status || 'pending', a.description || ''
+                    ]);
+                    const csv = '\uFEFF' + [headers, ...rows]
+                        .map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(','))
+                        .join('\r\n');
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `linpane-appointments-${new Date().toISOString().slice(0, 10)}.csv`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    showToast(`${appointments.length} appointments exported.`, 'success');
+                });
+            }
+
+            // ========== CALENDAR (Indian-aware display) ==========
+            function indianDateString(input, opts) {
+                try {
+                    const d = (input instanceof Date) ? input : new Date(input);
+                    if (isNaN(d.getTime())) return '';
+                    return d.toLocaleDateString('en-IN', opts || { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                } catch (e) {
+                    return '';
+                }
+            }
+
             function initializeCalendar() {
                 const calendarEl = document.getElementById('calendar');
-                
+
                 calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
                     headerToolbar: false,
@@ -2005,18 +2456,32 @@
                     dayMaxEvents: 3,
                     moreLinkText: (n) => `+${n} more`,
                     fixedWeekCount: false,
-                    events: events,
+                    firstDay: 1,
+                    dayHeaderFormat: { weekday: 'short' },
+                    titleFormat: { year: 'numeric', month: 'long' },
+                    dayCellClassNames: function(info) {
+                        return info.date.getDay() === 0 ? ['indian-sunday'] : '';
+                    },
+                    eventContent: function(arg) {
+                        const timeText = arg.timeText ? `<span class="fc-event-time-inline">${escapeHtml(arg.timeText)}</span> ` : '';
+                        return { html: `<span class="fc-event-dot"></span>${timeText}${escapeHtml(arg.event.title)}` };
+                    },
                     eventClick: function(info) {
                         const event = info.event;
-                        alert(`Event: ${event.title}\nDate: ${event.start.toLocaleDateString()}\n${event.extendedProps.description || ''}`);
+                        const dateStr = indianDateString(event.start, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                        const timeStr = indianDateString(event.start, { hour: '2-digit', minute: '2-digit' });
+                        const desc = event.extendedProps.description || '';
+                        const typeLabel = event.extendedProps.type === 'hearing' ? 'Hearing'
+                            : event.extendedProps.type === 'appointment' ? 'Appointment' : 'Note';
+                        alert(`[${typeLabel}]\n${event.title}\nDate: ${dateStr}${timeStr ? ' at ' + timeStr : ''}${desc ? '\n' + desc : ''}`);
                     },
                     datesSet: function(info) {
                         updateCalendarEvents();
                     }
                 });
-                
+
                 calendar.render();
-                
+
                 // Calendar controls
                 document.getElementById('todayBtn').addEventListener('click', () => calendar.today());
                 document.getElementById('prevBtn').addEventListener('click', () => calendar.prev());
@@ -2027,15 +2492,15 @@
 
             function updateCalendarEvents() {
                 events = [];
-                
-                // Add appointments to calendar
+
+                // Appointments as calendar events (no icons, colored by status)
                 appointments.forEach(appointment => {
                     if (appointment.appointmentDate) {
                         try {
                             const date = new Date(appointment.appointmentDate);
                             if (!isNaN(date.getTime())) {
                                 events.push({
-                                    title: `📅 ${appointment.name} - ${appointment.caseType}`,
+                                    title: `${appointment.name} - ${appointment.caseType}`,
                                     start: date,
                                     backgroundColor: getStatusColor(appointment.status),
                                     borderColor: getStatusColor(appointment.status),
@@ -2050,8 +2515,8 @@
                         }
                     }
                 });
-                
-                // Add admin events to calendar
+
+                // Admin notes as calendar events (gold)
                 if (window.adminEvents) {
                     window.adminEvents.forEach(event => {
                         if (event.date) {
@@ -2059,14 +2524,12 @@
                                 const date = new Date(event.date);
                                 if (!isNaN(date.getTime())) {
                                     events.push({
-                                        title: `📝 ${event.title}`,
+                                        title: event.title,
                                         start: date,
                                         backgroundColor: '#b39c7d',
                                         borderColor: '#d4b78f',
-                                        extendedProps: {
-                                            type: 'admin',
-                                            description: event.description || ''
-                                        }
+                                        textColor: '#121212',
+                                        extendedProps: { type: 'note', description: event.description || '' }
                                     });
                                 }
                             } catch (e) {
@@ -2075,7 +2538,30 @@
                         }
                     });
                 }
-                
+
+                // Hearing dates as calendar events (bright gold, so they stand out)
+                if (window.hearings && window.hearings.length) {
+                    window.hearings.forEach(h => {
+                        if (!h.date) return;
+                        try {
+                            const date = new Date(h.date);
+                            if (!isNaN(date.getTime())) {
+                                events.push({
+                                    title: h.title,
+                                    start: h.time ? `${h.date}T${h.time}` : new Date(h.date),
+                                    allDay: !h.time,
+                                    backgroundColor: '#d4b78f',
+                                    borderColor: '#f0dfbc',
+                                    textColor: '#121212',
+                                    extendedProps: { type: 'hearing', description: h.time ? `Time: ${h.time}` : '' }
+                                });
+                            }
+                        } catch (e) {
+                            console.warn('Invalid hearing date:', h.date);
+                        }
+                    });
+                }
+
                 if (calendar) {
                     calendar.removeAllEvents();
                     calendar.addEventSource(events);
@@ -2169,6 +2655,130 @@
                 });
             });
 
+            // ========== HEARINGS (structured, dated entries) ==========
+            async function loadHearings() {
+                try {
+                    const hearingsRef = window.firestoreCollection(window.firestoreDB, 'hearings');
+                    const q = window.firestoreQuery(hearingsRef, window.firestoreOrderBy('date', 'desc'));
+                    const snapshot = await window.firestoreGetDocs(q);
+
+                    window.hearings = [];
+                    snapshot.forEach((doc) => {
+                        const h = doc.data() || {};
+                        window.hearings.push({
+                            id: doc.id,
+                            title: h.title || 'Hearing',
+                            date: h.date || '',
+                            time: h.time || ''
+                        });
+                    });
+                    renderHearings(window.hearings);
+                } catch (error) {
+                    console.error('Error loading hearings:', error);
+                }
+            }
+
+            function formatHearingDate(dateStr) {
+                if (!dateStr) return '';
+                try {
+                    const d = new Date(dateStr.length <= 10 ? dateStr + 'T00:00:00' : dateStr);
+                    if (isNaN(d.getTime())) return dateStr;
+                    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+                } catch (e) {
+                    return dateStr;
+                }
+            }
+
+            function renderHearings(hearings) {
+                const listEl = document.getElementById('hearingsList');
+                if (!listEl) return;
+                if (!hearings.length) {
+                    listEl.innerHTML = '<div class="hearings-empty"><i class="fas fa-gavel"></i> No hearings scheduled yet. Add one above.</div>';
+                    updateCalendarEvents();
+                    return;
+                }
+                listEl.innerHTML = hearings.map((h, idx) => {
+                    const d = new Date(h.date);
+                    const dayNum = isNaN(d.getTime()) ? '--' : d.getDate();
+                    const monthNum = isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-IN', { month: 'short' }).toUpperCase();
+                    const timeText = h.time ? `<span class="hearing-time-chip"><i class="far fa-clock"></i> ${h.time}</span>` : '';
+                    return `<div class="hearing-item" style="animation-delay:${idx * 40}ms">
+                        <div class="hearing-date-badge"><span class="hd-day">${dayNum}</span><span class="hd-month">${monthNum}</span></div>
+                        <div class="hearing-info">
+                            <div class="hearing-title">${escapeHtml(h.title)}</div>
+                            <div class="hearing-sub">${formatHearingDate(h.date)} ${timeText}</div>
+                        </div>
+                        <button class="hearing-delete-btn" data-id="${h.id}" title="Remove hearing"><i class="fas fa-trash-alt"></i></button>
+                    </div>`;
+                }).join('');
+                listEl.querySelectorAll('.hearing-delete-btn').forEach(btn => {
+                    btn.addEventListener('click', () => deleteHearing(btn.dataset.id));
+                });
+                updateCalendarEvents();
+            }
+
+            async function deleteHearing(id) {
+                if (!id) return;
+                const sure = confirm('Remove this hearing date?');
+                if (!sure) return;
+                try {
+                    await window.firestoreDeleteDoc(window.firestoreDoc(window.firestoreDB, 'hearings', id));
+                    await loadHearings();
+                    showToast('Hearing removed.', 'success');
+                } catch (error) {
+                    console.error('Error deleting hearing:', error);
+                    showToast('Error removing hearing!', 'error');
+                }
+            }
+
+            async function addHearingFromForm() {
+                const dateInput = document.getElementById('hearingDate');
+                const titleInput = document.getElementById('hearingTitle');
+                const timeInput = document.getElementById('hearingTime');
+                if (!dateInput || !titleInput) return;
+                const dateVal = dateInput.value;
+                const titleVal = titleInput.value.trim();
+                if (!dateVal) {
+                    showToast('Please pick a hearing date.', 'error');
+                    dateInput.focus();
+                    return;
+                }
+                if (!titleVal) {
+                    showToast('Please enter a case or client title.', 'error');
+                    titleInput.focus();
+                    return;
+                }
+                try {
+                    const hearingsRef = window.firestoreCollection(window.firestoreDB, 'hearings');
+                    await window.firestoreAddDoc(hearingsRef, {
+                        title: titleVal,
+                        date: dateVal,
+                        time: timeInput.value,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: window.firestoreServerTimestamp()
+                    });
+                    dateInput.value = '';
+                    titleInput.value = '';
+                    timeInput.value = '';
+                    await loadHearings();
+                    showToast('Hearing date added!', 'success');
+                } catch (error) {
+                    console.error('Error adding hearing:', error);
+                    showToast('Error adding hearing!', 'error');
+                }
+            }
+
+            const addHearingBtn = document.getElementById('addHearingBtn');
+            if (addHearingBtn) {
+                addHearingBtn.addEventListener('click', addHearingFromForm);
+            }
+            ['hearingDate', 'hearingTitle'].forEach(id => {
+                const inp = document.getElementById(id);
+                if (inp) inp.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') { e.preventDefault(); addHearingFromForm(); }
+                });
+            });
+
             // Toggle data sections
             document.querySelectorAll('.toggle-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -2191,7 +2801,7 @@
             const quickNavTargets = [
                 { btn: 'notesBtn', content: 'notesContent', id: 'notesText' },
                 { btn: 'routineBtn', content: 'routineContent', id: 'routineText' },
-                { btn: 'hearingBtn', content: 'hearingContent', id: 'hearingText' }
+                { btn: 'hearingBtn', content: 'hearingContent', id: 'hearingDate' }
             ];
 
             quickNavTargets.forEach(({ btn, content, id }) => {
@@ -2318,24 +2928,6 @@
                     }, 300);
                 }, 3000);
             }
-
-            // ========== TEST FIRESTORE CONNECTION ==========
-            async function testFirestore() {
-                try {
-                    console.log('Testing Firestore connection...');
-                    const testRef = window.firestoreCollection(window.firestoreDB, 'test');
-                    await window.firestoreAddDoc(testRef, {
-                        test: true,
-                        timestamp: new Date().toISOString()
-                    });
-                    console.log('Firestore connection successful!');
-                } catch (error) {
-                    console.warn('Firestore test failed:', error);
-                }
-            }
-            
-            // Run test
-            setTimeout(testFirestore, 1000);
         });
     </script>
 </body>

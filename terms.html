@@ -415,6 +415,54 @@
         header.header-hidden {
             transform: translateY(-110%);
         }
+
+        /* Accessibility & polish */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid #d4b78f;
+            outline-offset: 3px;
+        }
+        .btn-primary,
+        .cta-button,
+        .cta-btn,
+        .book-btn,
+        button[type="submit"] {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after,
+        .cta-button::after,
+        .cta-btn::after,
+        .book-btn::after,
+        button[type="submit"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-20deg);
+            animation: btnShineAcross 3.6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes btnShineAcross {
+            0%, 55% { left: -120%; }
+            85%, 100% { left: 160%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .btn-primary::after,
+            .cta-button::after,
+            .cta-btn::after,
+            .book-btn::after,
+            button[type="submit"]::after {
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body>
