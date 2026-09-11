@@ -891,6 +891,569 @@
             }
         }
     </style>
+<!-- Modern Admin Theme (2026) -->
+    <style id="modern-admin-theme">
+        :root {
+            --gold-1: #b39c7d;
+            --gold-2: #d4b78f;
+            --bg-0: #0d0d11;
+            --bg-1: #15151b;
+            --bg-2: #1b1b23;
+            --card: rgba(23, 23, 31, 0.9);
+            --line: rgba(179, 156, 125, 0.18);
+            --txt-1: #eae6df;
+            --txt-2: #9c97a1;
+            --radius: 18px;
+        }
+
+        body {
+            background:
+                radial-gradient(1000px 500px at 85% -10%, rgba(179, 156, 125, 0.08), transparent 60%),
+                radial-gradient(800px 600px at -10% 20%, rgba(212, 183, 143, 0.05), transparent 55%),
+                var(--bg-0);
+            color: var(--txt-1);
+        }
+
+        /* ---------- Login Screen ---------- */
+        .login-screen {
+            background: radial-gradient(900px 600px at 50% 10%, rgba(179, 156, 125, 0.1), transparent 60%), rgba(13, 13, 17, 0.92);
+        }
+
+        .login-container {
+            background: var(--card);
+            border-radius: 22px;
+            border: 1px solid rgba(179, 156, 125, 0.28);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #b39c7d, #d4b78f, #b39c7d, transparent);
+        }
+
+        .login-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(400px 200px at 50% -40px, rgba(179, 156, 125, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        .login-logo {
+            background: linear-gradient(135deg, #b39c7d, #f0dcb4, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .login-logo i {
+            display: inline-block;
+        }
+
+        .input-group input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .input-group input:focus {
+            border-color: var(--gold-1);
+            box-shadow: 0 0 0 4px rgba(179, 156, 125, 0.15);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #b39c7d, #e0c9a0);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 12px 30px rgba(179, 156, 125, 0.25);
+        }
+
+        /* ---------- Dashboard Frame ---------- */
+        .dashboard {
+            max-width: 1560px;
+            margin: 0 auto;
+            padding: 24px 4%;
+        }
+
+        .dashboard-header {
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 28px;
+            padding: 8px 4px 22px;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            background: linear-gradient(120deg, #e0c9a0, #b39c7d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .dashboard-title::before {
+            content: '\f2e7';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px; height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(179, 156, 125, 0.2), rgba(212, 183, 143, 0.1));
+            border: 1px solid var(--line);
+            font-size: 1.1rem;
+            color: #d4b78f;
+        }
+
+        .home-btn, .logout-btn {
+            border-radius: 12px;
+            padding: 11px 22px;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+        }
+
+        .home-btn {
+            background: rgba(179, 156, 125, 0.12);
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            color: #d4b78f;
+        }
+
+        .logout-btn {
+            background: rgba(244, 67, 54, 0.08);
+            border: 1px solid rgba(244, 67, 54, 0.25);
+        }
+
+        /* ---------- Control Chips ---------- */
+        .admin-controls {
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .control-btn {
+            background: var(--card);
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            padding: 13px 24px;
+            font-size: 0.92rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .control-btn i {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(179, 156, 125, 0.15);
+        }
+
+        .control-btn:hover {
+            background: linear-gradient(135deg, rgba(179, 156, 125, 0.2), rgba(212, 183, 143, 0.1));
+            border-color: rgba(179, 156, 125, 0.5);
+        }
+
+        /* ---------- Stats ---------- */
+        .stats-cards {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 24px 20px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            right: -30px; bottom: -30px;
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(179, 156, 125, 0.15), transparent 70%);
+        }
+
+        .stat-card:nth-child(2)::after { background: radial-gradient(circle, rgba(255, 193, 7, 0.12), transparent 70%); }
+        .stat-card:nth-child(3)::after { background: radial-gradient(circle, rgba(76, 175, 80, 0.12), transparent 70%); }
+        .stat-card:nth-child(4)::after { background: radial-gradient(circle, rgba(244, 67, 54, 0.12), transparent 70%); }
+
+        .stat-icon {
+            width: 46px; height: 46px;
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+            color: #d4b78f !important;
+            background: rgba(179, 156, 125, 0.14);
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-card:nth-child(2) .stat-icon { color: #ffc107 !important; background: rgba(255,193,7,0.12); border-color: rgba(255,193,7,0.25); }
+        .stat-card:nth-child(3) .stat-icon { color: #4CAF50 !important; background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.25); }
+        .stat-card:nth-child(4) .stat-icon { color: #ff7b72 !important; background: rgba(244,67,54,0.12); border-color: rgba(244,67,54,0.25); }
+
+        .stat-number {
+            font-size: 2.6rem;
+            color: #f4efe7;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--txt-2);
+            font-size: 0.88rem;
+        }
+
+        /* ---------- Section Panels ---------- */
+        .calendar-section,
+        .appointments-section,
+        .admin-data-section {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 26px;
+            margin-bottom: 26px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 1.45rem;
+            letter-spacing: 0.3px;
+        }
+
+        .calendar-btn, .filter-btn {
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            color: #cfc9c0;
+            padding: 9px 18px;
+        }
+
+        .calendar-btn:hover, .filter-btn:hover,
+        .calendar-btn.active, .filter-btn.active {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            border-color: transparent;
+            color: #121212;
+            font-weight: 700;
+            box-shadow: 0 10px 24px rgba(179, 156, 125, 0.3);
+        }
+
+        /* ---------- Calendar ---------- */
+        #calendar {
+            background: transparent;
+            border-radius: 14px;
+            padding: 6px;
+        }
+
+        .fc {
+            --fc-border-color: rgba(255, 255, 255, 0.07);
+            --fc-today-bg-color: rgba(179, 156, 125, 0.12);
+            font-size: 0.92em;
+        }
+
+        .fc-theme-standard .fc-scrollgrid {
+            border-radius: 14px;
+            overflow: hidden;
+            border-color: var(--fc-border-color);
+        }
+
+        .fc-theme-standard td, .fc-theme-standard th {
+            border-color: var(--fc-border-color);
+        }
+
+        .fc-col-header-cell {
+            background: linear-gradient(135deg, rgba(179, 156, 125, 0.16), rgba(212, 183, 143, 0.08)) !important;
+            color: #d4b78f !important;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            padding: 12px 0 !important;
+        }
+
+        .fc-daygrid-day {
+            transition: background 0.25s ease;
+        }
+
+        .fc-daygrid-day:hover {
+            background: rgba(179, 156, 125, 0.06);
+        }
+
+        .fc-daygrid-day-number {
+            color: #cfc9c0;
+            padding: 6px 8px;
+            font-weight: 500;
+        }
+
+        .fc-day-today .fc-daygrid-day-number {
+            color: #d4b78f;
+            font-weight: 800;
+        }
+
+        .fc-day-today {
+            background: rgba(179, 156, 125, 0.1) !important;
+        }
+
+        .fc-day-other .fc-daygrid-day-number {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .fc-event {
+            background: linear-gradient(135deg, rgba(179, 156, 125, 0.95), rgba(212, 183, 143, 0.9)) !important;
+            border: none !important;
+            color: #17130c !important;
+            border-radius: 8px !important;
+            padding: 3px 8px !important;
+            font-weight: 700;
+            font-size: 0.78rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .fc-event:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(179, 156, 125, 0.4);
+        }
+
+        .fc-daygrid-event .fc-event-time {
+            font-weight: 600;
+        }
+
+        .fc-popover {
+            background: #1b1b23;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .fc-popover-header {
+            background: rgba(179, 156, 125, 0.15);
+            color: #d4b78f;
+        }
+
+        /* ---------- Appointment Cards ---------- */
+        .appointments-grid {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+
+        .appointment-card {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .appointment-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: #ffc107;
+        }
+
+        .appointment-card:hover {
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .appointment-actions {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .action-btn {
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+        }
+
+        .appointment-description {
+            margin-top: 6px !important;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(179, 156, 125, 0.25);
+        }
+
+        .appointment-description span {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #cfc9c0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .delete-btn {
+            background: rgba(244, 67, 54, 0.1);
+            color: #ff7b72;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .delete-btn:hover {
+            background: rgba(244, 67, 54, 0.22);
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Admin Data Cards ---------- */
+        .data-grid {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+        }
+
+        .data-card {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .data-header h4 {
+            font-size: 1.05rem;
+            color: #d4b78f;
+        }
+
+        .data-textarea {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-color: rgba(255, 255, 255, 0.08);
+            line-height: 1.6;
+        }
+
+        .data-textarea:focus {
+            border-color: var(--gold-1);
+            box-shadow: 0 0 0 3px rgba(179, 156, 125, 0.12);
+            outline: none;
+        }
+
+        .data-save-btn {
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+
+        .data-meta {
+            margin-top: 10px;
+            color: #77777f;
+            font-size: 0.78rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .data-meta::before {
+            content: '\f017';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 400;
+            color: #b39c7d;
+        }
+
+        /* ---------- Modal ---------- */
+        .modal {
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-header {
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            background: linear-gradient(120deg, #e0c9a0, #b39c7d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-content input, .modal-content textarea {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 10px !important;
+            color: #eae6df !important;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .modal-content input:focus, .modal-content textarea:focus {
+            outline: none;
+            border-color: var(--gold-1) !important;
+        }
+
+        .modal-overlay {
+            background: rgba(8, 8, 12, 0.75);
+            backdrop-filter: blur(6px);
+        }
+
+        /* ---------- Toast ---------- */
+        .toast {
+            border-radius: 14px;
+            padding: 15px 22px;
+            font-weight: 600;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .toast::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            animation: toastBar 3s linear forwards;
+        }
+
+        @keyframes toastBar {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .no-data {
+            grid-column: 1 / -1;
+            padding: 60px 20px;
+        }
+
+        .no-data i {
+            font-size: 3.4rem;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 768px) {
+            .dashboard { padding: 16px 4%; }
+            .stats-cards { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+            .appointments-grid, .data-grid { grid-template-columns: 1fr; }
+            .admin-controls { flex-direction: row; flex-wrap: wrap; }
+            .control-btn { flex: 1 1 calc(50% - 12px); justify-content: center; }
+        }
+    </style>
 </head>
 <body>
     <!-- Login Screen -->
@@ -1053,6 +1616,7 @@
                     <div class="data-content" id="notesContent">
                         <textarea class="data-textarea" id="notesText" placeholder="Enter important notes here..."></textarea>
                         <button class="data-save-btn" data-type="notes">Save Notes</button>
+                        <div class="data-meta" id="notesMeta">No saved entry yet</div>
                     </div>
                 </div>
                 
@@ -1066,6 +1630,7 @@
                     <div class="data-content" id="routineContent">
                         <textarea class="data-textarea" id="routineText" placeholder="Enter daily routine here..."></textarea>
                         <button class="data-save-btn" data-type="routine">Save Routine</button>
+                        <div class="data-meta" id="routineMeta">No saved entry yet</div>
                     </div>
                 </div>
                 
@@ -1079,6 +1644,7 @@
                     <div class="data-content" id="hearingContent">
                         <textarea class="data-textarea" id="hearingText" placeholder="Enter hearing dates here..."></textarea>
                         <button class="data-save-btn" data-type="hearingDates">Save Hearing Dates</button>
+                        <div class="data-meta" id="hearingDatesMeta">No saved entry yet</div>
                     </div>
                 </div>
             </div>
@@ -1296,6 +1862,7 @@
                         <p><i class="fas fa-calendar"></i> ${formattedDate}</p>
                         <p><i class="fas fa-clock"></i> ${appointment.appointmentTime || 'No time'}</p>
                         <p><i class="fas fa-balance-scale"></i> ${appointment.caseType || 'N/A'}</p>
+                        ${appointment.description ? `<p class="appointment-description"><i class="fas fa-file-alt"></i> <span>${escapeHtml(appointment.description)}</span></p>` : ''}
                     </div>
                     <div class="appointment-actions">
                         <button class="action-btn confirm-btn" data-id="${appointment.id}">
@@ -1310,6 +1877,9 @@
                         <button class="action-btn call-btn" data-phone="${appointment.phone}">
                             <i class="fas fa-phone"></i> Call
                         </button>
+                        <button class="action-btn delete-btn" data-id="${appointment.id}">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
                     </div>
                 `;
                 
@@ -1322,6 +1892,8 @@
                     openWhatsApp(appointment.phone, appointment.name));
                 card.querySelector('.call-btn').addEventListener('click', () => 
                     makeCall(appointment.phone));
+                card.querySelector('.delete-btn').addEventListener('click', () => 
+                    deleteAppointment(appointment.id, appointment.name));
                 
                 return card;
             }
@@ -1354,6 +1926,28 @@
                     } catch (error) {
                         console.error('Error updating status:', error);
                         showToast('Error updating status!', 'error');
+                    }
+                }
+            }
+
+            function escapeHtml(str) {
+                const div = document.createElement('div');
+                div.textContent = String(str || '');
+                return div.innerHTML;
+            }
+
+            async function deleteAppointment(appointmentId, clientName) {
+                if (confirm(`Delete the appointment for "${clientName || 'this client'}"?\n\nThis cannot be undone.`)) {
+                    if (!confirm('Please confirm again: this will permanently remove the record.')) {
+                        return;
+                    }
+                    try {
+                        const appointmentRef = window.firestoreDoc(window.firestoreDB, 'appointments', appointmentId);
+                        await window.firestoreDeleteDoc(appointmentRef);
+                        showToast('Appointment deleted successfully', 'success');
+                    } catch (error) {
+                        console.error('Error deleting appointment:', error);
+                        showToast('Error deleting appointment!', 'error');
                     }
                 }
             }
@@ -1408,6 +2002,9 @@
                     headerToolbar: false,
                     themeSystem: 'standard',
                     height: 'auto',
+                    dayMaxEvents: 3,
+                    moreLinkText: (n) => `+${n} more`,
+                    fixedWeekCount: false,
                     events: events,
                     eventClick: function(info) {
                         const event = info.event;
@@ -1497,21 +2094,47 @@
             async function loadAdminData(type) {
                 try {
                     const dataRef = window.firestoreCollection(window.firestoreDB, 'adminData');
-                    const q = window.firestoreQuery(window.firestoreCollection(window.firestoreDB, 'adminData'), 
+                    const q = window.firestoreQuery(dataRef, 
                         window.firestoreOrderBy('timestamp', 'desc'));
                     const snapshot = await window.firestoreGetDocs(q);
                     
                     let data = '';
+                    let latestTime = null;
                     snapshot.forEach((doc) => {
-                        if (doc.id === type) {
-                            data = doc.data().content || '';
+                        const docData = doc.data() || {};
+                        // Match new docs (saved with a "type" field) or legacy docs (saved with the id equal to the type)
+                        const match = (docData.type === type) || (doc.id === type);
+                        if (match) {
+                            const docTime = docData.timestamp || docData.updatedAt || '';
+                            if (!latestTime || String(docTime) > String(latestTime)) {
+                                latestTime = docTime;
+                                data = docData.content || '';
+                            }
                         }
                     });
                     
                     document.getElementById(`${type}Text`).value = data;
+                    updateDataMeta(type, latestTime);
                 } catch (error) {
                     console.error(`Error loading ${type}:`, error);
                 }
+            }
+
+            function updateDataMeta(type, timestamp) {
+                const metaEl = document.getElementById(`${type}Meta`);
+                if (!metaEl) return;
+                if (!timestamp) {
+                    metaEl.textContent = 'No saved entry yet';
+                    return;
+                }
+                const label = type === 'hearingDates' ? 'hearingDates' : type;
+                if (/^\d{4}-\d{2}-\d{2}/.test(String(timestamp))) {
+                    try {
+                        metaEl.textContent = `Last saved: ${new Date(timestamp).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })} for ${label}`;
+                        return;
+                    } catch (e) { /* fall through */ }
+                }
+                metaEl.textContent = `Last saved: ${String(timestamp)} (${label})`;
             }
 
             // Save admin data
@@ -1520,9 +2143,14 @@
                     const type = this.getAttribute('data-type');
                     const textarea = document.getElementById(`${type}Text`);
                     const content = textarea.value.trim();
+
+                    if (!content) {
+                        showToast(`${type} cannot be empty!`, 'error');
+                        return;
+                    }
                     
                     try {
-                        // For simplicity, we'll store each type as a separate document
+                        // Store each type as its own document (addDoc; latest entry wins on load)
                         const dataRef = window.firestoreCollection(window.firestoreDB, 'adminData');
                         await window.firestoreAddDoc(dataRef, {
                             type: type,
@@ -1531,6 +2159,8 @@
                             updatedAt: window.firestoreServerTimestamp()
                         });
                         
+                        // Reflect in the local UI immediately
+                        document.getElementById(`${type}Text`).value = content;
                         showToast(`${type} saved successfully!`, 'success');
                     } catch (error) {
                         console.error(`Error saving ${type}:`, error);

@@ -465,6 +465,20 @@
         "areaServed": ["Nagpur", "Wardha", "Maharashtra", "India"]
     }
     </script>
+<!-- Scroll-aware header -->
+    <style>
+        header {
+            background: rgba(18, 18, 18, 0.72);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease;
+        }
+        header.header-scrolled {
+            background: rgba(13, 13, 15, 0.85);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        header.header-hidden {
+            transform: translateY(-110%);
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -629,6 +643,50 @@
         window.addEventListener('scroll', checkFade);
         window.addEventListener('resize', checkFade);
         checkFade(); // Initial check
+    </script>
+<script>
+        // Hide header on scroll down, reveal on FAST scroll up
+        (function () {
+            const header = document.querySelector('header');
+            if (!header) return;
+            let lastY = window.pageYOffset;
+            let lastTime = Date.now();
+            let ticking = false;
+            let hidden = false;
+            const HIDE_AFTER = 160;
+            const DOWN_VELOCITY = 0.55;
+            const UP_VELOCITY = -0.9;
+            function update() {
+                const y = window.pageYOffset;
+                const now = Date.now();
+                const dt = Math.max(1, now - lastTime);
+                const velocity = (y - lastY) / dt;
+                if (y <= HIDE_AFTER) {
+                    hidden = false;
+                    header.classList.remove('header-hidden');
+                    header.classList.toggle('header-scrolled', y > 30);
+                } else {
+                    header.classList.add('header-scrolled');
+                    if (!hidden && velocity > DOWN_VELOCITY) {
+                        header.classList.add('header-hidden');
+                        hidden = true;
+                    } else if (hidden && velocity < UP_VELOCITY) {
+                        header.classList.remove('header-hidden');
+                        hidden = false;
+                    }
+                }
+                lastY = y;
+                lastTime = now;
+                ticking = false;
+            }
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    ticking = true;
+                    window.requestAnimationFrame(update);
+                }
+            }, { passive: true });
+            update();
+        })();
     </script>
 </body>
 </html>

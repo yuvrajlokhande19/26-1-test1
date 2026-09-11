@@ -1000,8 +1000,91 @@
         ]
     }
     </script>
+<!-- Scroll-aware header -->
+    <style>
+        header {
+            background: rgba(18, 18, 18, 0.72);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease;
+        }
+        header.header-scrolled {
+            background: rgba(13, 13, 15, 0.85);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        header.header-hidden {
+            transform: translateY(-110%);
+        }
+    </style>
+<!-- Dynamic scroll effects -->
+    <style>
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            width: 0%;
+            z-index: 2000;
+            box-shadow: 0 0 12px rgba(179, 156, 125, 0.6);
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: all 0.35s ease;
+            z-index: 1500;
+            box-shadow: 0 10px 24px rgba(179, 156, 125, 0.4);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lawyer-card, .service-box, .client-box {
+            position: relative;
+        }
+
+        .lawyer-card::after,
+        .service-box::after,
+        .client-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 183, 143, 0.16), transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .lawyer-card:hover::after,
+        .service-box:hover::after,
+        .client-box:hover::after {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
+    <!-- Scroll progress + back to top -->
+    <div class="scroll-progress"></div>
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Loading Animation -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">
@@ -1477,23 +1560,117 @@
             updateCarousel();
         });
 
-        // Scroll Animations
+        // Scroll Animations (IntersectionObserver + stagger)
         const fadeElements = document.querySelectorAll('.fade-in');
 
-        function checkFade() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add('visible');
-                }
-            });
-        }
+        fadeElements.forEach(el => {
+            if (el.parentElement) {
+                const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('fade-in'));
+                const i = siblings.indexOf(el);
+                if (i > 0) el.style.transitionDelay = `${Math.min(i, 5) * 90}ms`;
+            }
+        });
 
-        window.addEventListener('scroll', checkFade);
-        window.addEventListener('resize', checkFade);
-        checkFade(); // Initial check
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+            fadeElements.forEach(el => revealObserver.observe(el));
+        } else {
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    if (elementTop < window.innerHeight - 100) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            window.addEventListener('scroll', checkFade);
+            window.addEventListener('resize', checkFade);
+            checkFade();
+        }
+    </script>
+<script>
+        // ===== Dynamic site effects =====
+
+        // Scroll progress bar + back to top + hero parallax + header hide, throttled by rAF
+        (function () {
+            const progressBar = document.querySelector('.scroll-progress');
+            const toTop = document.querySelector('.back-to-top');
+            const header = document.querySelector('header');
+            const hero = document.querySelector('.hero-section');
+            let ticking = false;
+
+            if (toTop) {
+                toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            let lastY = window.pageYOffset;
+            let lastTime = Date.now();
+            let hidden = false;
+            const HIDE_AFTER = 160;
+            const DOWN_VELOCITY = 0.55;
+            const UP_VELOCITY = -0.9;
+
+            function onScroll() {
+                const y = window.pageYOffset;
+                const h = document.documentElement;
+                const max = h.scrollHeight - window.innerHeight;
+                const now = Date.now();
+                const dt = Math.max(1, now - lastTime);
+                const velocity = (y - lastY) / dt;
+
+                if (progressBar) progressBar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+
+                if (toTop) toTop.classList.toggle('show', y > 600);
+
+                if (hero) hero.style.backgroundPosition = 'center calc(50% + ' + (y * 0.12).toFixed(1) + 'px)';
+
+                if (header) {
+                    if (y <= HIDE_AFTER) {
+                        hidden = false;
+                        header.classList.remove('header-hidden');
+                        header.classList.toggle('header-scrolled', y > 30);
+                    } else {
+                        header.classList.add('header-scrolled');
+                        if (!hidden && velocity > DOWN_VELOCITY) {
+                            header.classList.add('header-hidden');
+                            hidden = true;
+                        } else if (hidden && velocity < UP_VELOCITY) {
+                            header.classList.remove('header-hidden');
+                            hidden = false;
+                        }
+                    }
+                }
+
+                lastY = y;
+                lastTime = now;
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    ticking = true;
+                    window.requestAnimationFrame(onScroll);
+                }
+            }, { passive: true });
+            onScroll();
+
+            // Cursor spotlight on interactive cards
+            document.querySelectorAll('.lawyer-card, .service-box, .client-box').forEach(function (card) {
+                card.addEventListener('pointermove', function (e) {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+                    card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+                });
+            });
+        })();
     </script>
 </body>
 </html>

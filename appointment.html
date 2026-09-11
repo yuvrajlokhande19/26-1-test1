@@ -237,6 +237,137 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
+        .form-intro {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(179, 156, 125, 0.08);
+            border: 1px solid rgba(179, 156, 125, 0.25);
+            border-radius: 10px;
+            padding: 15px 18px;
+            margin-bottom: 30px;
+        }
+
+        .form-intro i {
+            color: #b39c7d;
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+
+        .form-intro p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: #b39c7d;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(179, 156, 125, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        .form-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-section-title i {
+            font-size: 1rem;
+        }
+
+        .call-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(179, 156, 125, 0.12), rgba(179, 156, 125, 0.05));
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 25px;
+        }
+
+        .call-cta-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #121212;
+            font-size: 1.2rem;
+            animation: phonepulse 2s infinite;
+        }
+
+        @keyframes phonepulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(179, 156, 125, 0.5); }
+            50% { box-shadow: 0 0 0 12px rgba(179, 156, 125, 0); }
+        }
+
+        .call-cta-info h4 {
+            color: #d4b78f;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+        }
+
+        .call-cta-info p {
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .call-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 9px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .call-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(179, 156, 125, 0.35);
+        }
+
+        .office-hours {
+            margin-top: 20px;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(179, 156, 125, 0.3);
+            border-radius: 10px;
+        }
+
+        .office-hours-title {
+            color: #b39c7d;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .office-hours-days {
+            display: flex;
+            justify-content: space-between;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
         .form-group {
             margin-bottom: 25px;
         }
@@ -250,6 +381,25 @@
 
         .form-group label .required {
             color: #ff6b6b;
+        }
+
+        .form-group label .optional {
+            color: #d4b78f;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .field-hint {
+            color: #777;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .field-hint i {
+            color: #b39c7d;
         }
 
         .form-group input,
@@ -561,6 +711,20 @@
         }
     }
     </script>
+<!-- Scroll-aware header -->
+    <style>
+        header {
+            background: rgba(18, 18, 18, 0.72);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease;
+        }
+        header.header-scrolled {
+            background: rgba(13, 13, 15, 0.85);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        header.header-hidden {
+            transform: translateY(-110%);
+        }
+    </style>
 </head>
 <body>
     <!-- Success Notification -->
@@ -629,6 +793,29 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="call-cta">
+                    <div class="call-cta-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="call-cta-info">
+                        <h4>Prefer to Talk Directly?</h4>
+                        <p>Call our office for a quick consultation.</p>
+                        <a href="tel:+918928113111" class="call-cta-btn">
+                            <i class="fas fa-phone"></i> +91 89281 13111
+                        </a>
+                    </div>
+                </div>
+
+                <div class="office-hours">
+                    <div class="office-hours-title">
+                        <i class="fas fa-clock"></i> Office Hours
+                    </div>
+                    <div class="office-hours-days">
+                        <span>Mon - Sat</span>
+                        <span>10:00 AM - 6:00 PM</span>
+                    </div>
+                </div>
             </div>
             
             <!-- Appointment Form -->
@@ -638,6 +825,15 @@
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_next" value="https://linpanelagalservices.in/">
+                
+                <div class="form-intro">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>Your details are confidential and shared only with our legal team. We will confirm your appointment shortly after submission.</p>
+                </div>
+
+                <div class="form-section-title">
+                    <i class="fas fa-id-card"></i> Your Contact Details
+                </div>
                 
                 <div class="form-group">
                     <label for="name">Full Name <span class="required">*</span></label>
@@ -658,6 +854,10 @@
                     <label for="address">Address <span class="required">*</span></label>
                     <textarea id="address" name="address" required placeholder="Enter your complete address"></textarea>
                 </div>
+
+                <div class="form-section-title">
+                    <i class="fas fa-briefcase"></i> Your Legal Matter
+                </div>
                 
                 <div class="form-group">
                     <label for="caseType">Case Type <span class="required">*</span></label>
@@ -677,6 +877,10 @@
                 <div class="form-group">
                     <label for="selectedLawyer">Selected Lawyer</label>
                     <input type="text" id="selectedLawyer" name="selected_lawyer" readonly placeholder="Select lawyer from left panel">
+                </div>
+
+                <div class="form-section-title">
+                    <i class="fas fa-calendar-check"></i> Schedule Your Visit
                 </div>
                 
                 <div class="form-group">
@@ -700,8 +904,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">Case Description <span class="required">*</span></label>
-                    <textarea id="description" name="description" required placeholder="Please provide a detailed description of your legal matter..."></textarea>
+                    <label for="description">Case Description <span class="optional">(Optional)</span></label>
+                    <textarea id="description" name="description" placeholder="Tell us briefly about your legal matter (optional). If provided, our team can review it before your consultation."></textarea>
+                    <p class="field-hint"><i class="fas fa-info-circle"></i> This helps us prepare for your consultation. You can also share details later.</p>
                 </div>
                 
                 <button type="submit" class="submit-btn glow" id="submitBtn">
@@ -851,7 +1056,7 @@
                 };
 
                 // Validation
-                const requiredFields = ['name', 'email', 'phone', 'address', 'caseType', 'appointmentDate', 'selectedTime', 'description'];
+                const requiredFields = ['name', 'email', 'phone', 'address', 'caseType', 'appointmentDate', 'selectedTime'];
                 let isValid = true;
                 let errorMessage = '';
 
@@ -1004,6 +1209,50 @@
             // Run test
             setTimeout(testFirestore, 1000);
         });
+    </script>
+<script>
+        // Hide header on scroll down, reveal on FAST scroll up
+        (function () {
+            const header = document.querySelector('header');
+            if (!header) return;
+            let lastY = window.pageYOffset;
+            let lastTime = Date.now();
+            let ticking = false;
+            let hidden = false;
+            const HIDE_AFTER = 160;
+            const DOWN_VELOCITY = 0.55;
+            const UP_VELOCITY = -0.9;
+            function update() {
+                const y = window.pageYOffset;
+                const now = Date.now();
+                const dt = Math.max(1, now - lastTime);
+                const velocity = (y - lastY) / dt;
+                if (y <= HIDE_AFTER) {
+                    hidden = false;
+                    header.classList.remove('header-hidden');
+                    header.classList.toggle('header-scrolled', y > 30);
+                } else {
+                    header.classList.add('header-scrolled');
+                    if (!hidden && velocity > DOWN_VELOCITY) {
+                        header.classList.add('header-hidden');
+                        hidden = true;
+                    } else if (hidden && velocity < UP_VELOCITY) {
+                        header.classList.remove('header-hidden');
+                        hidden = false;
+                    }
+                }
+                lastY = y;
+                lastTime = now;
+                ticking = false;
+            }
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    ticking = true;
+                    window.requestAnimationFrame(update);
+                }
+            }, { passive: true });
+            update();
+        })();
     </script>
 </body>
 </html>
