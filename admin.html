@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -64,6 +65,11 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            line-height: 1.1;
         }
 
         .login-form {
@@ -979,6 +985,45 @@
             display: inline-block;
         }
 
+        .admin-logo-img {
+            height: 74px;
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid rgba(179, 156, 125, 0.6);
+            box-shadow: 0 8px 26px rgba(179, 156, 125, 0.4);
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 60%);
+            padding: 3px;
+            object-fit: cover;
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .admin-hdr-logo {
+            height: 40px;
+            width: auto;
+            border-radius: 50%;
+            border: 1px solid rgba(179, 156, 125, 0.5);
+            box-shadow: 0 4px 14px rgba(179, 156, 125, 0.3);
+            object-fit: cover;
+        }
+
+        .dashboard-title-hdr {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #b39c7d;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .admin-logo-img { animation: none; }
+        }
+
         .input-group input {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1761,6 +1806,132 @@
         }
         .export-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); }
 
+        /* ===== Glassmorphism touch for major sections ===== */
+        .calendar-section,
+        .appointments-section,
+        .admin-data-section {
+            background: linear-gradient(145deg, rgba(30, 30, 33, 0.72), rgba(20, 20, 23, 0.55));
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(179, 156, 125, 0.18);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(28, 28, 31, 0.72), rgba(18, 18, 20, 0.55));
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        #calendar {
+            background: rgba(22, 22, 25, 0.55);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid rgba(179, 156, 125, 0.15);
+        }
+
+        /* ===== Graphs & Analytics ===== */
+        .charts-section {
+            margin-top: 34px;
+        }
+
+        .chart-refresh-btn {
+            background: transparent;
+            border: 1px solid rgba(179, 156, 125, 0.4);
+            color: #d4b78f;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 9px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+
+        .chart-refresh-btn:hover {
+            background: rgba(179, 156, 125, 0.12);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(179, 156, 125, 0.2);
+        }
+
+        .chart-refresh-btn.spinning i {
+            animation: spin360 0.8s linear infinite;
+        }
+
+        @keyframes spin360 {
+            to { transform: rotate(360deg); }
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .chart-card {
+            padding: 20px 22px;
+            border-radius: 18px;
+            min-height: 330px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card-head h4 {
+            color: #e8e2d8;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        .chart-card-head h4 i {
+            color: #b39c7d;
+        }
+
+        .chart-canvas-wrap {
+            flex: 1;
+            position: relative;
+            min-height: 250px;
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 30, 32, 0.78), rgba(24, 24, 26, 0.6));
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(179, 156, 125, 0.22);
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 183, 143, 0.5), transparent);
+            pointer-events: none;
+        }
+
+        @media (max-width: 900px) {
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .chart-refresh-btn.spinning i { animation: none; }
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .control-btn::after,
@@ -1780,7 +1951,8 @@
     <div class="login-screen" id="loginScreen">
         <div class="login-container">
             <div class="login-logo">
-                <i class="fas fa-shield-alt"></i> Admin Portal
+                <img src="logo.png" alt="Linpane Legal Services" class="admin-logo-img">
+                <span>Admin Portal</span>
             </div>
             <form class="login-form" id="loginForm">
                 <div class="input-group">
@@ -1808,7 +1980,8 @@
     <div class="login-screen" id="setupScreen" style="display: none;">
         <div class="login-container">
             <div class="login-logo">
-                <i class="fas fa-user-lock"></i> Set Admin Password
+                <img src="logo.png" alt="Linpane Legal Services" class="admin-logo-img">
+                <span>Set Admin Password</span>
             </div>
             <form class="login-form" id="adminSetupForm">
                 <div class="input-group">
@@ -1867,7 +2040,10 @@
     <div class="dashboard" id="dashboard">
         <!-- Dashboard Header -->
         <div class="dashboard-header">
-            <h1 class="dashboard-title">Admin Dashboard</h1>
+            <h1 class="dashboard-title-hdr">
+                <img src="logo.png" alt="Linpane Legal Services" class="admin-hdr-logo">
+                <span>Admin Dashboard</span>
+            </h1>
             <div class="header-controls">
                 <a href="index.html" class="home-btn">
                     <i class="fas fa-home"></i> Home
@@ -1915,6 +2091,52 @@
                 <i class="fas fa-times-circle stat-icon"></i>
                 <div class="stat-number" id="cancelledAppointments">0</div>
                 <div class="stat-label">Cancelled Appointments</div>
+            </div>
+        </div>
+
+        <!-- Graphs & Analytics -->
+        <div class="charts-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-pie"></i> Graphs &amp; Analytics
+                </h2>
+                <button class="chart-refresh-btn" id="refreshChartsBtn" title="Refresh charts">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card glass-card">
+                    <div class="chart-card-head">
+                        <h4><i class="fas fa-gavel"></i> Appointments by Case Type</h4>
+                    </div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="chartCaseType"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass-card">
+                    <div class="chart-card-head">
+                        <h4><i class="fas fa-clipboard-check"></i> Appointment Status</h4>
+                    </div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="chartStatus"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass-card">
+                    <div class="chart-card-head">
+                        <h4><i class="fas fa-chart-line"></i> Appointments &mdash; Last 6 Months</h4>
+                    </div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="chartMonthly"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card glass-card">
+                    <div class="chart-card-head">
+                        <h4><i class="fas fa-user-tie"></i> Appointments by Lawyer</h4>
+                    </div>
+                    <div class="chart-canvas-wrap">
+                        <canvas id="chartLawyer"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -2303,6 +2525,7 @@
                     updateStats();
                     displayAppointments('all');
                     updateCalendarEvents();
+                    renderCharts();
                 });
             }
 
@@ -2436,6 +2659,211 @@
                 document.getElementById('pendingAppointments').textContent = pending;
                 document.getElementById('confirmedAppointments').textContent = confirmed;
                 document.getElementById('cancelledAppointments').textContent = cancelled;
+            }
+
+            // ========== GRAPHS & ANALYTICS (Chart.js) ==========
+            const chartInstances = {};
+
+            function chartColors() {
+                return ['#d4b78f', '#b39c7d', '#e0c9a0', '#7c96e8', '#4CAF50', '#e0533d', '#8b7d55', '#c9a0dc'];
+            }
+
+            function chartBase() {
+                return {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#d4b78f',
+                                font: { family: 'Montserrat', size: 11, weight: '500' },
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 9,
+                                padding: 16
+                            }
+                        }
+                    }
+                };
+            }
+
+            function gridRule() {
+                return {
+                    grid: { color: 'rgba(255,255,255,0.07)', drawBorder: false },
+                    ticks: { color: '#a9a4ad', font: { family: 'Montserrat', size: 10 } }
+                };
+            }
+
+            const MONTHS_6 = (function () {
+                const list = [];
+                const now = new Date();
+                for (let i = 5; i >= 0; i--) {
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    list.push(d.toLocaleDateString('en-IN', { month: 'short' }));
+                }
+                return list;
+            })();
+
+            function caseTypeLabel(value) {
+                const map = {
+                    criminal: 'Criminal', civil: 'Civil', family: 'Family',
+                    property: 'Property', corporate: 'Corporate', contract: 'Contract',
+                    consumer: 'Banking', other: 'Other'
+                };
+                return map[value] || (value ? value : 'Unknown');
+            }
+
+            function monthlyIndex(dateStr) {
+                try {
+                    const d = new Date(dateStr.length <= 10 ? dateStr + 'T00:00:00' : dateStr);
+                    if (isNaN(d.getTime())) return -1;
+                    const now = new Date();
+                    const diff = (now.getFullYear() - d.getFullYear()) * 12 + (now.getMonth() - d.getMonth());
+                    if (diff >= 0 && diff < 6) return 5 - diff;
+                } catch (e) { /* not a parseable date */ }
+                return -1;
+            }
+
+            function destroyCharts() {
+                Object.keys(chartInstances).forEach(k => {
+                    if (chartInstances[k]) {
+                        try { chartInstances[k].destroy(); } catch (e) { /* ignore */ }
+                        delete chartInstances[k];
+                    }
+                });
+            }
+
+            function renderCharts() {
+                if (typeof Chart === 'undefined') {
+                    console.warn('Chart.js not loaded; skipping analytics charts.');
+                    return;
+                }
+                destroyCharts();
+
+                // Counts: case type
+                const caseCounts = {};
+                appointments.forEach(a => {
+                    const k = caseTypeLabel(a.caseType);
+                    caseCounts[k] = (caseCounts[k] || 0) + 1;
+                });
+                // Counts: status
+                const stCounts = { Pending: 0, Confirmed: 0, Cancelled: 0 };
+                appointments.forEach(a => {
+                    if (a.status === 'confirmed') stCounts.Confirmed++;
+                    else if (a.status === 'cancelled') stCounts.Cancelled++;
+                    else stCounts.Pending++;
+                });
+                // Counts: monthly (last 6 months)
+                const monthly = [0, 0, 0, 0, 0, 0];
+                appointments.forEach(a => {
+                    const src = a.timestamp || a.createdAt || a.appointmentDate || '';
+                    const idx = monthlyIndex(src);
+                    if (idx >= 0) monthly[idx]++;
+                });
+                // Counts: by lawyer
+                const lawyerCounts = {};
+                appointments.forEach(a => {
+                    const k = (a.selectedLawyer && a.selectedLawyer !== 'Not specified')
+                        ? a.selectedLawyer : 'Not specified';
+                    lawyerCounts[k] = (lawyerCounts[k] || 0) + 1;
+                });
+
+                const colors = chartColors();
+
+                // Donut: case type
+                chartInstances.chartCaseType = new Chart(document.getElementById('chartCaseType'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(caseCounts),
+                        datasets: [{
+                            data: Object.values(caseCounts),
+                            backgroundColor: colors,
+                            borderColor: '#17171a',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: Object.assign({}, chartBase(), { cutout: '60%' })
+                });
+
+                // Donut: status
+                chartInstances.chartStatus = new Chart(document.getElementById('chartStatus'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(stCounts),
+                        datasets: [{
+                            data: Object.values(stCounts),
+                            backgroundColor: ['#f0c04a', '#4CAF50', '#e0533d'],
+                            borderColor: '#17171a',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: Object.assign({}, chartBase(), { cutout: '60%' })
+                });
+
+                // Bar: last 6 months
+                chartInstances.chartMonthly = new Chart(document.getElementById('chartMonthly'), {
+                    type: 'bar',
+                    data: {
+                        labels: MONTHS_6,
+                        datasets: [{
+                            label: 'Appointments',
+                            data: monthly,
+                            backgroundColor: 'rgba(212, 183, 143, 0.75)',
+                            hoverBackgroundColor: '#e0c9a0',
+                            borderRadius: 8,
+                            borderSkipped: false,
+                            barThickness: 'flex'
+                        }]
+                    },
+                    options: Object.assign({}, chartBase(), {
+                        scales: {
+                            x: gridRule(),
+                            y: Object.assign({}, gridRule(), {
+                                beginAtZero: true,
+                                ticks: Object.assign({}, gridRule().ticks, { precision: 0 })
+                            })
+                        }
+                    })
+                });
+
+                // Horizontal bar: by lawyer
+                chartInstances.chartLawyer = new Chart(document.getElementById('chartLawyer'), {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(lawyerCounts),
+                        datasets: [{
+                            label: 'Appointments',
+                            data: Object.values(lawyerCounts),
+                            backgroundColor: 'rgba(124, 150, 232, 0.75)',
+                            hoverBackgroundColor: '#9db1f0',
+                            borderRadius: 8,
+                            borderSkipped: false,
+                            barThickness: 'flex'
+                        }]
+                    },
+                    options: Object.assign({}, chartBase(), {
+                        indexAxis: 'y',
+                        scales: {
+                            x: Object.assign({}, gridRule(), {
+                                beginAtZero: true,
+                                ticks: Object.assign({}, gridRule().ticks, { precision: 0 })
+                            }),
+                            y: gridRule()
+                        }
+                    })
+                });
+            }
+
+            const refreshChartsBtn = document.getElementById('refreshChartsBtn');
+            if (refreshChartsBtn) {
+                refreshChartsBtn.addEventListener('click', function() {
+                    this.classList.add('spinning');
+                    setTimeout(() => { this.classList.remove('spinning'); }, 800);
+                    renderCharts();
+                    showToast('Charts refreshed.', 'success');
+                });
             }
 
             // ========== APPOINTMENT ACTIONS ==========
