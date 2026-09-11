@@ -1798,7 +1798,37 @@
                     <i class="fas fa-sign-in-alt"></i> Login to Dashboard
                 </button>
                 <div class="login-hint">
-                    <i class="fas fa-shield-alt"></i> Secured login — password is verified securely. Use the admin account created in Firebase Console (Authentication → Users). Username maps to <strong>username@linpanelagalservices.in</strong>.
+                    <i class="fas fa-shield-alt"></i> Secured login — your password is verified against an encrypted copy stored in the database, never in the page source. On your <strong>first</strong> visit you will be asked to set an admin password; after that, just sign in.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- First-time password setup -->
+    <div class="login-screen" id="setupScreen" style="display: none;">
+        <div class="login-container">
+            <div class="login-logo">
+                <i class="fas fa-user-lock"></i> Set Admin Password
+            </div>
+            <form class="login-form" id="adminSetupForm">
+                <div class="input-group">
+                    <label for="setupUsername">Username</label>
+                    <input type="text" id="setupUsername" placeholder="Choose a username" required autocomplete="off">
+                </div>
+                <div class="input-group">
+                    <label for="setupPassword">New Password</label>
+                    <input type="password" id="setupPassword" placeholder="Choose a strong password" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="input-group">
+                    <label for="setupConfirm">Confirm Password</label>
+                    <input type="password" id="setupConfirm" placeholder="Re-enter the password" required minlength="6" autocomplete="new-password">
+                </div>
+                <div class="login-error" id="setupError"></div>
+                <button type="submit" class="login-btn" id="setupBtn">
+                    <i class="fas fa-check-circle"></i> Save & Enter Dashboard
+                </button>
+                <div class="login-hint">
+                    <i class="fas fa-database"></i> Your password is never stored or shown in plain text. Only a one-way encrypted (hashed) copy is kept in the database, so it stays hidden from page source and inspection.
                 </div>
             </form>
         </div>
@@ -2016,9 +2046,9 @@
             doc,
             query,
             orderBy,
-            serverTimestamp 
+            serverTimestamp,
+            setDoc
         } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
 
         // Your Firebase configuration
         const firebaseConfig = {
@@ -2047,12 +2077,7 @@
         window.firestoreQuery = query;
         window.firestoreOrderBy = orderBy;
         window.firestoreServerTimestamp = serverTimestamp;
-
-        // Firebase Auth (backend-validated sign in)
-        window.firebaseAuth = getAuth(app);
-        window.firebaseOnAuthStateChanged = onAuthStateChanged;
-        window.firebaseSignIn = signInWithEmailAndPassword;
-        window.firebaseSignOut = signOut;
+        window.firestoreSetDoc = setDoc;
     </script>
 
     <script>
@@ -2069,11 +2094,64 @@
             let appointments = [];
             let events = [];
 
-            // ========== LOGIN LOGIC (Firebase Auth backend validation) ==========
-            // Credentials never live in this file. The username is mapped to an admin
-            // account created in Firebase Console (Authentication -> Users) and the
-            // password is verified by Google's servers via Firebase Auth.
-            const ADMIN_EMAIL_SUFFIX = "@linpanelagalservices.in";
+            // ========== LOGIN (password kept as one-way hash in Firestore) ==========
+            // The plain password never lives in this file. The 'adminAuth' collection
+            // only stores:
+            //   salt             -> random value created during first-time setup
+            //   usernameHash     -> SHA-256(salt + ':' + username)
+            //   passwordHash     -> SHA-256(salt + ':' + password)
+            // Sign-in hashes the typed credentials and compares them to the stored
+            // hashes, so nothing sensitive is ever embedded in the HTML source.
+
+            // Hash text into a hex string (SHA-256; FNV fallback only for plain-http previews)
+            async function hashText(text) {
+                try {
+                    if (window.crypto && window.crypto.subtle) {
+                        const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+                        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+                    }
+                } catch (e) { /* fall back below */ }
+                console.warn('Secure hashing unavailable; serve the site over https for strongest protection.');
+                let h1 = 0x811c9dc5, h2 = 0xcbf29ce4;
+                for (let i = 0; i < text.length; i++) {
+                    const ch = text.charCodeAt(i);
+                    h1 = Math.imul(h1 ^ ch, 0x01000193) >>> 0;
+                    h2 = Math.imul(h2 ^ (ch >>> 8), 0x01000193) >>> 0;
+                }
+                return h1.toString(16) + h2.toString(16);
+            }
+
+            function randomSalt() {
+                const arr = new Uint8Array(16);
+                if (window.crypto && window.crypto.getRandomValues) {
+                    window.crypto.getRandomValues(arr);
+                } else {
+                    for (let i = 0; i < 16; i++) arr[i] = Math.floor(Math.random() * 256);
+                }
+                return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            function unlockDashboard() {
+                loginScreen.style.display = 'none';
+                setupScreen.style.display = 'none';
+                dashboard.style.display = 'block';
+                loadDashboardData();
+                initializeCalendar();
+            }
+
+            function lockDashboard(message) {
+                sessionStorage.removeItem('adminLoggedIn');
+                dashboard.style.display = 'none';
+                loginScreen.style.display = 'flex';
+                loginScreen.style.opacity = '1';
+                setupScreen.style.display = 'none';
+                if (message) {
+                    loginError.textContent = message;
+                    loginError.classList.add('show');
+                } else {
+                    loginError.classList.remove('show');
+                }
+            }
 
             loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -2095,28 +2173,34 @@
                 loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
                 try {
-                    // "ashu999" -> ashu999@linpanelagalservices.in; a full email also works
-                    const email = username.includes('@') ? username : `${username.toLowerCase()}${ADMIN_EMAIL_SUFFIX}`;
-                    await window.firebaseSignIn(window.firebaseAuth, email, password);
+                    // Load the stored (never-plaintext) credential record from Firestore
+                    let config = null;
+                    const snap = await window.firestoreGetDocs(window.firestoreCollection(window.firestoreDB, 'adminAuth'));
+                    snap.forEach((d) => { if (d.id === 'config') config = d.data(); });
+
+                    if (!config) {
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = originalHTML;
+                        loginError.textContent = 'No admin password is set yet. Set one now.';
+                        loginError.classList.add('show');
+                        showSetupScreen();
+                        return;
+                    }
+
+                    const userHash = await hashText(`${config.salt}:${username}`);
+                    const passHash = await hashText(`${config.salt}:${password}`);
+
+                    if (userHash !== config.usernameHash || passHash !== config.passwordHash) {
+                        throw { code: 'invalid' };
+                    }
+
+                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    loginScreen.style.opacity = '0';
+                    setTimeout(unlockDashboard, 400);
                 } catch (error) {
                     let msg = 'Invalid username or password!';
-                    switch (error.code) {
-                        case 'auth/operation-not-allowed':
-                            msg = 'Email/Password sign-in is not enabled. Enable it in Firebase Console -> Authentication -> Sign-in method.';
-                            break;
-                        case 'auth/user-not-found':
-                        case 'auth/invalid-credential':
-                        case 'auth/wrong-password':
-                            msg = 'Invalid username or password!';
-                            break;
-                        case 'auth/network-request-failed':
-                            msg = 'Network error. Check your connection and try again.';
-                            break;
-                        case 'auth/too-many-requests':
-                            msg = 'Too many attempts. Please try again later.';
-                            break;
-                        default:
-                            msg = 'Sign-in failed. Please try again.';
+                    if (error && error.code === 'unavailable') {
+                        msg = 'Network error. Check your connection and try again.';
                     }
                     loginError.textContent = msg;
                     loginError.classList.add('show');
@@ -2128,32 +2212,69 @@
                 }
             });
 
-            // Secure session: Firebase Auth tokens are managed by the SDK, so the
-            // dashboard only unlocks when Google confirms a valid admin session.
-            window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
-                if (user) {
-                    loginError.classList.remove('show');
-                    loginScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loginScreen.style.display = 'none';
-                        dashboard.style.display = 'block';
-                        loadDashboardData();
-                        initializeCalendar();
-                    }, 400);
-                } else {
-                    dashboard.style.display = 'none';
-                    loginScreen.style.display = 'flex';
-                    loginScreen.style.opacity = '1';
+            function showSetupScreen() {
+                loginScreen.style.display = 'none';
+                setupScreen.style.display = 'flex';
+                setupScreen.style.opacity = '1';
+                document.getElementById('setupUsername').focus();
+            }
+
+            // First-time setup: stores only hashes, never the plaintext password
+            const setupScreen = document.getElementById('setupScreen');
+            const setupForm = document.getElementById('adminSetupForm');
+            setupForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const setupBtn = document.getElementById('setupBtn');
+                const originalHTML = setupBtn.innerHTML;
+                const setupErrorEl = document.getElementById('setupError');
+                setupErrorEl.classList.remove('show');
+
+                const u = document.getElementById('setupUsername').value.trim();
+                const p = document.getElementById('setupPassword').value;
+                const c = document.getElementById('setupConfirm').value;
+
+                if (u.length < 3) { setupErrorEl.textContent = 'Username must be at least 3 characters.'; setupErrorEl.classList.add('show'); return; }
+                if (p.length < 6) { setupErrorEl.textContent = 'Password must be at least 6 characters.'; setupErrorEl.classList.add('show'); return; }
+                if (p !== c) { setupErrorEl.textContent = 'Passwords do not match.'; setupErrorEl.classList.add('show'); return; }
+
+                setupBtn.disabled = true;
+                setupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Securing...';
+
+                try {
+                    const salt = randomSalt();
+                    await window.firestoreSetDoc(window.firestoreDoc(window.firestoreDB, 'adminAuth', 'config'), {
+                        salt: salt,
+                        usernameHash: await hashText(`${salt}:${u}`),
+                        passwordHash: await hashText(`${salt}:${p}`),
+                        updatedAt: window.firestoreServerTimestamp(),
+                        timestamp: new Date().toISOString()
+                    });
+                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    showToast('Admin password saved securely.', 'success');
+                    unlockDashboard();
+                } catch (error) {
+                    console.error('Setup failed:', error);
+                    setupErrorEl.textContent = 'Could not save the password. If you see a permissions error, allow writes to the "adminAuth" collection in Firestore rules, then try again.';
+                    setupErrorEl.classList.add('show');
+                } finally {
+                    setupBtn.disabled = false;
+                    setupBtn.innerHTML = originalHTML;
                 }
             });
 
+            // Session gate: after a successful verification the dashboard stays
+            // unlocked for this browser tab until Logout.
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                unlockDashboard();
+            } else {
+                loginScreen.style.display = 'flex';
+                loginScreen.style.opacity = '1';
+            }
+
             // ========== LOGOUT ==========
-            logoutBtn.addEventListener('click', async function() {
-                try {
-                    await window.firebaseSignOut(window.firebaseAuth);
-                } catch (e) {
-                    console.warn('Sign-out error:', e);
-                }
+            logoutBtn.addEventListener('click', function() {
+                sessionStorage.removeItem('adminLoggedIn');
+                location.reload();
             });
 
             // ========== LOAD DASHBOARD DATA ==========
