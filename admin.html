@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0d11">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="description" content="Linpane Legal Services admin dashboard for managing appointments, calendar events, and firm data.">
@@ -46,11 +47,12 @@
         }
 
         .login-container {
-            background: #1e1e1e;
+            background: rgba(30, 30, 30, 0.55);
+            backdrop-filter: blur(18px);
             padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(179, 156, 125, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(179, 156, 125, 0.35);
             max-width: 450px;
             width: 90%;
             text-align: center;
@@ -94,7 +96,7 @@
             padding: 15px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(179, 156, 125, 0.3);
-            border-radius: 8px;
+            border-radius: 12px;
             color: #e0e0e0;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
@@ -104,8 +106,61 @@
         .input-group input:focus {
             outline: none;
             border-color: #b39c7d;
-            box-shadow: 0 0 0 2px rgba(179, 156, 125, 0.2);
+            box-shadow: 0 0 0 3px rgba(179, 156, 125, 0.22), 0 0 18px rgba(179, 156, 125, 0.25);
+            background: rgba(255, 255, 255, 0.08);
         }
+
+        .pw-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .pw-wrap input {
+            padding-right: 46px;
+        }
+
+        .pw-toggle {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #b39c7d;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .pw-toggle:hover {
+            background: rgba(179, 156, 125, 0.15);
+        }
+
+        .strength {
+            height: 5px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .strength span {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        .strength.weak span { width: 33%; background: #ff6b6b; }
+        .strength.medium span { width: 66%; background: #e3b64f; }
+        .strength.strong span { width: 100%; background: #58c286; }
 
         .login-btn {
             background: linear-gradient(135deg, #b39c7d, #d4b78f);
@@ -114,10 +169,23 @@
             padding: 15px;
             font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            animation: btnShineAcross 2.8s ease-in-out infinite;
         }
 
         .login-btn:hover {
@@ -951,30 +1019,6 @@
             pointer-events: none;
         }
 
-        .login-hint {
-            margin-top: 16px;
-            padding: 12px 14px;
-            background: rgba(179, 156, 125, 0.08);
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            border-radius: 10px;
-            color: #9c97a1;
-            font-size: 0.8rem;
-            line-height: 1.55;
-            text-align: left;
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
-        }
-
-        .login-hint i {
-            color: #b39c7d;
-            margin-top: 2px;
-        }
-
-        .login-hint strong {
-            color: #d4b78f;
-        }
-
         .login-logo {
             background: linear-gradient(135deg, #b39c7d, #f0dcb4, #d4b78f);
             -webkit-background-clip: text;
@@ -1540,30 +1584,112 @@
             pointer-events: none;
         }
         .notes-card .data-content { gap: 12px; }
-        .notes-card textarea {
-            background: #f6efd8;
-            color: #3a2f1c;
-            border: none;
-            border-radius: 4px;
-            padding: 16px;
-            font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
-            font-size: 1.2rem;
-            line-height: 1.55;
-            min-height: 150px;
-            box-shadow: inset 0 0 30px rgba(122, 92, 20, 0.14);
-            resize: vertical;
+        .sticky-input-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
-        .notes-card textarea::placeholder { color: #9b8a5e; }
-        .notes-card textarea:focus {
+        .sticky-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            border-radius: 12px;
+            color: #eae6df;
+            padding: 12px 14px;
+            font-size: 0.92rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.25s;
+        }
+        .sticky-input:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(212, 183, 143, 0.5), inset 0 0 30px rgba(122, 92, 20, 0.14);
+            border-color: #b39c7d;
+            box-shadow: 0 0 0 3px rgba(179, 156, 125, 0.2);
+            background: rgba(255, 255, 255, 0.08);
         }
-        .notes-card .data-meta { color: #b8a97e; }
-        .notes-card .data-save-btn {
+        .sticky-add-btn {
             background: linear-gradient(135deg, #d4b78f, #b39c7d);
             color: #1c1508;
+            font-weight: 700;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .notes-card .data-save-btn:hover { filter: brightness(1.08); }
+        .sticky-add-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(179, 156, 125, 0.35);
+        }
+        .notes-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+            padding: 14px 10px 6px;
+            background:
+                linear-gradient(rgba(18, 18, 18, 0.5), rgba(18, 18, 18, 0.35)),
+                repeating-linear-gradient(0deg, transparent 0 27px, rgba(179, 156, 125, 0.08) 27px 28px);
+            border-radius: 10px;
+            min-height: 120px;
+        }
+        .sticky-note {
+            position: relative;
+            color: #2c2413;
+            border-radius: 3px;
+            padding: 22px 14px 14px 16px;
+            min-height: 108px;
+            font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+            font-size: 1.2rem;
+            line-height: 1.45;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45), inset 0 -8px 18px rgba(0, 0, 0, 0.08);
+            word-break: break-word;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 6px;
+        }
+        .sticky-note:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+        .sticky-note::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 62px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        }
+        .sticky-note-del {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 22px;
+            height: 22px;
+            border: none;
+            background: rgba(0, 0, 0, 0.08);
+            color: rgba(44, 36, 19, 0.7);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .sticky-note-del:hover {
+            background: rgba(200, 40, 30, 0.85);
+            color: #fff;
+        }
+        .sticky-note-body {
+            cursor: default;
+            white-space: pre-wrap;
+        }
+        .notes-card .data-meta { color: #b8a97e; }
 
         /* Daily Routine accent */
         .data-card.routine-card { border-left: 3px solid #5e7ce2; }
@@ -1944,6 +2070,105 @@
             .export-btn::after { animation: none; display: none; }
             .hearing-item { animation: none; }
         }
+
+        /* ---------- Transparent-gloss panels ---------- */
+        .calendar-section,
+        .appointments-section,
+        .admin-data-section,
+        .chart-card,
+        .stat-card,
+        .control-btn {
+            background: linear-gradient(145deg, rgba(30, 30, 32, 0.46), rgba(22, 22, 26, 0.34)) !important;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border-color: rgba(179, 156, 125, 0.16);
+        }
+
+        .dashboard {
+            position: relative;
+        }
+
+        .dashboard::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(600px 380px at 12% 8%, rgba(179, 156, 125, 0.14), transparent 60%),
+                radial-gradient(700px 460px at 85% 30%, rgba(212, 183, 143, 0.08), transparent 60%),
+                radial-gradient(500px 500px at 40% 95%, rgba(140, 120, 200, 0.06), transparent 60%);
+            pointer-events: none;
+            animation: ambientDrift 16s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientDrift {
+            from { opacity: 0.6; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Daily Routine as a paper sheet */
+        .routine-card .data-textarea {
+            background:
+                linear-gradient(90deg, transparent 42px, rgba(179, 70, 70, 0.15) 42px, rgba(179, 70, 70, 0.15) 44px, transparent 44px),
+                #f6efd8;
+            color: #33291b;
+            font-family: 'Caveat', 'Segoe Script', cursive;
+            font-size: 1.25rem;
+            line-height: 2.15;
+            padding: 14px 16px 14px 58px;
+            border-radius: 3px;
+            border: none;
+            min-height: 170px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(122, 92, 20, 0.1);
+            resize: vertical;
+        }
+        .routine-card .data-textarea::placeholder { color: #9b8a5e; }
+        .routine-card .data-textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(94, 124, 226, 0.4), 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ---------- Mobile admin polish ---------- */
+        @media (max-width: 640px) {
+            .login-container { padding: 34px 22px; }
+            .login-logo { font-size: 1.8rem; }
+            .admin-logo-img { height: 58px; }
+            .dashboard-title-hdr { font-size: 1.35rem; }
+            .dashboard-title-hdr i { font-size: 1.1rem; }
+            .dashboard { padding: 16px 4%; }
+            .dashboard-header { padding: 4px 2px 16px; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+            .header-controls { flex-wrap: wrap; }
+            .home-btn, .logout-btn { padding: 9px 14px; font-size: 0.82rem; }
+            .stat-number { font-size: 2rem; }
+            .stats-cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .calendar-section, .appointments-section, .admin-data-section {
+                padding: 18px 14px;
+                border-radius: 16px;
+                margin-bottom: 18px;
+            }
+            .section-header { flex-wrap: wrap; gap: 10px; }
+            .appt-card {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 10px;
+            }
+            .appt-actions { justify-content: flex-start; flex-wrap: wrap; }
+            .filter-group { flex-wrap: wrap; }
+            .filter-btn { padding: 8px 13px; font-size: 0.76rem; }
+            .data-grid { grid-template-columns: 1fr; }
+            .admin-controls { flex-direction: column; align-items: stretch; }
+            .control-btn { justify-content: center; }
+            .sticky-input-row { flex-direction: column; align-items: stretch; }
+            .sticky-add-btn { justify-content: center; }
+            .notes-board { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); padding: 12px 8px 6px; }
+            .hearing-form-row { flex-direction: column; align-items: stretch; }
+            .hearing-add-btn { justify-content: center; }
+            .charts-grid { gap: 14px; }
+            .chart-card { padding: 16px 14px; min-height: 300px; }
+            .export-btn { justify-content: center; }
+            .fc-toolbar.fc-header-toolbar { flex-wrap: wrap; gap: 8px !important; }
+            .fc-toolbar-chunk { margin: 0 auto; }
+        }
     </style>
 </head>
 <body>
@@ -1961,7 +2186,12 @@
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter password" required>
+                    <div class="pw-wrap">
+                        <input type="password" id="password" placeholder="Enter password" required>
+                        <button type="button" class="pw-toggle" data-target="password" aria-label="Show or hide password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="login-error" id="loginError">
                     Invalid username or password!
@@ -1969,9 +2199,6 @@
                 <button type="submit" class="login-btn" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i> Login to Dashboard
                 </button>
-                <div class="login-hint">
-                    <i class="fas fa-shield-alt"></i> Secured login — your password is verified against an encrypted copy stored in the database, never in the page source. On your <strong>first</strong> visit you will be asked to set an admin password; after that, just sign in.
-                </div>
             </form>
         </div>
     </div>
@@ -1990,19 +2217,27 @@
                 </div>
                 <div class="input-group">
                     <label for="setupPassword">New Password</label>
-                    <input type="password" id="setupPassword" placeholder="Choose a strong password" required minlength="6" autocomplete="new-password">
+                    <div class="pw-wrap">
+                        <input type="password" id="setupPassword" placeholder="Choose a strong password" required minlength="6" autocomplete="new-password">
+                        <button type="button" class="pw-toggle" data-target="setupPassword" aria-label="Show or hide password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="strength" id="strengthMeter"><span></span></div>
                 </div>
                 <div class="input-group">
                     <label for="setupConfirm">Confirm Password</label>
-                    <input type="password" id="setupConfirm" placeholder="Re-enter the password" required minlength="6" autocomplete="new-password">
+                    <div class="pw-wrap">
+                        <input type="password" id="setupConfirm" placeholder="Re-enter the password" required minlength="6" autocomplete="new-password">
+                        <button type="button" class="pw-toggle" data-target="setupConfirm" aria-label="Show or hide password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="login-error" id="setupError"></div>
                 <button type="submit" class="login-btn" id="setupBtn">
                     <i class="fas fa-check-circle"></i> Save & Enter Dashboard
                 </button>
-                <div class="login-hint">
-                    <i class="fas fa-database"></i> Your password is never stored or shown in plain text. Only a one-way encrypted (hashed) copy is kept in the database, so it stays hidden from page source and inspection.
-                </div>
             </form>
         </div>
     </div>
@@ -2198,9 +2433,12 @@
                         </button>
                     </div>
                     <div class="data-content" id="notesContent">
-                        <textarea class="data-textarea" id="notesText" placeholder="Jot down important case notes here..." style="font-family:'Caveat','Segoe Script',cursive;font-size:1.2rem;"></textarea>
-                        <button class="data-save-btn" data-type="notes">Save Notes</button>
-                        <div class="data-meta" id="notesMeta">No saved entry yet</div>
+                        <div class="sticky-input-row">
+                            <input type="text" id="newNoteInput" class="sticky-input" maxlength="140" placeholder="Add a small sticky note..." autocomplete="off">
+                            <button class="sticky-add-btn" id="addNoteBtn"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                        <div class="notes-board" id="notesBoard"></div>
+                        <div class="data-meta" id="notesMeta">No sticky notes yet</div>
                     </div>
                 </div>
                 
@@ -2359,6 +2597,7 @@
                 dashboard.style.display = 'block';
                 loadDashboardData();
                 initializeCalendar();
+                initStickyNotes();
             }
 
             function lockDashboard(message) {
@@ -2374,6 +2613,35 @@
                     loginError.classList.remove('show');
                 }
             }
+
+            // Password show/hide toggles
+            document.querySelectorAll('.pw-toggle').forEach(function(toggle) {
+                toggle.addEventListener('click', function() {
+                    const input = document.getElementById(this.getAttribute('data-target'));
+                    if (!input) return;
+                    const show = input.type === 'password';
+                    input.type = show ? 'text' : 'password';
+                    this.innerHTML = show ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+                });
+            });
+
+            // Password strength meter (setup screen)
+            const setupPasswordInput = document.getElementById('setupPassword');
+            const strengthMeter = document.getElementById('strengthMeter');
+            setupPasswordInput.addEventListener('input', function() {
+                const v = this.value;
+                if (!v) {
+                    strengthMeter.className = 'strength';
+                    return;
+                }
+                let score = 0;
+                if (v.length >= 8) score++;
+                if (v.length >= 12) score++;
+                if (/[A-Z]/.test(v)) score++;
+                if (/[0-9]/.test(v)) score++;
+                if (/[^A-Za-z0-9]/.test(v)) score++;
+                strengthMeter.className = 'strength ' + (score <= 2 ? 'weak' : score <= 4 ? 'medium' : 'strong');
+            });
 
             loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -3132,12 +3400,34 @@
                     const q = window.firestoreQuery(dataRef, 
                         window.firestoreOrderBy('timestamp', 'desc'));
                     const snapshot = await window.firestoreGetDocs(q);
-                    
+
+                    if (type === 'notes') {
+                        let notes = [];
+                        let latestTime = null;
+                        snapshot.forEach((doc) => {
+                            const docData = doc.data() || {};
+                            const match = (docData.type === 'notes') || (doc.id === 'notes');
+                            if (match) {
+                                const docTime = docData.timestamp || docData.updatedAt || '';
+                                if (!latestTime || String(docTime) > String(latestTime)) {
+                                    latestTime = docTime;
+                                    if (Array.isArray(docData.items) && docData.items.length) {
+                                        notes = docData.items;
+                                    } else if (docData.content) {
+                                        notes = String(docData.content).split('\n').map(s => s.trim()).filter(Boolean);
+                                    }
+                                }
+                            }
+                        });
+                        renderNotes(notes);
+                        updateNotesMeta(notes.length, latestTime);
+                        return;
+                    }
+
                     let data = '';
                     let latestTime = null;
                     snapshot.forEach((doc) => {
                         const docData = doc.data() || {};
-                        // Match new docs (saved with a "type" field) or legacy docs (saved with the id equal to the type)
                         const match = (docData.type === type) || (doc.id === type);
                         if (match) {
                             const docTime = docData.timestamp || docData.updatedAt || '';
@@ -3153,6 +3443,123 @@
                 } catch (error) {
                     console.error(`Error loading ${type}:`, error);
                 }
+            }
+
+            // ========== STICKY NOTES BOARD ==========
+            function updateNotesMeta(count, timestamp) {
+                const metaEl = document.getElementById('notesMeta');
+                if (!metaEl) return;
+                if (!count) {
+                    metaEl.textContent = 'No sticky notes yet';
+                    return;
+                }
+                let when = '';
+                if (timestamp) {
+                    if (/^\d{4}-\d{2}-\d{2}/.test(String(timestamp))) {
+                        try {
+                            when = ' · ' + new Date(timestamp).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+                        } catch (e) { }
+                    }
+                }
+                metaEl.textContent = `${count} sticky note${count === 1 ? '' : 's'}${when}`;
+            }
+
+            const NOTES_COLORS = ['#f6e2a8', '#f3c98b', '#cfe8b9', '#bcd9f2', '#eac6ee', '#f6c6c2'];
+
+            function renderNotes(notes) {
+                const board = document.getElementById('notesBoard');
+                board.innerHTML = '';
+                notes.forEach((text, i) => {
+                    const n = document.createElement('div');
+                    n.className = 'sticky-note';
+                    n.style.background = NOTES_COLORS[i % NOTES_COLORS.length];
+                    n.style.transform = `rotate(${(i % 3) * 1.6 - 1.6}deg)`;
+                    const body = document.createElement('div');
+                    body.className = 'sticky-note-body';
+                    body.textContent = text;
+                    const del = document.createElement('button');
+                    del.className = 'sticky-note-del';
+                    del.setAttribute('aria-label', 'Delete note');
+                    del.innerHTML = '<i class="fas fa-times"></i>';
+                    del.addEventListener('click', () => deleteNote(i, notes));
+                    n.appendChild(del);
+                    n.appendChild(body);
+                    board.appendChild(n);
+                });
+            }
+
+            async function saveNotesToDB(notes) {
+                const dataRef = window.firestoreCollection(window.firestoreDB, 'adminData');
+                await window.firestoreAddDoc(dataRef, {
+                    type: 'notes',
+                    items: notes,
+                    content: notes.join('\n'),
+                    timestamp: new Date().toISOString(),
+                    updatedAt: window.firestoreServerTimestamp()
+                });
+                renderNotes(notes);
+                updateNotesMeta(notes.length, new Date().toISOString());
+            }
+
+            async function addNote() {
+                const input = document.getElementById('newNoteInput');
+                const text = input.value.trim();
+                if (!text) {
+                    showToast('Type something for the sticky note!', 'error');
+                    return;
+                }
+                try {
+                    const q = window.firestoreQuery(
+                        window.firestoreCollection(window.firestoreDB, 'adminData'),
+                        window.firestoreOrderBy('timestamp', 'desc'));
+                    const snapshot = await window.firestoreGetDocs(q);
+                    let notes = [];
+                    snapshot.forEach((doc) => {
+                        const docData = doc.data() || {};
+                        const match = (docData.type === 'notes') || (doc.id === 'notes');
+                        if (match) {
+                            const notesTime = docData.timestamp || docData.updatedAt || '';
+                            if (Array.isArray(docData.items) && docData.items.length && !docData._skip) {
+                                notes = docData.items;
+                            }
+                        }
+                    });
+                    notes.push(text);
+                    await saveNotesToDB(notes);
+                    input.value = '';
+                    input.focus();
+                    showToast('Note added & saved!', 'success');
+                } catch (error) {
+                    console.error('Error adding note:', error);
+                    showToast('Error saving note!', 'error');
+                }
+            }
+
+            async function deleteNote(index, currentNotes) {
+                const notes = currentNotes.filter((_, i) => i !== index);
+                try {
+                    if (notes.length === 0) {
+                        await saveNotesToDB(notes);
+                        updateNotesMeta(0);
+                        showToast('Note deleted', 'success');
+                        return;
+                    }
+                    await saveNotesToDB(notes);
+                    showToast('Note deleted', 'success');
+                } catch (error) {
+                    console.error('Error deleting note:', error);
+                    showToast('Error deleting note!', 'error');
+                }
+            }
+
+            function initStickyNotes() {
+                document.getElementById('addNoteBtn').addEventListener('click', addNote);
+                document.getElementById('newNoteInput').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addNote();
+                    }
+                });
             }
 
             function updateDataMeta(type, timestamp) {
@@ -3348,7 +3755,7 @@
 
             // Quick-nav controls: jump to and expand the matching admin data card
             const quickNavTargets = [
-                { btn: 'notesBtn', content: 'notesContent', id: 'notesText' },
+                { btn: 'notesBtn', content: 'notesContent', id: 'newNoteInput' },
                 { btn: 'routineBtn', content: 'routineContent', id: 'routineText' },
                 { btn: 'hearingBtn', content: 'hearingContent', id: 'hearingDate' }
             ];

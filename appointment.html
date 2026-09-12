@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="description" content="Book an appointment online with top lawyers in Nagpur and Wardha. Choose Adv. Ashish Linpane, Adv. Sandhya Linpane or Adv. Akshay Linpane for Criminal, Civil, Family and Corporate Law across India.">
@@ -26,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="preload" as="image" href="logo.png">
     <style>
         * {
             margin: 0;
@@ -230,34 +231,13 @@
 
         /* Appointment Form */
         .appointment-form {
-            background: #1e1e1e;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(22, 22, 26, 0.85));
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             padding: 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-intro {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            background: rgba(179, 156, 125, 0.08);
+            border-radius: 22px;
             border: 1px solid rgba(179, 156, 125, 0.25);
-            border-radius: 10px;
-            padding: 15px 18px;
-            margin-bottom: 30px;
-        }
-
-        .form-intro i {
-            color: #b39c7d;
-            font-size: 1.3rem;
-            margin-top: 2px;
-        }
-
-        .form-intro p {
-            color: #b0b0b0;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .form-section-title {
@@ -406,10 +386,10 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(179, 156, 125, 0.3);
-            border-radius: 8px;
+            padding: 15px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
             color: #e0e0e0;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
@@ -420,8 +400,9 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #b39c7d;
-            box-shadow: 0 0 0 2px rgba(179, 156, 125, 0.2);
+            border-color: rgba(179, 156, 125, 0.8);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 0 3px rgba(179, 156, 125, 0.18), 0 8px 24px rgba(0, 0, 0, 0.25);
         }
 
         /* Fix select dropdown colors */
@@ -647,6 +628,20 @@
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+            .wizard-back-btn,
+            .wizard-next-btn,
+            .submit-btn {
+                flex: 1;
+                justify-content: center;
+            }
+            .wizard-nav { gap: 10px; }
+            .ws-label { display: none; }
+            .time-slots { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .lawyer-card-select { padding: 10px 12px; gap: 10px; }
+            .lawyer-card-select img { width: 52px; height: 52px; }
+            .appointment-container { padding: 0 4%; }
+            .appointment-form { padding: 22px 16px; border-radius: 16px; }
+            .progress-bar { border-radius: 8px; }
         }
 
         .wizard-nav {
@@ -710,56 +705,6 @@
         .wizard-next-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 26px rgba(179, 156, 125, 0.45);
-        }
-
-        /* Booking Summary (live) */
-        .booking-summary {
-            margin-top: 30px;
-            background: #1e1e1e;
-            border: 1px solid rgba(179, 156, 125, 0.25);
-            border-radius: 12px;
-            padding: 20px 22px;
-        }
-
-        .bs-title {
-            color: #b39c7d;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bs-list {
-            list-style: none;
-            display: grid;
-            gap: 8px;
-        }
-
-        .bs-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 12px;
-            font-size: 0.85rem;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed rgba(179, 156, 125, 0.15);
-        }
-
-        .bs-list li:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .bs-list li span {
-            color: #777;
-        }
-
-        .bs-list li strong {
-            color: #e8e2d8;
-            font-weight: 600;
-            text-align: right;
         }
 
         /* Focus visibility (never silently removed) */
@@ -1052,7 +997,7 @@
                 <h2 style="color: #b39c7d; margin-bottom: 20px; font-family: 'Playfair Display', serif;">Select Your Lawyer</h2>
                 <div class="lawyers-grid">
                     <div class="lawyer-card-select" data-lawyer="av_linpane">
-                        <img src="advocate1.jpg" alt="Adv. A.V. Linpane" class="lawyer-img-small">
+                        <img src="advocate1.jpg" alt="Adv. A.V. Linpane" class="lawyer-img-small" loading="lazy" decoding="async">
                         <div class="lawyer-info-small">
                             <h4>ADV. ASHISH V. LINPANE</h4>
                             <p>Criminal, Civil, Banking Law</p>
@@ -1061,7 +1006,7 @@
                     </div>
                     
                     <div class="lawyer-card-select" data-lawyer="sandya_linpane">
-                        <img src="advocate2.jpg" alt="Adv. Sandhya Linpane" class="lawyer-img-small">
+                        <img src="advocate2.jpg" alt="Adv. Sandhya Linpane" class="lawyer-img-small" loading="lazy" decoding="async">
                         <div class="lawyer-info-small">
                             <h4>ADV. SANDHYA V. LINPANE</h4>
                             <p>Family Law Specialist, Senior Advocate</p>
@@ -1070,7 +1015,7 @@
                     </div>
                     
                     <div class="lawyer-card-select" data-lawyer="akshay_linpane">
-                        <img src="advocate3.jpg" alt="Akshay Linpane" class="lawyer-img-small">
+                        <img src="advocate3.jpg" alt="Akshay Linpane" class="lawyer-img-small" loading="lazy" decoding="async">
                         <div class="lawyer-info-small">
                             <h4>ADV. AKSHAY V. LINPANE</h4>
                             <p>Corporate Law, Contract Disputes</p>
@@ -1080,21 +1025,6 @@
                 </div>
 
                 <!-- Live Booking Summary -->
-                <div class="booking-summary">
-                    <div class="bs-title">
-                        <i class="fas fa-file-invoice"></i> Booking Summary
-                    </div>
-                    <ul class="bs-list">
-                        <li><span>Client</span><strong id="summaryName">—</strong></li>
-                        <li><span>Email</span><strong id="summaryEmail">—</strong></li>
-                        <li><span>Phone</span><strong id="summaryPhone">—</strong></li>
-                        <li><span>Matter</span><strong id="summaryCase">—</strong></li>
-                        <li><span>Lawyer</span><strong id="summaryLawyer">—</strong></li>
-                        <li><span>Date</span><strong id="summaryDate">—</strong></li>
-                        <li><span>Time</span><strong id="summaryTime">—</strong></li>
-                    </ul>
-                </div>
-
                 <div class="call-cta">
                     <div class="call-cta-icon">
                         <i class="fas fa-phone-alt"></i>
@@ -1127,11 +1057,6 @@
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_next" value="https://linpanelagalservices.in/">
                 
-                <div class="form-intro">
-                    <i class="fas fa-shield-alt"></i>
-                    <p>Your details are confidential and shared only with our legal team. Complete the 3 easy steps below and we will confirm your appointment shortly.</p>
-                </div>
-
                 <!-- Wizard progress -->
                 <div class="wizard-progress">
                     <div class="wizard-steps-row">
@@ -1364,7 +1289,6 @@
                 nextStepBtn.style.display = isLast ? 'none' : 'inline-flex';
                 submitBtn.style.display = isLast ? 'block' : 'none';
                 showWizardError('');
-                updateSummary();
                 const firstField = document.querySelector(`.form-step[data-step="${step}"] input:not([type="hidden"]), .form-step[data-step="${step}"] select`);
                 if (firstField) { try { firstField.focus({ preventScroll: true }); } catch (e) { firstField.focus(); } }
             }
@@ -1419,7 +1343,6 @@
                     const lawyerName = this.querySelector('h4').textContent;
                     document.getElementById('selectedLawyer').value = lawyerName;
                     showWizardError('');
-                    updateSummary();
                 };
                 lawyer.addEventListener('click', selectLawyer);
                 lawyer.addEventListener('keydown', function(e) {
@@ -1441,7 +1364,6 @@
                     this.setAttribute('aria-pressed', 'true');
                     document.getElementById('selectedTime').value = this.getAttribute('data-time');
                     showWizardError('');
-                    updateSummary();
                 };
                 slot.addEventListener('click', selectSlot);
                 slot.addEventListener('keydown', function(e) {
@@ -1452,46 +1374,7 @@
                 });
             });
 
-            // ========== LIVE BOOKING SUMMARY ==========
-            function formatSummaryDate(dateStr) {
-                if (!dateStr) return '—';
-                try {
-                    return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-IN', {
-                        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
-                    });
-                } catch (e) {
-                    return dateStr;
-                }
-            }
-
-            function updateSummary() {
-                const get = (id) => {
-                    const el = document.getElementById(id);
-                    return el && el.value ? el.value.trim() : '';
-                };
-                const caseEl = document.getElementById('caseType');
-                let caseLabel = get('caseType');
-                if (caseEl && caseEl.selectedOptions.length && caseEl.selectedOptions[0].value) {
-                    caseLabel = caseEl.selectedOptions[0].textContent;
-                }
-                document.getElementById('summaryName').textContent = get('name') || '—';
-                document.getElementById('summaryEmail').textContent = get('email') || '—';
-                document.getElementById('summaryPhone').textContent = get('phone') || '—';
-                document.getElementById('summaryCase').textContent = caseLabel || '—';
-                document.getElementById('summaryLawyer').textContent = get('selectedLawyer') || '—';
-                document.getElementById('summaryDate').textContent = formatSummaryDate(get('appointmentDate'));
-                document.getElementById('summaryTime').textContent = get('selectedTime') || '—';
-            }
-
-            // Keep summary in sync as the user types or picks values
-            const appointmentForm = document.getElementById('appointmentForm');
-            ['input', 'change'].forEach(ev => {
-                appointmentForm.addEventListener(ev, function() {
-                    updateSummary();
-                });
-            });
-
-            // Form Submission Handler
+            // ========== FORM SUBMISSION ==========
             document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
 
@@ -1706,5 +1589,7 @@
             update();
         })();
     </script>
+<a class="wa-float" href="https://wa.me/918928113111?text=Hello%20Linpane%20Legal%20Services%2C%20I%20want%20to%20book%20a%20legal%20consultation." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26" fill="#fff" aria-hidden="true"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 435.1c-33.2 0-65.8-8.9-94.4-25.8l-6.8-4-69.8 18.3 18.6-68.1-4.4-7c-18.5-29.6-28.3-63.8-28.3-99.5 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
+<style>html,body{overflow-x:hidden}.wa-float{position:fixed;right:20px;bottom:98px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c48);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(37,211,102,.45);z-index:999;animation:waPulse 2.4s infinite;transition:transform .25s}.wa-float:hover{transform:scale(1.08)}@keyframes waPulse{0%,100%{box-shadow:0 10px 26px rgba(37,211,102,.45)}50%{box-shadow:0 10px 30px rgba(37,211,102,.75)}}@media(max-width:640px){.wa-float{width:50px;height:50px;right:14px;bottom:84px}}</style>
 </body>
 </html>

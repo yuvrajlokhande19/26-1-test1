@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
     <title>Linpane Legal Services | Top Lawyers in Nagpur & Wardha | High Court & Dist. Court Advocates</title>
     <meta name="description" content="Linpane Legal Services - Top law firm in Nagpur and Wardha with 20+ years experience. Expert lawyers for Criminal, Civil, Family, Corporate Law, Notary Services. Book consultation today.">
     <meta name="keywords" content="lawyers in Nagpur, advocates in Wardha, high court lawyers, criminal lawyers, family lawyers, notary services Nagpur, legal consultation, corporate lawyers, property dispute lawyers">
@@ -402,7 +403,68 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-top: 20px;
+        }
+
+        .lawyer-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, #25d366, #128c48);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 8px 15px;
+            border-radius: 999px;
+            transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+        }
+
+        .lawyer-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
+            filter: brightness(1.05);
+        }
+
+        .wa-float {
+            position: fixed;
+            right: 20px;
+            bottom: 98px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25d366, #128c48);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45);
+            z-index: 999;
+            text-decoration: none;
+            animation: waPulse 2.4s infinite;
+            transition: transform 0.25s;
+        }
+
+        .wa-float:hover {
+            transform: scale(1.08);
+        }
+
+        @keyframes waPulse {
+            0%, 100% { box-shadow: 0 10px 26px rgba(37, 211, 102, 0.45); }
+            50% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.75); }
+        }
+
+        @media (max-width: 640px) {
+            .wa-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                right: 14px;
+                bottom: 84px;
+            }
         }
 
         .lawyer-experience {
@@ -806,6 +868,21 @@
             transform: translateY(0);
         }
 
+        /* Mobile: calmer reveals so scrolling stays smooth */
+        @media (hover: none), (max-width: 640px) {
+            .fade-in {
+                transform: translateY(10px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+            .lawyer-card {
+                will-change: auto;
+            }
+        }
+
+        html, body {
+            overflow-x: hidden;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 1200px) {
             .service-box.notary {
@@ -957,7 +1034,48 @@
                 "sameAs": [
                     "https://maps.app.goo.gl/dFGWd29cMphbgHR97"
                 ],
-                "knowsAbout": ["Criminal Law", "Civil Law", "Family Law", "Corporate Law", "Banking and Finance Law", "Notary Services"]
+                "knowsAbout": ["Criminal Law", "Civil Law", "Family Law", "Corporate Law", "Banking and Finance Law", "Notary Services"],
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+91-8928113111",
+                    "contactType": "client service",
+                    "availableLanguage": ["en", "hi", "mr"]
+                }
+            },
+            {
+                "@type": "Person",
+                "name": "Adv. Ashish V. Linpane",
+                "jobTitle": "Advocate & Notary",
+                "image": "https://linpanelagalservices.in/advocate1.jpg",
+                "telephone": "+91-8928113111",
+                "email": "linpanelegalservices@gmail.com",
+                "worksFor": "Linpane Legal Services",
+                "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
+                "sameAs": ["https://wa.me/918928113111"],
+                "knowsAbout": ["Criminal Law", "Civil Law", "Constitutional Law", "Banking and Finance Law"]
+            },
+            {
+                "@type": "Person",
+                "name": "Adv. Sandhya Linpane",
+                "jobTitle": "Senior Advocate",
+                "description": "Senior Lawyer at District and Sessions Court, Wardha",
+                "image": "https://linpanelagalservices.in/advocate2.jpg",
+                "telephone": "+91-8928113111",
+                "worksFor": "Linpane Legal Services",
+                "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
+                "sameAs": ["https://wa.me/918928113111"],
+                "knowsAbout": ["Family Law", "Divorce Law", "Property Disputes", "Women Rights"]
+            },
+            {
+                "@type": "Person",
+                "name": "Adv. Akshay V. Linpane",
+                "jobTitle": "Advocate",
+                "image": "https://linpanelagalservices.in/advocate3.jpg",
+                "telephone": "+91-8928113111",
+                "worksFor": "Linpane Legal Services",
+                "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
+                "sameAs": ["https://wa.me/918928113111"],
+                "knowsAbout": ["Corporate Law", "Contract Law", "Commercial Litigation"]
             },
             {
                 "@type": "WebSite",
@@ -1135,6 +1253,10 @@
     <button class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <a class="wa-float" href="https://wa.me/918928113111?text=Hello%20Linpane%20Legal%20Services%2C%20I%20want%20to%20book%20a%20legal%20consultation."
+       target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Loading Animation -->
     <div class="loading-screen" id="loadingScreen">
@@ -1212,6 +1334,10 @@
                             <span class="notary-badge">
                                 <i class="fas fa-stamp"></i> Notary
                             </span>
+                            <a class="lawyer-wa" href="https://wa.me/918928113111?text=Hello%20Adv.%20Ashish%20Linpane%2C%20I%20want%20to%20consult%20about%20a%20legal%20matter."
+                               target="_blank" rel="noopener" aria-label="Chat with Adv. Ashish Linpane on WhatsApp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
                         </div>
                     </div>
                     <!-- Lawyer 2 -->
@@ -1231,6 +1357,10 @@
                             <span class="notary-badge">
                                 <i class="fas fa-stamp"></i> Notary
                             </span>
+                            <a class="lawyer-wa" href="https://wa.me/918928113111?text=Hello%20Adv.%20Sandhya%20Linpane%2C%20I%20want%20to%20consult%20about%20a%20legal%20matter."
+                               target="_blank" rel="noopener" aria-label="Chat with Adv. Sandhya Linpane on WhatsApp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
                         </div>
                     </div>
                     <!-- Lawyer 3 -->
@@ -1259,8 +1389,11 @@
                             <li>Practicing In District And Session Court, Nagpur</li>
                            
                         </ul>
-                        <div class="lawyer-footer">
-                            
+<div class="lawyer-footer">
+                            <a class="lawyer-wa" href="https://wa.me/918928113111?text=Hello%20Adv.%20Akshay%20Linpane%2C%20I%20want%20to%20consult%20about%20a%20legal%20matter."
+                               target="_blank" rel="noopener" aria-label="Chat with Adv. Akshay Linpane on WhatsApp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
                         </div>
                     </div>
                     <!-- Lawyer 5 -->
@@ -1556,7 +1689,7 @@
         const nextBtn = document.getElementById('nextBtn');
         const lawyerCards = document.querySelectorAll('.lawyer-card');
         let currentIndex = 0;
-        const cardWidth = lawyerCards[0].offsetWidth + 30;
+        let cardWidth = lawyerCards[0].offsetWidth + 30;
 
         function updateCarousel() {
             carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
@@ -1656,6 +1789,7 @@
             const toTop = document.querySelector('.back-to-top');
             const header = document.querySelector('header');
             const hero = document.querySelector('.hero-section');
+            const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
             let ticking = false;
 
             if (toTop) {
@@ -1681,7 +1815,7 @@
 
                 if (toTop) toTop.classList.toggle('show', y > 600);
 
-                if (hero) hero.style.backgroundPosition = 'center calc(50% + ' + (y * 0.12).toFixed(1) + 'px)';
+                if (hero && !isTouch) hero.style.backgroundPosition = 'center calc(50% + ' + (y * 0.12).toFixed(1) + 'px)';
 
                 if (header) {
                     if (y <= HIDE_AFTER) {
