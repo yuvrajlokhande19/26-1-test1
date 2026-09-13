@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#121212">
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="Page not found. The page you are looking for does not exist or may have been moved.">
+    <title>404 - Page Not Found | Linpane Legal Services</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            background: #121212;
+            color: #f5f2ed;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        .error-wrap {
+            text-align: center;
+            max-width: 620px;
+            width: 100%;
+        }
+
+        .error-logo {
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: #b39c7d;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .error-logo span {
+            color: #d4b78f;
+        }
+
+        .error-code {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(6rem, 24vw, 11rem);
+            line-height: 1;
+            background: linear-gradient(135deg, #b39c7d 20%, #d4b78f 50%, #8a7862 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: floatIn 0.8s ease both;
+        }
+
+        .error-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: #f5f2ed;
+            margin: 8px 0 14px;
+        }
+
+        .error-text {
+            color: #a0a0a0;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            margin-bottom: 34px;
+        }
+
+        .error-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 13px 26px;
+            border-radius: 8px;
+            transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(179, 156, 125, 0.35);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(179, 156, 125, 0.4);
+            color: #d4b78f;
+        }
+
+        .btn-ghost:hover {
+            transform: translateY(-2px);
+            background: rgba(179, 156, 125, 0.1);
+        }
+
+        .auto-redirect {
+            color: #757575;
+            font-size: 0.85rem;
+        }
+
+        .auto-redirect a {
+            color: #b39c7d;
+            text-decoration: none;
+        }
+
+        .auto-redirect #countdown {
+            font-weight: 700;
+            color: #d4b78f;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-wrap">
+        <div class="error-logo">Linpane <span>Legal Services</span></div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-text">The page you are looking for may have been moved, renamed, or does not exist. Please use the options below to get back on track.</p>
+        <div class="error-actions">
+            <a class="btn btn-gold" href="index.html"><i class="fas fa-home"></i> Go to Homepage</a>
+            <a class="btn btn-ghost" href="appointment.html">Book an Appointment</a>
+            <a class="btn btn-ghost" href="contact.html">Contact Us</a>
+        </div>
+        <p class="auto-redirect">Redirecting to the homepage in <span id="countdown">10</span> seconds. <a href="index.html">Redirect now</a></p>
+    </div>
+
+    <script>
+        var seconds = 10;
+        var span = document.getElementById('countdown');
+        var timer = setInterval(function() {
+            seconds--;
+            if (span) span.textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

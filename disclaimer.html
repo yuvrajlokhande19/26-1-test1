@@ -651,8 +651,32 @@
                     </ul>
                 </div>
 
+                <div class="legal-section">
+                    <h2>11. Your Consent</h2>
+                    <p>By using this website and by submitting any appointment, booking, or contact form (including ticking the Terms and Conditions consent checkbox on our appointment booking page), you expressly confirm that:</p>
+                    <ul>
+                        <li>You have read and understood this Disclaimer, our <a href="terms.html">Terms of Service</a>, and our <a href="privacy.html">Privacy Policy</a>.</li>
+                        <li>You voluntarily agree to the use of the information you provide, as described in those documents.</li>
+                        <li>You understand that your use of this website does not create an attorney-client relationship.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h2>12. Protection of Owner and Developer</h2>
+                    <p>This website is operated by Linpane Legal Services and has been developed in good faith by a third-party website developer. To the maximum extent permitted by law:</p>
+                    <ul>
+                        <li>Linpane Legal Services (the owner) and the website developer shall not be held liable for any loss, damage, claim, or legal dispute arising from the use of this website, its booking system, its content, or the information displayed on it.</li>
+                        <li>No warranty, express or implied, is given that the website, its features, or its content will be error-free, uninterrupted, or secure.</li>
+                        <li>Users are solely responsible for the accuracy and lawfulness of the information they submit through this website.</li>
+                        <li>Using this website does not create any contractual relationship with the website developer.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Data Deletion:</strong> If you wish to request access to, correction of, or deletion of your personal data shared with us through this website, please email us at <a href="mailto:linpanelegalservices@gmail.com?subject=Data%20Deletion%20Request">linpanelegalservices@gmail.com</a> with the subject line "Data Deletion Request". We will process your request within 7-10 working days.</p>
+                    </div>
+                </div>
+
                 <div class="last-updated">
-                   
+                    <p>Last Updated: January 1, 2026</p>
                 </div>
             </div>
         </div>
@@ -703,12 +727,12 @@
         window.addEventListener('load', function() {
             if (!sessionStorage.getItem('initialLoad')) {
                 setTimeout(function() {
-                    document.getElementById('loadingScreen').style.opacity = '0';
-                    setTimeout(function() {
-                        document.getElementById('loadingScreen').style.display = 'none';
-                    }, 500);
-                    sessionStorage.setItem('initialLoad', 'true');
-                }, 2000);
+                        document.getElementById('loadingScreen').style.opacity = '0';
+                        setTimeout(function() {
+                            document.getElementById('loadingScreen').style.display = 'none';
+                        }, 300);
+                        sessionStorage.setItem('initialLoad', 'true');
+                    }, 900);
             } else {
                 document.getElementById('loadingScreen').style.display = 'none';
             }

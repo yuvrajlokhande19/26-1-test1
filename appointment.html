@@ -484,6 +484,43 @@
             50% { box-shadow: 0 0 40px rgba(179, 156, 125, 0.8); }
         }
 
+        /* Terms consent checkbox (step 3) */
+        .terms-check {
+            margin-top: 24px;
+            padding: 16px 18px;
+            background: rgba(179, 156, 125, 0.06);
+            border: 1px dashed rgba(179, 156, 125, 0.45);
+            border-radius: 10px;
+        }
+
+        .terms-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            color: #b0b0b0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .terms-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            margin-top: 2px;
+            accent-color: #b39c7d;
+            cursor: pointer;
+        }
+
+        .terms-label a {
+            color: #d4b78f;
+            text-decoration: underline;
+        }
+
+        .terms-label a:hover {
+            color: #b39c7d;
+        }
+
         /* ===== 3-Step Wizard ===== */
         .wizard-progress {
             margin-bottom: 26px;
@@ -1162,6 +1199,12 @@
                         </div>
                         <input type="hidden" id="selectedTime" name="appointment_time" required>
                     </div>
+                    <div class="terms-check">
+                        <label class="terms-label">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span>I have read and agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> of Linpane Legal Services before booking my consultation.</span>
+                        </label>
+                    </div>
                 </section>
 
                 <!-- Wizard navigation -->
@@ -1294,6 +1337,10 @@
             }
 
             function validateStep(step) {
+                if (step === 3 && !document.getElementById('agreeTerms').checked) {
+                    showWizardError('Please accept our Terms & Conditions and Privacy Policy to proceed.');
+                    return false;
+                }
                 const section = document.querySelector(`.form-step[data-step="${step}"]`);
                 let firstInvalid = null;
                 section.querySelectorAll('input, select, textarea').forEach(f => {
