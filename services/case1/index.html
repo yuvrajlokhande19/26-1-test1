@@ -244,5 +244,36 @@
         });
     </script>
     <style>html,body{overflow-x:hidden}</style>
-</body>
+<script>
+(function () {
+    function computeRoot() {
+        var p = location.pathname;
+        var base = p.replace(/index\.html$/i, "").replace(/\/+$/, "").replace(/\/services\/case1$/, "");
+        base = base.replace(/\/+$/, '');
+        return base;
+    }
+    var root = computeRoot();
+    function patch() {
+        var sel = document.querySelectorAll('a[href^="/"], img[src^="/"], link[href^="/"]');
+        for (var i = 0; i < sel.length; i++) {
+            var el = sel[i];
+            ['href', 'src'].forEach(function (attr) {
+                var v = el.getAttribute(attr);
+                if (v && v.charAt(0) === '/' && v.charAt(1) !== '/' && v.indexOf(root) !== 0) {
+                    el.setAttribute(attr, root + v);
+                }
+            });
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', patch);
+    } else {
+        patch();
+    }
+    if (window.MutationObserver) {
+        new MutationObserver(function () { patch(); }).observe(document.documentElement, { childList: true, subtree: true });
+    }
+    window.SITE_BASE = root;
+})();
+</script></body>
 </html>
