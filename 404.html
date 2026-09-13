@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex, follow">
     <meta name="description" content="Page not found. The page you are looking for does not exist or may have been moved.">
     <title>404 - Page Not Found | Linpane Legal Services</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="/images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
@@ -165,11 +165,11 @@
         <h1 class="error-title">Page Not Found</h1>
         <p class="error-text">The page you are looking for may have been moved, renamed, or does not exist. Please use the options below to get back on track.</p>
         <div class="error-actions">
-            <a class="btn btn-gold" href="index.html"><i class="fas fa-home"></i> Go to Homepage</a>
-            <a class="btn btn-ghost" href="appointment.html">Book an Appointment</a>
-            <a class="btn btn-ghost" href="contact.html">Contact Us</a>
+            <a class="btn btn-gold" href="/"><i class="fas fa-home"></i> Go to Homepage</a>
+            <a class="btn btn-ghost" href="/appointments">Book an Appointment</a>
+            <a class="btn btn-ghost" href="/contact">Contact Us</a>
         </div>
-        <p class="auto-redirect">Redirecting to the homepage in <span id="countdown">10</span> seconds. <a href="index.html">Redirect now</a></p>
+        <p class="auto-redirect">Redirecting to the homepage in <span id="countdown">10</span> seconds. <a href="/">Redirect now</a></p>
     </div>
 
     <script>
@@ -180,7 +180,7 @@
             if (span) span.textContent = seconds;
             if (seconds <= 0) {
                 clearInterval(timer);
-                window.location.href = 'index.html';
+                window.location.href = '/';
             }
         }, 1000);
     </script>
