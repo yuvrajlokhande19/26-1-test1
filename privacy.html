@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, follow">
+    <title>Redirecting... | Linpane Legal Services</title>
+</head>
+<body>
+<script>
+    (function () {
+        var p = location.pathname.replace(/\/privacy\.html$/i, '').replace(/\/+$/, '');
+        window.location.replace(p + '/legal/privacy');
+    })();
+</script>
+    <p><a href='#' id='fallback'>Taking you to /legal/privacy - click if not redirected</a></p>
+    <script>document.getElementById('fallback').addEventListener('click', function (e) { e.preventDefault(); var p = location.pathname.replace(/\/privacy\.html$/i, '').replace(/\/+$/, ''); window.location.href = p + '/legal/privacy'; });</script>
+</body>
+</html>
