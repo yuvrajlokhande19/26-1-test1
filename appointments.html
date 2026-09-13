@@ -9,13 +9,20 @@
     <meta name="description" content="Book an appointment online with top lawyers in Nagpur and Wardha. Choose Adv. Ashish Linpane, Adv. Sandhya Linpane or Adv. Akshay Linpane for Criminal, Civil, Family and Corporate Law across India.">
     <meta name="keywords" content="book lawyer appointment Nagpur, legal consultation appointment Wardha, advocate booking Maharashtra, online lawyer appointment India">
     <meta name="author" content="Linpane Legal Services">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="geo.region" content="IN-MH">
+    <meta name="geo.placename" content="Wardha, Nagpur, Maharashtra">
+    <meta name="geo.position" content="20.7453;78.6022">
+    <meta name="ICBM" content="20.7453, 78.6022">
     <link rel="canonical" href="https://linpanelegalservices.in/appointments">
     <meta property="og:title" content="Book Appointment - Linpane Legal Services">
     <meta property="og:description" content="Book an appointment online with top lawyers in Nagpur and Wardha. Legal services across India.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://linpanelegalservices.in/appointments">
     <meta property="og:image" content="https://linpanelegalservices.in/images/logo.png">
+    <meta property="og:image:width" content="150">
+    <meta property="og:image:height" content="150">
+    <meta property="og:image:alt" content="Linpane Legal Services - Law Firm in Nagpur and Wardha">
     <meta property="og:site_name" content="Linpane Legal Services">
     <meta property="og:locale" content="en_IN">
     <meta name="twitter:card" content="summary">
@@ -958,24 +965,74 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "FinancialService",
-        "name": "Linpane Legal Services - Online Appointment Booking",
-        "url": "https://linpanelegalservices.in/appointments",
-        "email": "linpanelegalservices@gmail.com",
-        "telephone": "+91-8928113111",
-        "areaServed": ["Nagpur", "Wardha", "Maharashtra", "India"],
-        "potentialAction": {
-            "@type": "ReserveAction",
-            "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://linpanelegalservices.in/appointments",
-                "name": "Book Legal Consultation"
+        "@graph": [
+            {
+                "@type": "LegalService",
+                "name": "Linpane Legal Services - Online Appointment Booking",
+                "url": "https://linpanelegalservices.in/appointments",
+                "logo": "https://linpanelegalservices.in/images/logo.png",
+                "telephone": "+91-8928113111",
+                "email": "linpanelegalservices@gmail.com",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "New State Bank Colony, Nagpur Road",
+                    "addressLocality": "Wardha",
+                    "addressRegion": "Maharashtra",
+                    "postalCode": "442001",
+                    "addressCountry": "IN"
+                },
+                "areaServed": ["Nagpur", "Wardha", "Maharashtra", "India"],
+                "potentialAction": {
+                    "@type": "ReserveAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://linpanelegalservices.in/appointments",
+                        "name": "Book Legal Consultation"
+                    },
+                    "object": {
+                        "@type": "Service",
+                        "name": "Legal Consultation"
+                    }
+                }
             },
-            "object": {
-                "@type": "Service",
-                "name": "Legal Consultation"
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "How do I book a legal consultation online?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Fill in the appointment form on this page, choose your preferred lawyer and date, and submit. You will be confirmed by phone or WhatsApp on +91 8928113111."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Which lawyers can I book an appointment with?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "You can book Adv. Ashish V. Linpane (Criminal Law and Notary), Adv. Sandhya V. Linpane (Family Law), or Adv. Akshay V. Linpane (Corporate Law)."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do you offer online or phone legal consultations?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. We offer consultations in person at our Wardha office or on phone/WhatsApp for clients across India."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What should I bring to my legal consultation?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Bring all documents related to your matter, including agreements, notices, court orders, and any previous correspondence, so our advocates can advise you accurately."
+                        }
+                    }
+                ]
             }
-        }
+        ]
     }
     </script>
 <!-- Scroll-aware header -->
