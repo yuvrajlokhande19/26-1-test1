@@ -214,21 +214,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             margin-bottom: 20px;
         }
 
-        .popup-header h1 {
+        .popup-header .popup-kicker {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             color: #b39c7d;
             margin-bottom: 5px;
         }
 
-        .popup-header h2 {
+        .popup-header .popup-to {
             font-family: 'Playfair Display', serif;
             font-size: 1.4rem;
             color: #d4b78f;
             margin-bottom: 5px;
         }
 
-        .popup-header h3 {
+        .popup-header .popup-brand {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             background: linear-gradient(135deg, #b39c7d, #d4b78f);
@@ -948,11 +948,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 padding: 25px 20px;
             }
 
-            .popup-header h1 {
+            .popup-header .popup-kicker {
                 font-size: 1.5rem;
             }
 
-            .popup-header h3 {
+            .popup-header .popup-brand {
                 font-size: 1.6rem;
             }
 
@@ -1071,7 +1071,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "telephone": "+91-8928113111",
-                    "contactType": "client service",
+                    "contactType": "customer service",
                     "availableLanguage": ["en", "hi", "mr"]
                 }
             },
@@ -1082,7 +1082,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "image": "https://linpanelegalservices.in/images/advocate1.jpg",
                 "telephone": "+91-8928113111",
                 "email": "linpanelegalservices@gmail.com",
-                "worksFor": "Linpane Legal Services",
+                "worksFor": { "@id": "https://linpanelegalservices.in/#organization" },
                 "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
                 "sameAs": ["https://wa.me/918928113111"],
                 "knowsAbout": ["Criminal Law", "Civil Law", "Constitutional Law", "Banking and Finance Law"]
@@ -1094,7 +1094,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "description": "Senior Lawyer at District and Sessions Court, Wardha",
                 "image": "https://linpanelegalservices.in/images/advocate2.jpg",
                 "telephone": "+91-8928113111",
-                "worksFor": "Linpane Legal Services",
+                "worksFor": { "@id": "https://linpanelegalservices.in/#organization" },
                 "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
                 "sameAs": ["https://wa.me/918928113111"],
                 "knowsAbout": ["Family Law", "Divorce Law", "Property Disputes", "Women Rights"]
@@ -1105,7 +1105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 "jobTitle": "Advocate",
                 "image": "https://linpanelegalservices.in/images/advocate3.jpg",
                 "telephone": "+91-8928113111",
-                "worksFor": "Linpane Legal Services",
+                "worksFor": { "@id": "https://linpanelegalservices.in/#organization" },
                 "homeLocation": { "@type": "Place", "name": "Wardha, Maharashtra" },
                 "sameAs": ["https://wa.me/918928113111"],
                 "knowsAbout": ["Corporate Law", "Contract Law", "Commercial Litigation"]
@@ -1333,9 +1333,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="welcome-popup" id="welcomePopup">
         <button class="close-btn" id="closePopup">&times;</button>
         <div class="popup-header">
-            <h1>Welcome</h1>
-            <h2>To</h2>
-            <h1>LINPANE LEGAL SERVICES</h1>
+            <p class="popup-kicker">Welcome</p>
+            <p class="popup-to">To</p>
+            <p class="popup-brand">LINPANE LEGAL SERVICES</p>
         </div>
         <div class="popup-content">
             <p>Welcome to Linpane Legal Services, Wardha's premier law firm with over 20 years of excellence in legal practice. Our team of experienced advocates specializes in Criminal Law, Civil Law, Family Law, Corporate Law, and Notary Services.</p>
